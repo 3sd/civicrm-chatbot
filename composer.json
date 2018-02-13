@@ -1,0 +1,15 @@
+{
+    "name": "3sd/civicrm-chatbot",
+    "description": "A chatbot for CiviCRM",
+    "type": "project",
+    "require": {
+        "botman/botman": "^2.1"
+    },
+    "license": "AGPL3",
+    "authors": [
+        {
+            "name": "Michael McAndrew",
+            "email": "michaelmcandrew@thirdsectordesign.org"
+        }
+    ]
+}
