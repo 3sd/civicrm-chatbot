@@ -8,12 +8,11 @@ Integrate chat services with CiviCRM.
 
 ## Installation
 
-Download the `.zip` file for this extension to your extensions directory.
-
-Navigate to the CiviCRM's extension administration page and enable this extension.
-
-A new Chat menu should appear in the user interface.
-
+This extension is currently under development and not yet ready for production use. Developers can try it out by following the instructions below.
 ## License
 
 This extension is licensed under [AGPL-3.0](LICENSE.txt).
+
+## Developers
+
+Build a development / demonstration environment site using the build scripts in the build directory.
