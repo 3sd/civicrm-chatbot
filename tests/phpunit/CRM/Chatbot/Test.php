@@ -1,9 +1,9 @@
 <?php
-
+use BotMan\BotMan\BotManFactory;
 /**
  * This is a generic test class for the extension (implemented with PHPUnit).
  */
-class CRM_Chatbot_Test extends \PHPUnit_Framework_TestCase {
+class CRM_Chatbot_Test extends CRM_Chatbot_Base {
 
   /**
    * The setup() method is executed before the test is executed (optional).
@@ -26,7 +26,8 @@ class CRM_Chatbot_Test extends \PHPUnit_Framework_TestCase {
    * Note how the function name begins with the word "test".
    */
   public function testExample() {
-    self::assertTrue(TRUE, "The argument must be true to pass the test");
+    $b = BotManFactory::create([]);
+    $this->assertEquals(get_class($b), 'BotMan\BotMan\BotMan');
   }
-
+  
 }
