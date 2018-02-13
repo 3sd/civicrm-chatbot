@@ -1,44 +1,19 @@
 # civicrm-chatbot
 
-![Screenshot](/images/screenshot.png)
-
-(*FIXME: In one or two paragraphs, describe what the extension does and why one would download it. *)
-
-The extension is licensed under [AGPL-3.0](LICENSE.txt).
+Integrate chat services with CiviCRM.
 
 ## Requirements
 
-* PHP v5.4+
-* CiviCRM (*FIXME: Version number*)
+* CiviCRM 4.7
 
-## Installation (Web UI)
+## Installation
 
-This extension has not yet been published for installation via the web UI.
+Download the `.zip` file for this extension to your extensions directory.
 
-## Installation (CLI, Zip)
+Navigate to the CiviCRM's extension administration page and enable this extension.
 
-Sysadmins and developers may download the `.zip` file for this extension and
-install it with the command-line tool [cv](https://github.com/civicrm/cv).
+A new Chat menu should appear in the user interface.
 
-```bash
-cd <extension-dir>
-cv dl civicrm-chatbot@https://github.com/FIXME/civicrm-chatbot/archive/master.zip
-```
+## License
 
-## Installation (CLI, Git)
-
-Sysadmins and developers may clone the [Git](https://en.wikipedia.org/wiki/Git) repo for this extension and
-install it with the command-line tool [cv](https://github.com/civicrm/cv).
-
-```bash
-git clone https://github.com/FIXME/civicrm-chatbot.git
-cv en chatbot
-```
-
-## Usage
-
-(* FIXME: Where would a new user navigate to get started? What changes would they see? *)
-
-## Known Issues
-
-(* FIXME *)
+This extension is licensed under [AGPL-3.0](LICENSE.txt).
