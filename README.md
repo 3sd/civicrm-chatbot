@@ -1,6 +1,6 @@
-# civicrm-chatbot
+# CiviCRM Chatbot
 
-Integrate chat services with CiviCRM.
+A chatbot for CiviCRM. Integrates various chat services with CiviCRM so you can chat with your contacts.
 
 ## Requirements
 
