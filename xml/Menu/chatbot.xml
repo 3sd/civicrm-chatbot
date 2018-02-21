@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/chat/webhook/facebook</path>
+    <page_callback>CRM_Chatbot_Webhook::tacebook</page_callback>
+    <access_callback>1</access_callback>
+  </item>
+</menu>
