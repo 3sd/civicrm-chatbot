@@ -1,0 +1,51 @@
+{
+    "name": "botman/driver-facebook",
+    "license": "MIT",
+    "description": "Facebook Messenger driver for BotMan",
+    "keywords": [
+        "Bot",
+        "BotMan",
+        "Facebook Messenger",
+        "Facebook",
+        "Messenger"
+    ],
+    "homepage": "http://github.com/botman/driver-facebook",
+    "authors": [
+        {
+            "name": "Marcel Pociot",
+            "email": "m.pociot@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "botman/botman": "~2.1"
+    },
+    "require-dev": {
+        "botman/studio-addons": "~1.0",
+        "phpunit/phpunit": "~5.0",
+        "illuminate/contracts": "~5.5.0",
+        "mockery/mockery": "dev-master",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "BotMan\\Drivers\\Facebook\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "cs": "php-cs-fixer fix"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BotMan\\Drivers\\Facebook\\Providers\\FacebookServiceProvider"
+            ]
+        }
+    }
+}

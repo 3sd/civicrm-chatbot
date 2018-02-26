@@ -3,7 +3,8 @@
     "description": "A chatbot for CiviCRM",
     "type": "project",
     "require": {
-        "botman/botman": "^2.1"
+        "botman/botman": "^2.1",
+        "botman/driver-facebook": "^1.6"
     },
     "license": "AGPL3",
     "authors": [

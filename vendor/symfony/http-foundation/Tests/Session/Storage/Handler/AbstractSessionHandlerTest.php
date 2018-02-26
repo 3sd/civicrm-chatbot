@@ -13,6 +13,9 @@ namespace Symfony\Component\HttpFoundation\Tests\Session\Storage\Handler;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @requires PHP 7.0
+ */
 class AbstractSessionHandlerTest extends TestCase
 {
     private static $server;

@@ -19,5 +19,14 @@ Build a development / demonstration environment site using the build scripts in 
 
 ### Tests
 
-Run the test suite from the extension directory with
+Tests can be run from the extension directory with:
+
 `CIVICRM_UF=UnitTests phpunit4 tests/phpunit`
+
+Note: following the buildkit build is the easiest way to ensure that you have all the dependencies in place, and the site set up correctly.
+
+## Setting up Facebook chat
+
+
+
+A Facebook app is what links your Facebook Page to your webhook, and is where you will configure various settings for your Messenger bot, generate access tokens, and choose what events are sent to your webhook.

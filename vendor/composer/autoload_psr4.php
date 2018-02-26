@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Tightenco\\Collect\\' => array($vendorDir . '/tightenco/collect/src/Collect'),
-    'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
+    'Symfony\\Polyfill\\Php70\\' => array($vendorDir . '/symfony/polyfill-php70'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
     'Symfony\\Component\\HttpFoundation\\' => array($vendorDir . '/symfony/http-foundation'),
@@ -19,7 +19,9 @@ return array(
     'React\\EventLoop\\' => array($vendorDir . '/react/event-loop/src'),
     'React\\Dns\\' => array($vendorDir . '/react/dns/src'),
     'React\\Cache\\' => array($vendorDir . '/react/cache/src'),
+    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Opis\\Closure\\' => array($vendorDir . '/opis/closure/lib'),
     'Mpociot\\Pipeline\\' => array($vendorDir . '/mpociot/pipeline/src'),
+    'BotMan\\Drivers\\Facebook\\' => array($vendorDir . '/botman/driver-facebook/src'),
     'BotMan\\BotMan\\' => array($vendorDir . '/botman/botman/src'),
 );

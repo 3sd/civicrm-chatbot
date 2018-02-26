@@ -564,6 +564,8 @@ class PdoSessionHandler extends AbstractSessionHandler
     /**
      * Executes an application-level lock on the database.
      *
+     * @param string $sessionId Session ID
+     *
      * @return \PDOStatement The statement that needs to be executed later to release the lock
      *
      * @throws \DomainException When an unsupported PDO driver is used
@@ -572,7 +574,7 @@ class PdoSessionHandler extends AbstractSessionHandler
      *       - for oci using DBMS_LOCK.REQUEST
      *       - for sqlsrv using sp_getapplock with LockOwner = Session
      */
-    private function doAdvisoryLock(string $sessionId)
+    private function doAdvisoryLock($sessionId)
     {
         switch ($this->driver) {
             case 'mysql':
@@ -625,8 +627,12 @@ class PdoSessionHandler extends AbstractSessionHandler
      * Encodes the first 4 (when PHP_INT_SIZE == 4) or 8 characters of the string as an integer.
      *
      * Keep in mind, PHP integers are signed.
+     *
+     * @param string $string
+     *
+     * @return int
      */
-    private function convertStringToInt(string $string): int
+    private function convertStringToInt($string)
     {
         if (4 === \PHP_INT_SIZE) {
             return (ord($string[3]) << 24) + (ord($string[2]) << 16) + (ord($string[1]) << 8) + ord($string[0]);
@@ -641,9 +647,11 @@ class PdoSessionHandler extends AbstractSessionHandler
     /**
      * Return a locking or nonlocking SQL query to read session information.
      *
+     * @return string The SQL string
+     *
      * @throws \DomainException When an unsupported PDO driver is used
      */
-    private function getSelectSql(): string
+    private function getSelectSql()
     {
         if (self::LOCK_TRANSACTIONAL === $this->lockMode) {
             $this->beginTransaction();
@@ -734,8 +742,14 @@ class PdoSessionHandler extends AbstractSessionHandler
 
     /**
      * Returns a merge/upsert (i.e. insert or update) statement when supported by the database for writing session data.
+     *
+     * @param string $sessionId   Session ID
+     * @param string $data        Encoded session data
+     * @param int    $maxlifetime session.gc_maxlifetime
+     *
+     * @return \PDOStatement|null The merge statement or null when not supported
      */
-    private function getMergeStatement(string $sessionId, string $data, int$maxlifetime): ?\PDOStatement
+    private function getMergeStatement($sessionId, $data, $maxlifetime)
     {
         switch (true) {
             case 'mysql' === $this->driver:
