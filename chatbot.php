@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/vendor/autoload.php';
 require_once 'chatbot.civix.php';
 use CRM_Chatbot_ExtensionUtil as E;
 
@@ -121,6 +121,18 @@ function chatbot_civicrm_angularModules(&$angularModules) {
  */
 function chatbot_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
   _chatbot_civix_civicrm_alterSettingsFolders($metaDataFolders);
+}
+
+
+/**
+ * Implements hook_civicrm_entityTypes().
+ *
+ * Declare entity types provided by this module.
+ *
+ * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_entityTypes
+ */
+function chatbot_civicrm_entityTypes(&$entityTypes) {
+  _chatbot_civix_civicrm_entityTypes($entityTypes);
 }
 
 // --- Functions below this ship commented out. Uncomment as required. ---

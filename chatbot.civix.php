@@ -443,3 +443,22 @@ function _chatbot_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
     $metaDataFolders[] = $settingsDir;
   }
 }
+
+/**
+ * (Delegated) Implements hook_civicrm_entityTypes().
+ *
+ * Find any *.entityType.php files, merge their content, and return.
+ *
+ * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_entityTypes
+ */
+
+function _chatbot_civix_civicrm_entityTypes(&$entityTypes) {
+  $entityTypes += array (
+    'CRM_Chatbot_DAO_Conversation' => 
+    array (
+      'name' => 'Conversation',
+      'class' => 'CRM_Chatbot_DAO_Conversation',
+      'table' => 'civicrm_conversation',
+    ),
+  );
+}
