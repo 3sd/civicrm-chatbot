@@ -2,7 +2,7 @@
 <menu>
   <item>
     <path>civicrm/chat/webhook/facebook</path>
-    <page_callback>CRM_Chatbot_Webhook::tacebook</page_callback>
+    <page_callback>CRM_Chatbot_Webhook::facebook</page_callback>
     <access_callback>1</access_callback>
   </item>
 </menu>
