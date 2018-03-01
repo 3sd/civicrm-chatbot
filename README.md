@@ -5,6 +5,7 @@ A chatbot for CiviCRM. Integrates various chat services with CiviCRM so you can 
 ## Requirements
 
 * CiviCRM 4.7
+* PHP 7.0
 
 ## Installation
 
