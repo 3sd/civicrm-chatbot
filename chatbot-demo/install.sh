@@ -36,4 +36,5 @@ cv ext:enable chatbot
 drush role-create 'civicrm user'
 drush role-add-perm 'civicrm user' 'access CiviCRM'
 drush role-add-perm 'civicrm user' 'administer CiviCRM'
+drush role-add-perm 'civicrm user' 'access chatbot'
 drush user-add-role 'civicrm user' chat

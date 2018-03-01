@@ -162,3 +162,13 @@ function chatbot_civicrm_navigationMenu(&$menu) {
   ));
   _chatbot_civix_navigationMenu($menu);
 } // */
+
+function chatbot_civicrm_permission(&$permissions){
+
+  $prefix = E::ts('Chatbot') . ': ';
+
+  $permissions['access chatbot'] = [
+    $prefix . E::ts('access chatbot'),
+    E::ts('Provides access to chatbot')
+  ];
+}
