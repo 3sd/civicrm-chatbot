@@ -22,6 +22,13 @@ pushd "$WEB_ROOT"
     git clone "${CACHE_DIR}/3sd/civicrm-chatbot.git" civicrm/tools/extensions/civicrm-chatbot
     git clone "${CACHE_DIR}/civicrm/org.civicrm.shoreditch.git" civicrm/tools/extensions/org.civicrm.shoreditch
 
+    # Use my chatbot branch of CivICRM for now
+    pushd civicrm
+      git remote add michael git@github.com:michaelmcandrew/civicrm-core.git
+      git fetch michael
+      git checkout chatbot
+    popd
+
   popd
 
   pushd sites/all/themes
