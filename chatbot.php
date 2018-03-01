@@ -135,33 +135,19 @@ function chatbot_civicrm_entityTypes(&$entityTypes) {
   _chatbot_civix_civicrm_entityTypes($entityTypes);
 }
 
-// --- Functions below this ship commented out. Uncomment as required. ---
-
-/**
- * Implements hook_civicrm_preProcess().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
- *
-function chatbot_civicrm_preProcess($formName, &$form) {
-
-} // */
-
 /**
  * Implements hook_civicrm_navigationMenu().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
- *
-function chatbot_civicrm_navigationMenu(&$menu) {
-  _chatbot_civix_insert_navigation_menu($menu, NULL, array(
-    'label' => E::ts('The Page'),
-    'name' => 'the_page',
-    'url' => 'civicrm/the-page',
-    'permission' => 'access CiviReport,access CiviContribute',
-    'operator' => 'OR',
-    'separator' => 0,
-  ));
+ **/
+ function chatbot_civicrm_navigationMenu(&$menu) {
+  // var_dump($menu);
+  // exit;
+  foreach(CRM_Chatbot_Navigation::getItems() as $item){
+    _chatbot_civix_insert_navigation_menu($menu, $item['parent'], $item);
+  }
   _chatbot_civix_navigationMenu($menu);
-} // */
+}
 
 function chatbot_civicrm_permission(&$permissions){
 
