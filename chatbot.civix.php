@@ -453,12 +453,12 @@ function _chatbot_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  */
 
 function _chatbot_civix_civicrm_entityTypes(&$entityTypes) {
-  $entityTypes += array (
-    'CRM_Chatbot_DAO_Conversation' => 
+  $entityTypes = array_merge($entityTypes, array (
+    'CRM_Chatbot_DAO_Conversation' =>
     array (
       'name' => 'Conversation',
       'class' => 'CRM_Chatbot_DAO_Conversation',
       'table' => 'civicrm_conversation',
     ),
-  );
+  ));
 }
