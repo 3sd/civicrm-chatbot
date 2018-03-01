@@ -24,7 +24,7 @@ pushd "$WEB_ROOT"
 
     # Use my chatbot branch of CivICRM for now
     pushd civicrm
-      git remote add michael git@github.com:michaelmcandrew/civicrm-core.git
+      git remote add michael https://github.com/michaelmcandrew/civicrm-core
       git fetch michael
       git checkout chatbot
     popd
