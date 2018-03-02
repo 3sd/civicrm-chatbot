@@ -7,7 +7,7 @@ use CRM_Chatbot_ExtensionUtil as E;
  *
  * @see https://wiki.civicrm.org/confluence/display/CRMDOC/QuickForm+Reference
  */
-class CRM_Chatbot_Form_Admin_Facebook extends CRM_Chatbot_SensibleForm {
+class CRM_Chatbot_Form_Admin_Facebook extends CRM_Chatbot_Form_Sensible {
 
   function init(){
 
@@ -15,7 +15,7 @@ class CRM_Chatbot_Form_Admin_Facebook extends CRM_Chatbot_SensibleForm {
       'chatbot_facebook_callback_url' => [
         'entity' => 'setting',
         'field' => 'chatbot_facebook_callback_url',
-        'freeze' => true
+        'freeze' => TRUE
       ],
       'chatbot_facebook_verify_token' => [
         'entity' => 'setting',
@@ -55,4 +55,5 @@ class CRM_Chatbot_Form_Admin_Facebook extends CRM_Chatbot_SensibleForm {
       civicrm_api3('setting', 'create', ['chatbot_facebook_verify_token' => $token]);
     }
   }
+
 }

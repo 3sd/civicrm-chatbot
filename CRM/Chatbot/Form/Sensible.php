@@ -1,5 +1,5 @@
 <?php
-abstract class CRM_Chatbot_SensibleForm extends CRM_Core_Form {
+abstract class CRM_Chatbot_Form_Sensible extends CRM_Core_Form {
 
   var $fields = [];
 
@@ -8,7 +8,6 @@ abstract class CRM_Chatbot_SensibleForm extends CRM_Core_Form {
   var $saveMessages = [];
 
   function preProcess() {
-    //
     $this->init();
     $this->loadFields();
   }
@@ -18,8 +17,8 @@ abstract class CRM_Chatbot_SensibleForm extends CRM_Core_Form {
   abstract function getDestination();
 
   /**
-  * Loads meta data etc. for defined fields for use later on
-  */
+   * Loads meta data etc. for defined fields for use later on
+   */
   function loadFields(){
     foreach ($this->fields as $field) {
       if(isset($field['entity'])){
@@ -103,7 +102,7 @@ abstract class CRM_Chatbot_SensibleForm extends CRM_Core_Form {
         break;
 
       case 'addChainSelect':
-        $element = $this->addChainSelect($field['name'], array( 'label' => ts($field['title']), ));
+        $element = $this->addChainSelect($field['name'], array( 'label' => ts($field['title']) ));
         break;
 
       case 'addMonthDay':
@@ -111,7 +110,7 @@ abstract class CRM_Chatbot_SensibleForm extends CRM_Core_Form {
         break;
 
       default:
-      $element = $this->$elementClass($field['name'], ts($field['title']));
+        $element = $this->$elementClass($field['name'], ts($field['title']));
     }
     return $element;
   }
@@ -205,4 +204,5 @@ abstract class CRM_Chatbot_SensibleForm extends CRM_Core_Form {
       }
     }
   }
+
 }
