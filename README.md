@@ -10,9 +10,15 @@ A chatbot for CiviCRM. Integrates various chat services with CiviCRM so you can 
 ## Installation
 
 This extension is currently under development and not yet ready for production use. Developers can try it out by following the instructions below.
+
+## Documentation
+
+[Read our WIP documentation here](docs).
+
 ## License
 
 This extension is licensed under [AGPL-3.0](LICENSE.txt).
+
 
 ## Developers
 
@@ -26,8 +32,8 @@ Tests can be run from the extension directory with:
 
 Note: following the buildkit build is the easiest way to ensure that you have all the dependencies in place, and the site set up correctly.
 
-## Setting up Facebook chat
+## Credits
 
+Development of the CiviCRM Chatbot extension has been generously funded by the [National Democratic Institute](https://ndi.org).
 
-
-A Facebook app is what links your Facebook Page to your webhook, and is where you will configure various settings for your Messenger bot, generate access tokens, and choose what events are sent to your webhook.
+It was written by [Michael McAndrew](https://twitter.com/michaelmcandrew) from [Third Sector Design](https://3sd/.io) who can be contacted for support and further development. It builds on [Botman.io](https://botman.io/), the excellent PHP chatbot framework by [Marcel Pociot](https://twitter.com/marcelpociot).
