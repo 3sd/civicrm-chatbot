@@ -8,7 +8,7 @@
  */
 class CRM_Chatbot_ExtensionUtil {
   const SHORT_NAME = "chatbot";
-  const LONG_NAME = "civicrm-chatbot";
+  const LONG_NAME = "chatbot";
   const CLASS_PREFIX = "CRM_Chatbot";
 
   /**
@@ -454,11 +454,11 @@ function _chatbot_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
 
 function _chatbot_civix_civicrm_entityTypes(&$entityTypes) {
   $entityTypes = array_merge($entityTypes, array (
-    'CRM_Chatbot_DAO_Conversation' =>
+    'CRM_Chatbot_DAO_ChatUser' => 
     array (
-      'name' => 'Conversation',
-      'class' => 'CRM_Chatbot_DAO_Conversation',
-      'table' => 'civicrm_conversation',
+      'name' => 'ChatUser',
+      'class' => 'CRM_Chatbot_DAO_ChatUser',
+      'table' => 'civicrm_chatuser',
     ),
   ));
 }
