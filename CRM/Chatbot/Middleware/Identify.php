@@ -24,6 +24,8 @@ class CRM_Chatbot_Middleware_Identify implements Received {
       $contact = $this->createContact($user, $service);
     }
 
+    $message->addExtras('contact_id', $contact['id']);
+
     // Add extra data to the contact made available by the service
     $extraInfoClass = 'addExtra' . ucfirst($service) . 'Info';
 
@@ -48,6 +50,8 @@ class CRM_Chatbot_Middleware_Identify implements Received {
     ]);
 
     // TODO add contact to dedupe group
+    //
+    return $contact['values'][$contact['id']];
   }
 
   function addExtraFacebookInfo($user, $contactId){
