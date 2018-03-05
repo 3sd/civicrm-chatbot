@@ -14,26 +14,32 @@ class CRM_Chatbot_Middleware_Identify implements Received {
     $user = $bot->getDriver()->getUser($message);
     $service = $this->services[get_class($bot->getDriver())];
 
-    // Try to get a contact with the $userId and create one if you can't
-    try {
-      $contact = civicrm_api3('ChatUser', 'getsingle', [
-        'service' => 'facebook',
-        'user_id' => $user->getId()
-      ]);
-    } catch (Exception $e) {
-      $contact = $this->createContact($user, $service);
-    }
+    // Get/Create a contact for this user and service
+    $contactId = $this->getContactId($user, $service);
+    $message->addExtras('contact_id', $contactId);
 
-    $message->addExtras('contact_id', $contact['id']);
-
-    // Add extra data to the contact made available by the service
+    // Add extra data to the contact made if the service provides any
     $extraInfoClass = 'addExtra' . ucfirst($service) . 'Info';
-
     if(method_exists($this,$extraInfoClass )){
       $this->$extraInfoClass($user, $contactId);
     }
 
     return $next($message);
+  }
+
+  // TODO Test with existent and non existent account
+  function getContactId($user, $service){
+
+    try {
+      $chatUser = civicrm_api3('ChatUser', 'getsingle', [
+        'service' => $service,
+        'user_id' => $user->getId()
+      ]);
+      return $chatUser['contact_id'];
+    } catch (Exception $e) {
+      $contact = $this->createContact($user, $service);
+    }
+    return $contact['id'];
   }
 
   function createContact($user, $service){
@@ -50,7 +56,7 @@ class CRM_Chatbot_Middleware_Identify implements Received {
     ]);
 
     // TODO add contact to dedupe group
-    //
+
     return $contact['values'][$contact['id']];
   }
 
