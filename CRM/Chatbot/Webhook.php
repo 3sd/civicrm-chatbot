@@ -2,6 +2,7 @@
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
+use BotMan\Drivers\Facebook\FacebookDriver;
 
 class CRM_Chatbot_Webhook {
 
@@ -16,9 +17,6 @@ class CRM_Chatbot_Webhook {
       ]
     ];
 
-    DriverManager::loadDriver(\BotMan\Drivers\Facebook\FacebookDriver::class);
-    $botman = BotManFactory::create($config);
-    $botman->listen();
+    $botman = CRM_Chatbot_Botman::createListener($config, FacebookDriver::class);
   }
-
 }
