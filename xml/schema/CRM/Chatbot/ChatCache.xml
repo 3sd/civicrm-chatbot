@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Chatbot</base>
+  <class>ChatCache</class>
+  <name>civicrm_chat_cache</name>
+  <comment>FIXME</comment>
+  <add>4.4</add>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique ChatCache ID</comment>
+    <add>4.4</add>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>identifier</name>
+    <type>varchar</type>
+    <length>255</length>
+    <required>true</required>
+    <add>4.7</add>
+  </field>
+  <index>
+    <name>index_identifier</name>
+    <fieldName>identifier</fieldName>
+    <unique>true</unique>
+    <add>4.7</add>
+  </index>
+
+  <field>
+    <name>value</name>
+    <type>text</type>
+    <required>true</required>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>expires</name>
+    <type>datetime</type>
+    <required>true</required>
+    <add>4.7</add>
+  </field>
+  <index>
+    <name>expires_key</name>
+    <fieldName>expires</fieldName>
+    <add>4.7</add>
+  </index>
+
+</table>
