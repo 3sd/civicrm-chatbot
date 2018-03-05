@@ -63,6 +63,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS `civicrm_chat_user`;
+DROP TABLE IF EXISTS `civicrm_chat_cache`;
 
 SET FOREIGN_KEY_CHECKS=1;
 -- /*******************************************************
@@ -70,6 +71,33 @@ SET FOREIGN_KEY_CHECKS=1;
 -- * Create new tables
 -- *
 -- *******************************************************/
+
+-- /*******************************************************
+-- *
+-- * civicrm_chat_cache
+-- *
+-- * FIXME
+-- *
+-- *******************************************************/
+CREATE TABLE `civicrm_chat_cache` (
+
+
+     `id` int unsigned NOT NULL AUTO_INCREMENT  COMMENT 'Unique ChatCache ID',
+     `identifier` varchar(255) NOT NULL   ,
+     `value` text NOT NULL   ,
+     `expires` datetime NOT NULL    
+,
+        PRIMARY KEY (`id`)
+ 
+    ,     UNIQUE INDEX `index_identifier`(
+        identifier
+  )
+  ,     INDEX `expires_key`(
+        expires
+  )
+  
+ 
+)    ;
 
 -- /*******************************************************
 -- *

@@ -34,5 +34,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS `civicrm_chat_user`;
+DROP TABLE IF EXISTS `civicrm_chat_cache`;
 
 SET FOREIGN_KEY_CHECKS=1;
