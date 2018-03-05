@@ -21,7 +21,17 @@ class CRM_Chatbot_Navigation {
         'permission' => 'access chatbot',
         'operator' => 'OR',
         'separator' => 0,
-        'weight' => 60,
+        'weight' => 1,
+      ],
+      [
+        'label' => E::ts('Conversation types'),
+        'parent' => 'chatbot',
+        'name' => 'chatbot_dashboard',
+        'url' => 'civicrm/chat/conversationType',
+        'permission' => 'access chatbot',
+        'operator' => 'OR',
+        'separator' => 0,
+        'weight' => 2,
       ],
       [
         'label' => E::ts('Chat settings'),
@@ -31,8 +41,9 @@ class CRM_Chatbot_Navigation {
         'permission' => 'administer CiviCRM',
         'operator' => 'OR',
         'separator' => 0,
-        'weight' => 60,
+        'weight' => 18.5, // Just after SMS providers
       ],
     ];
   }
+
 }

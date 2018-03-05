@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <menu>
   <item>
-    <path>civicrm/chat/webhook/facebook</path>
-    <page_callback>CRM_Chatbot_Webhook::facebook</page_callback>
-    <access_callback>1</access_callback>
+    <path>civicrm/chat</path>
+    <page_callback>CRM_Chatbot_Page_Dashboard</page_callback>
+    <title>Chatbot dashboard</title>
+    <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
     <path>civicrm/admin/chat</path>
@@ -17,5 +18,29 @@
     <title>Chatbot Facebook settings</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
-
+  <item>
+    <path>civicrm/chat/webhook/facebook</path>
+    <page_callback>CRM_Chatbot_Webhook::facebook</page_callback>
+    <access_callback>1</access_callback>
+  </item>
+  <item>
+    <path>civicrm/chat/conversationType</path>
+    <page_callback>CRM_Chatbot_Page_ConversationType</page_callback>
+    <title>Conversation types</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>
+<!--
+
+Notes
+=====
+
+Nav structure for a typical entity:
+
+* civicrm/chat/entity (list)
+* civicrm/chat/entity/add (add)
+* civicrm/chat/entity/edit (edit)
+* civicrm/chat/entity/view (view)
+* civicrm/chat/entity/delete (delete)
+
+-->
