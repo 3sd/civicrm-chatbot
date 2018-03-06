@@ -17,11 +17,6 @@ This extension is currently under development and not yet ready for production u
 
 [Read our WIP documentation here](docs).
 
-## License
-
-This extension is licensed under [AGPL-3.0](LICENSE.txt).
-
-
 ## Developers
 
 Build a development / demonstration environment site using the build scripts in the build directory.
@@ -41,3 +36,11 @@ Development of the CiviCRM Chatbot extension has been generously funded by the [
 It was written by [Michael McAndrew](https://twitter.com/michaelmcandrew) from [Third Sector Design](https://thirdsectordesign.org/) who you can [contact](https://thirdsectordesign.org/contact) for help, support and further development.
 
 It builds on [Botman.io](https://botman.io/), the excellent PHP chatbot framework by [Marcel Pociot](https://twitter.com/marcelpociot).
+
+## Contributing
+
+Contributions to this repository are very welcome. Feel free to submit a pull request for minor improvements. For larger changes, please create an issue first.
+
+## License
+
+This extension is licensed under [AGPL-3.0](LICENSE.txt).
