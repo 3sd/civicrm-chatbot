@@ -21,6 +21,6 @@
     <ver>4.7</ver>
   </compatibility>
   <civix>
-    <namespace>CRM/Chatbot</namespace>
+    <namespace>CRM/Chat</namespace>
   </civix>
 </extension>

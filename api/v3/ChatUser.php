@@ -1,5 +1,5 @@
 <?php
-use CRM_Chatbot_ExtensionUtil as E;
+use CRM_Chat_ExtensionUtil as E;
 
 /**
  * ChatUser.create API specification (optional)

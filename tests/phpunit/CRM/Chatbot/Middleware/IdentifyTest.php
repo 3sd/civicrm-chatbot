@@ -8,7 +8,7 @@ use BotMan\BotMan\Users\User;
 /**
  * @group headless
  */
-class CRM_Chatbot_Middleware_IdentifyTest extends CRM_Chatbot_Test implements HeadlessInterface, HookInterface, TransactionalInterface {
+class CRM_Chat_Middleware_IdentifyTest extends CRM_Chat_Test implements HeadlessInterface, HookInterface, TransactionalInterface {
 
   function setUp(){
     $this->var = 'mikey';
@@ -18,7 +18,7 @@ class CRM_Chatbot_Middleware_IdentifyTest extends CRM_Chatbot_Test implements He
 
     $user = new User('id-not-in-civicrm', 'Sam', 'Beckett', 'sambeckett');
 
-    $identifier = new CRM_Chatbot_Middleware_Identify;
+    $identifier = new CRM_Chat_Middleware_Identify;
     $contactId = $identifier->getContactId($user, 'chatservice');
 
     $contact = civicrm_api3('Contact', 'getsingle', ['id' => $contactId]);
@@ -46,7 +46,7 @@ class CRM_Chatbot_Middleware_IdentifyTest extends CRM_Chatbot_Test implements He
       'user_id' => $user->getId()
     ]);
 
-    $identifier = new CRM_Chatbot_Middleware_Identify;
+    $identifier = new CRM_Chat_Middleware_Identify;
     $contactId = $identifier->getContactId($user, 'chatservice');
     self::assertEquals($contact['id'], $contactId);
 

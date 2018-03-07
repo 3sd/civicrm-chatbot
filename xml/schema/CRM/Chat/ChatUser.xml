@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Chat</base>
+  <class>ChatUser</class>
+  <name>civicrm_chat_user</name>
+  <comment>Connects chat service user accounts to contacts</comment>
+  <add>4.7</add>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique ID</comment>
+    <add>4.7</add>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>contact_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Contact</comment>
+    <required>true</required>
+    <add>4.7</add>
+  </field>
+  <foreignKey>
+    <name>contact_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <add>4.7</add>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>service</name>
+    <type>varchar</type>
+    <length>255</length>
+    <comment>Service that the user account belongs to</comment>
+    <required>true</required>
+    <add>4.7</add>
+  </field>
+  <index>
+    <name>index_service</name>
+    <fieldName>service</fieldName>
+    <add>4.7</add>
+  </index>
+
+  <field>
+    <name>user_id</name>
+    <type>varchar</type>
+    <comment>User identifier</comment>
+    <length>255</length>
+    <required>true</required>
+    <add>4.7</add>
+  </field>
+  <index>
+    <name>index_user_id</name>
+    <fieldName>user_id</fieldName>
+    <add>4.7</add>
+  </index>
+
+</table>

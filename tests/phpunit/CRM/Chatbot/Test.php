@@ -7,7 +7,7 @@ use Civi\Test\TransactionalInterface;
 /**
  * @group headless
  */
-abstract class CRM_Chatbot_Test extends \PHPUnit_Framework_TestCase implements HeadlessInterface, HookInterface, TransactionalInterface {
+abstract class CRM_Chat_Test extends \PHPUnit_Framework_TestCase implements HeadlessInterface, HookInterface, TransactionalInterface {
 
   function setUpHeadless() {
 
