@@ -11,6 +11,9 @@ A chatbot for CiviCRM. Integrates various chat services with CiviCRM so you can 
 
 This extension is currently under development and not yet ready for production use. Developers can try it out by following the instructions below.
 
+## Getting started
+
+
 ## Documentation
 
 [Read our WIP documentation here](docs).
