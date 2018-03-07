@@ -141,8 +141,6 @@ function chatbot_civicrm_entityTypes(&$entityTypes) {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
  **/
  function chatbot_civicrm_navigationMenu(&$menu) {
-  // var_dump($menu);
-  // exit;
   foreach(CRM_Chat_Navigation::getItems() as $item){
     _chatbot_civix_insert_navigation_menu($menu, $item['parent'], $item);
   }
