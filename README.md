@@ -39,4 +39,4 @@ Note: following the buildkit build is the easiest way to ensure that you have al
 
 Development of the CiviCRM Chatbot extension has been generously funded by the [National Democratic Institute](https://ndi.org).
 
-It was written by [Michael McAndrew](https://twitter.com/michaelmcandrew) from [Third Sector Design](https://3sd/.io) who can be contacted for support and further development. It builds on [Botman.io](https://botman.io/), the excellent PHP chatbot framework by [Marcel Pociot](https://twitter.com/marcelpociot).
+It is written by [Michael McAndrew](https://twitter.com/michaelmcandrew), [Third Sector Design](https://3sd/.io) who can be contacted for support and further development. It builds on [Botman.io](https://botman.io/), the excellent PHP chatbot framework by [Marcel Pociot](https://twitter.com/marcelpociot).
