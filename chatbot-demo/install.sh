@@ -38,3 +38,7 @@ drush role-add-perm 'civicrm user' 'access CiviCRM'
 drush role-add-perm 'civicrm user' 'administer CiviCRM'
 drush role-add-perm 'civicrm user' 'access chatbot'
 drush user-add-role 'civicrm user' chat
+
+if [ -f sites/all/modules/civicrm/tools/extensions/civicrm-chatbot/dev-configure.sh ]; then
+    bash sites/all/modules/civicrm/tools/extensions/civicrm-chatbot/dev-configure.sh
+fi

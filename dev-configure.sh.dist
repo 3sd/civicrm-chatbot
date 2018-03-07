@@ -1,0 +1,3 @@
+# Add your secrets here
+cv api setting.create id=1 chatbot_facebook_page_access_token=###
+cv api setting.create id=1 chatbot_facebook_app_secret=###
