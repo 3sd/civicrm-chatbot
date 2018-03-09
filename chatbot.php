@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 require_once 'chatbot.civix.php';
-use CRM_Chatbot_ExtensionUtil as E;
+use CRM_Chat_ExtensionUtil as E;
 
 /**
  * Implements hook_civicrm_config().
@@ -141,9 +141,7 @@ function chatbot_civicrm_entityTypes(&$entityTypes) {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
  **/
  function chatbot_civicrm_navigationMenu(&$menu) {
-  // var_dump($menu);
-  // exit;
-  foreach(CRM_Chatbot_Navigation::getItems() as $item){
+  foreach(CRM_Chat_Navigation::getItems() as $item){
     _chatbot_civix_insert_navigation_menu($menu, $item['parent'], $item);
   }
   _chatbot_civix_navigationMenu($menu);

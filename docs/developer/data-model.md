@@ -4,7 +4,7 @@ Chatbot is based on the following data model:
 
 ## New entities
 
-Entities that Chatbot defines (see `xml/schema/CRM/Chatbot/*.xml`).
+Entities that Chatbot defines (see `xml/schema/CRM/Chat/*.xml`).
 
 ### Incoming chat
 

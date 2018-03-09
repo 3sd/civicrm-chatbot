@@ -6,10 +6,10 @@
  * The ExtensionUtil class provides small stubs for accessing resources of this
  * extension.
  */
-class CRM_Chatbot_ExtensionUtil {
+class CRM_Chat_ExtensionUtil {
   const SHORT_NAME = "chatbot";
   const LONG_NAME = "chatbot";
-  const CLASS_PREFIX = "CRM_Chatbot";
+  const CLASS_PREFIX = "CRM_Chat";
 
   /**
    * Translate a string using the extension's domain.
@@ -77,7 +77,7 @@ class CRM_Chatbot_ExtensionUtil {
 
 }
 
-use CRM_Chatbot_ExtensionUtil as E;
+use CRM_Chat_ExtensionUtil as E;
 
 /**
  * (Delegated) Implements hook_civicrm_config().
@@ -205,14 +205,14 @@ function _chatbot_civix_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
 }
 
 /**
- * @return CRM_Chatbot_Upgrader
+ * @return CRM_Chat_Upgrader
  */
 function _chatbot_civix_upgrader() {
-  if (!file_exists(__DIR__ . '/CRM/Chatbot/Upgrader.php')) {
+  if (!file_exists(__DIR__ . '/CRM/Chat/Upgrader.php')) {
     return NULL;
   }
   else {
-    return CRM_Chatbot_Upgrader_Base::instance();
+    return CRM_Chat_Upgrader_Base::instance();
   }
 }
 
@@ -454,16 +454,16 @@ function _chatbot_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
 
 function _chatbot_civix_civicrm_entityTypes(&$entityTypes) {
   $entityTypes = array_merge($entityTypes, array (
-    'CRM_Chatbot_DAO_ChatCache' => 
+    'CRM_Chat_DAO_ChatCache' => 
     array (
       'name' => 'ChatCache',
-      'class' => 'CRM_Chatbot_DAO_ChatCache',
+      'class' => 'CRM_Chat_DAO_ChatCache',
       'table' => 'civicrm_chat_cache',
     ),
-    'CRM_Chatbot_DAO_ChatUser' => 
+    'CRM_Chat_DAO_ChatUser' => 
     array (
       'name' => 'ChatUser',
-      'class' => 'CRM_Chatbot_DAO_ChatUser',
+      'class' => 'CRM_Chat_DAO_ChatUser',
       'table' => 'civicrm_chatuser',
     ),
   ));
