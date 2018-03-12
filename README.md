@@ -25,7 +25,7 @@ Tests can be run from the extension directory with:
 
 `CIVICRM_UF=UnitTests phpunit4 tests/phpunit`
 
-Note: following the buildkit build is the easiest way to ensure that you have all the dependencies in place, and the site set up correctly.
+**Note:** following the buildkit build is the easiest way to ensure that you have all the dependencies in place, and the site set up correctly.
 
 ## Credits
 
