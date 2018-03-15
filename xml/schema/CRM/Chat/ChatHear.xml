@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<table>
+  <base>CRM/Chat</base>
+  <class>ChatHear</class>
+  <name>civicrm_chat_hear</name>
+  <comment>FIXME</comment>
+  <log>true</log>
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique ChatHear ID</comment>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+  <field>
+    <name>chat_conversation_type_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Contact</comment>
+  </field>
+  <foreignKey>
+    <name>chat_conversation_type_id</name>
+    <table>civicrm_chat_conversation_type</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+  <field>
+    <name>text</name>
+    <type>varchar</type>
+    <length>255</length>
+  </field>
+</table>
