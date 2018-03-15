@@ -63,6 +63,8 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS `civicrm_chat_user`;
+DROP TABLE IF EXISTS `civicrm_chat_hear`;
+DROP TABLE IF EXISTS `civicrm_chat_conversation_type`;
 DROP TABLE IF EXISTS `civicrm_chat_cache`;
 
 SET FOREIGN_KEY_CHECKS=1;
@@ -97,6 +99,44 @@ CREATE TABLE `civicrm_chat_cache` (
   )
   
  
+)    ;
+
+-- /*******************************************************
+-- *
+-- * civicrm_chat_conversation_type
+-- *
+-- *******************************************************/
+CREATE TABLE `civicrm_chat_conversation_type` (
+
+
+     `id` int unsigned NOT NULL AUTO_INCREMENT  ,
+     `name` varchar(255) NOT NULL   ,
+     `timeout` int    COMMENT 'Timeout in minutes for this conversation type' 
+,
+        PRIMARY KEY (`id`)
+ 
+ 
+ 
+)    ;
+
+-- /*******************************************************
+-- *
+-- * civicrm_chat_hear
+-- *
+-- * FIXME
+-- *
+-- *******************************************************/
+CREATE TABLE `civicrm_chat_hear` (
+
+
+     `id` int unsigned NOT NULL AUTO_INCREMENT  COMMENT 'Unique ChatHear ID',
+     `chat_conversation_type_id` int unsigned    COMMENT 'FK to Contact',
+     `text` varchar(255)     
+,
+        PRIMARY KEY (`id`)
+ 
+ 
+,          CONSTRAINT FK_civicrm_chat_hear_chat_conversation_type_id FOREIGN KEY (`chat_conversation_type_id`) REFERENCES `civicrm_chat_conversation_type`(`id`) ON DELETE CASCADE  
 )    ;
 
 -- /*******************************************************

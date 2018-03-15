@@ -352,8 +352,10 @@ function _chatbot_civix_glob($pattern) {
  * Inserts a navigation menu item at a given place in the hierarchy.
  *
  * @param array $menu - menu hierarchy
- * @param string $path - path where insertion should happen (ie. Administer/System Settings)
- * @param array $item - menu you need to insert (parent/child attributes will be filled for you)
+ * @param string $path - path to parent of this item, e.g. 'my_extension/submenu'
+ *    'Mailing', or 'Administer/System Settings'
+ * @param array $item - the item to insert (parent/child attributes will be
+ *    filled for you)
  */
 function _chatbot_civix_insert_navigation_menu(&$menu, $path, $item) {
   // If we are done going down the path, insert menu
@@ -459,6 +461,18 @@ function _chatbot_civix_civicrm_entityTypes(&$entityTypes) {
       'name' => 'ChatCache',
       'class' => 'CRM_Chat_DAO_ChatCache',
       'table' => 'civicrm_chat_cache',
+    ),
+    'CRM_Chat_DAO_ChatConversationType' => 
+    array (
+      'name' => 'ChatConversationType',
+      'class' => 'CRM_Chat_DAO_ChatConversationType',
+      'table' => 'civicrm_chat_conversation_type',
+    ),
+    'CRM_Chat_DAO_ChatHear' => 
+    array (
+      'name' => 'ChatHear',
+      'class' => 'CRM_Chat_DAO_ChatHear',
+      'table' => 'civicrm_chat_hear',
     ),
     'CRM_Chat_DAO_ChatUser' => 
     array (
