@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<table>
+  <base>CRM/Chat</base>
+  <class>ChatConversationType</class>
+  <name>civicrm_chat_conversation_type</name>
+  <log>true</log>
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+  <field>
+    <name>name</name>
+    <required>true</required>
+    <type>varchar</type>
+    <length>255</length>
+  </field>
+  <field>
+    <name>timeout</name>
+    <comment>Timeout in minutes for this conversation type</comment>
+    <type>int</type>
+  </field>
+</table>
