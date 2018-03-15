@@ -1,7 +1,8 @@
 <?php
+// class CRM_Chat_Logger extends Psr\Log\AbstractLogger implements \Psr\Log\LoggerInterface{
 class CRM_Chat_Logger {
 
-  static function log($message){
+  static function debug($message){
 
     if(!is_string($message)){
       $message = var_export($message, true);
