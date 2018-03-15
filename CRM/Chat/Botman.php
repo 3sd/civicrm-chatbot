@@ -14,8 +14,8 @@ class CRM_Chat_Botman {
     $botman = BotManFactory::create($config, new CRM_Chat_Cache);
 
     // Received
-    $botman->middleware->received(new CRM_Chat_Middleware_IncomingLog());
     $botman->middleware->received(new CRM_Chat_Middleware_Identify());
+    $botman->middleware->received(new CRM_Chat_Middleware_IncomingLog());
 
     // Sending
     $botman->middleware->sending(new CRM_Chat_Middleware_OutgoingLog());
