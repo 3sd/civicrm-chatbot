@@ -6,8 +6,7 @@ use BotMan\Drivers\Facebook\FacebookDriver;
 
 class CRM_Chat_Webhook {
 
-  public static function facebook()
-  {
+  public static function facebook() {
 
     $config = [
       'facebook' => [
@@ -19,4 +18,12 @@ class CRM_Chat_Webhook {
 
     $botman = CRM_Chat_Botman::createListener($config, FacebookDriver::class);
   }
+
+  public static function devchat() {
+
+    $config = [];
+
+    $botman = CRM_Chat_Botman::createListener($config, CRM_Chat_Driver_DevChat::class);
+  }
+
 }
