@@ -63,6 +63,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS `civicrm_chat_user`;
+DROP TABLE IF EXISTS `civicrm_chat_question`;
 DROP TABLE IF EXISTS `civicrm_chat_hear`;
 DROP TABLE IF EXISTS `civicrm_chat_conversation_type`;
 DROP TABLE IF EXISTS `civicrm_chat_cache`;
@@ -111,7 +112,8 @@ CREATE TABLE `civicrm_chat_conversation_type` (
 
      `id` int unsigned NOT NULL AUTO_INCREMENT  ,
      `name` varchar(255) NOT NULL   ,
-     `timeout` int    COMMENT 'Timeout in minutes for this conversation type' 
+     `timeout` int    COMMENT 'Timeout in minutes for this conversation type',
+     `first_question_id` int unsigned    COMMENT 'FK to question' 
 ,
         PRIMARY KEY (`id`)
  
@@ -131,12 +133,30 @@ CREATE TABLE `civicrm_chat_hear` (
 
      `id` int unsigned NOT NULL AUTO_INCREMENT  COMMENT 'Unique ChatHear ID',
      `chat_conversation_type_id` int unsigned    COMMENT 'FK to Contact',
-     `text` varchar(255)     
+     `text` varchar(255) NOT NULL    
 ,
         PRIMARY KEY (`id`)
  
  
 ,          CONSTRAINT FK_civicrm_chat_hear_chat_conversation_type_id FOREIGN KEY (`chat_conversation_type_id`) REFERENCES `civicrm_chat_conversation_type`(`id`) ON DELETE CASCADE  
+)    ;
+
+-- /*******************************************************
+-- *
+-- * civicrm_chat_question
+-- *
+-- *******************************************************/
+CREATE TABLE `civicrm_chat_question` (
+
+
+     `id` int unsigned NOT NULL AUTO_INCREMENT  COMMENT 'Unique ChatQuestion ID',
+     `text` text NOT NULL   ,
+     `conversation_type_id` int unsigned NOT NULL   COMMENT 'FK to conversation type' 
+,
+        PRIMARY KEY (`id`)
+ 
+ 
+,          CONSTRAINT FK_civicrm_chat_question_conversation_type_id FOREIGN KEY (`conversation_type_id`) REFERENCES `civicrm_chat_conversation_type`(`id`) ON DELETE CASCADE  
 )    ;
 
 -- /*******************************************************

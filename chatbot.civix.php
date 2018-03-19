@@ -474,6 +474,12 @@ function _chatbot_civix_civicrm_entityTypes(&$entityTypes) {
       'class' => 'CRM_Chat_DAO_ChatHear',
       'table' => 'civicrm_chat_hear',
     ),
+    'CRM_Chat_DAO_ChatQuestion' => 
+    array (
+      'name' => 'ChatQuestion',
+      'class' => 'CRM_Chat_DAO_ChatQuestion',
+      'table' => 'civicrm_chat_question',
+    ),
     'CRM_Chat_DAO_ChatUser' => 
     array (
       'name' => 'ChatUser',

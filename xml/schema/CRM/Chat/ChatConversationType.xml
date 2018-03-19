@@ -24,4 +24,10 @@
     <comment>Timeout in minutes for this conversation type</comment>
     <type>int</type>
   </field>
+  <field>
+    <name>first_question_id</name>
+    <type>int unsigned</type>
+    <comment>FK to question</comment>
+  </field>
+
 </table>
