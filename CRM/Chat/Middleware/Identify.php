@@ -52,17 +52,21 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
   function createContact($user, $service){
     $contact = civicrm_api3('Contact', 'create', [
       'contact_type' => 'Individual',
+      'source' => 'Chatbot'
       'first_name' => $user->getFirstName(),
       'last_name' => $user->getLastName()
     ]);
 
+    $result = civicrm_api3('EntityTag', 'create', array(
+      'contact_id' => $contact['id'],
+      'tag_id' => "Chatbot"
+    ));
     $result = civicrm_api3('ChatUser', 'create', [
       'contact_id' => $contact['id'],
       'service' => $service,
       'user_id' => $user->getId()
     ]);
 
-    // TODO add contact to dedupe group
 
     return $contact['id'];
   }
