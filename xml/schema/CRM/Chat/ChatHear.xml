@@ -29,6 +29,7 @@
   <field>
     <name>text</name>
     <type>varchar</type>
+    <required>true</required>
     <length>255</length>
   </field>
 </table>
