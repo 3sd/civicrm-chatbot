@@ -34,6 +34,10 @@ class CRM_Chat_Botman {
     }
 
     $botman->listen();
+    CRM_Chat_Utils::exit();
+
+  }
+
   static function getBot($service) {
 
     $driver = self::getDriver($service);
