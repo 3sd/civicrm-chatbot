@@ -2,9 +2,10 @@
 //Delete all existing entities
 
 $entities = [
+  'CRM_Chat_DAO_ChatCache',
   'CRM_Chat_DAO_ChatConversationType',
   'CRM_Chat_DAO_ChatHear',
-  'CRM_Chat_DAO_ChatCache'
+  'CRM_Chat_DAO_ChatUser'
 ];
 foreach($entities as $entity){
   echo "Deleting all {$entity} entities\n";
