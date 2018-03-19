@@ -9,7 +9,9 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
   public function received(IncomingMessage $message, $next, BotMan $bot) {
 
     $service = CRM_Chat_Botman::shortName($bot->getDriver());
-    $this->identify($message, $service);
+    $user = $bot->getDriver()->getUser($message);
+
+    $this->identify($message, $service, $user);
 
     return $next($message);
 
@@ -22,18 +24,19 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
     // Use this to identify the recipient
     $message = $bot->getMessage();
     $service = CRM_Chat_Botman::shortName($bot->getDriver());
-    $this->identify($message, $service);
+    $user = $bot->getDriver()->getUser($message);
+    $this->identify($message, $service, $user);
 
     return $next($payload);
 
   }
 
-  function identify($message, $service){
+  function identify($message, $service, $user){
 
     try {
       $chatUser = civicrm_api3('ChatUser', 'getsingle', [
         'service' => $service,
-        'user_id' => $message->getSender()
+        'user_id' => $user->getId()
       ]);
       $contactId = $chatUser['contact_id'];
     } catch (Exception $e) {
@@ -42,11 +45,6 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
 
     $message->addExtras('contact_id', $contactId);
 
-    $extraInfoClass = 'addExtra{$service}Info';
-
-    if(method_exists($this, $extraInfoClass)){
-      $this->$extraInfoClass($user, $contactId);
-    }
   }
 
   function createContact($user, $service){
