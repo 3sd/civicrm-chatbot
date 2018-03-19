@@ -3,13 +3,10 @@ use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\Drivers\Facebook\FacebookDriver;
-/**
- * "Wraps" botman
- */
 
 class CRM_Chat_Botman {
 
-  const SERVICE_NAMES = [
+  const SHORT_NAMES = [
     'Facebook' => 'Facebook',
     'CRM_Chat_Driver_CiviSMS' => 'CiviSMS',
     'CRM_Chat_Driver_DevChat' => 'DevChat'
