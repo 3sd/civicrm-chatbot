@@ -7,9 +7,9 @@ class CRM_Chat_Logger {
     if(!is_string($message)){
       $message = var_export($message, true);
     }
-    file_put_contents(CRM_Core_Config::singleton()->configAndLogDir . '/chatbot.log', $message . "\n", FILE_APPEND);
-    error_log($message);
-
+    foreach(explode("\n", $message) as $line){
+      file_put_contents(CRM_Core_Config::singleton()->configAndLogDir . '/chatbot.log', $line . "\n", FILE_APPEND);
+      error_log($line);
+    }
   }
-
 }
