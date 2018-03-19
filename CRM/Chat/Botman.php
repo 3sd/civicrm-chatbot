@@ -2,6 +2,7 @@
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
+use BotMan\Drivers\Facebook\FacebookDriver;
 /**
  * "Wraps" botman
  */
@@ -20,10 +21,9 @@ class CRM_Chat_Botman {
     $botman = self::getBot($driver);
 
     $botman->middleware->received(new CRM_Chat_Middleware_Identify());
-    $botman->middleware->received(new CRM_Chat_Middleware_IncomingLog());
+    $botman->middleware->received(new CRM_Chat_Middleware_RecordIncoming());
+    $botman->middleware->sending(new CRM_Chat_Middleware_RecordOutgoing());
 
-    // Sending
-    $botman->middleware->sending(new CRM_Chat_Middleware_OutgoingLog());
 
     foreach(CRM_Chat_BAO_Triggers::getAll() as $trigger){
       $botman->hears($trigger['text'], function ($bot, $message) {
