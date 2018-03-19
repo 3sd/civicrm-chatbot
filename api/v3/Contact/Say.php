@@ -31,4 +31,5 @@ function civicrm_api3_contact_say($params) {
 
   $botman->say($params['text'], $user['user_id'], CRM_Chat_Botman::getDriver($params['service']));
 
+  return civicrm_api3_create_success();
 }
