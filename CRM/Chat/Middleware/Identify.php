@@ -1,45 +1,52 @@
 <?php
 use BotMan\BotMan\Interfaces\Middleware\Received;
+use BotMan\BotMan\Interfaces\Middleware\Sending;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use BotMan\BotMan\BotMan;
 
-class CRM_Chat_Middleware_Identify implements Received {
-
-  var $services = [
-    'BotMan\Drivers\Facebook\FacebookDriver' => 'facebook'
-  ];
+class CRM_Chat_Middleware_Identify implements Received, Sending {
 
   public function received(IncomingMessage $message, $next, BotMan $bot) {
 
-    $user = $bot->getDriver()->getUser($message);
-    $service = $this->services[get_class($bot->getDriver())];
-
-    // Get/Create a contact for this user and service
-    $contactId = $this->getContactId($user, $service);
-    $message->addExtras('contact_id', $contactId);
-
-    // Add extra data to the contact made if the service provides any
-    $extraInfoClass = 'addExtra' . ucfirst($service) . 'Info';
-    if(method_exists($this,$extraInfoClass )){
-      $this->$extraInfoClass($user, $contactId);
-    }
+    $service = CRM_Chat_Botman::shortName($bot->getDriver());
+    $this->identify($message, $service);
 
     return $next($message);
+
   }
 
-  // TODO Test with existent and non existent account
-  function getContactId($user, $service){
+  // Used to identifiy server originated messages
+  public function sending($payload, $next, BotMan $bot) {
+
+    // The server fakes an incoming message from the user
+    // Use this to identify the recipient
+    $message = $bot->getMessage();
+    $service = CRM_Chat_Botman::shortName($bot->getDriver());
+    $this->identify($message, $service);
+
+    return $next($payload);
+
+  }
+
+  function identify($message, $service){
 
     try {
       $chatUser = civicrm_api3('ChatUser', 'getsingle', [
         'service' => $service,
-        'user_id' => $user->getId()
+        'user_id' => $message->getSender()
       ]);
-      return $chatUser['contact_id'];
+      $contactId = $chatUser['contact_id'];
     } catch (Exception $e) {
-      $contact = $this->createContact($user, $service);
+      $contactId = $this->createContact($user, $service);
     }
-    return $contact['id'];
+
+    $message->addExtras('contact_id', $contactId);
+
+    $extraInfoClass = 'addExtra{$service}Info';
+
+    if(method_exists($this, $extraInfoClass)){
+      $this->$extraInfoClass($user, $contactId);
+    }
   }
 
   function createContact($user, $service){
@@ -57,7 +64,7 @@ class CRM_Chat_Middleware_Identify implements Received {
 
     // TODO add contact to dedupe group
 
-    return $contact['values'][$contact['id']];
+    return $contact['id'];
   }
 
   function addExtraFacebookInfo($user, $contactId){
