@@ -12,7 +12,7 @@ drupal_install
 civicrm_install
 
 # Create chat user
-drush user-create chat --password=chat --mail=chat@example.com
+drush user-create chat --password=$ADMIN_PASS --mail=chat@example.com
 
 # Site name, frontpage and some Drupal niceties
 drush vset site_name "Chatbot demo site"
@@ -37,8 +37,10 @@ drush role-create 'civicrm user'
 drush role-add-perm 'civicrm user' 'access CiviCRM'
 drush role-add-perm 'civicrm user' 'administer CiviCRM'
 drush role-add-perm 'civicrm user' 'access chatbot'
-drush user-add-role 'civicrm user' chat
+drush role-add-perm 'civicrm user' 'view all contacts'
 
-if [ -f sites/all/modules/civicrm/tools/extensions/civicrm-chatbot/dev-configure.sh ]; then
-    bash sites/all/modules/civicrm/tools/extensions/civicrm-chatbot/dev-configure.sh
+drush user-add-role 'civicrm user' 'chat'
+
+if [ -f sites/all/modules/civicrm/tools/extensions/civicrm-chatbot//chatbot-demo/secrets.sh ]; then
+    bash sites/all/modules/civicrm/tools/extensions/civicrm-chatbot/chatbot-demo/secrets.sh
 fi
