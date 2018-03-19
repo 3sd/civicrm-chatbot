@@ -50,7 +50,7 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
   function createContact($user, $service){
     $contact = civicrm_api3('Contact', 'create', [
       'contact_type' => 'Individual',
-      'source' => 'Chatbot'
+      'source' => 'Chatbot',
       'first_name' => $user->getFirstName(),
       'last_name' => $user->getLastName()
     ]);
