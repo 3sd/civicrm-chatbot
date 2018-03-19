@@ -24,10 +24,12 @@ class CRM_Chat_Botman {
     $botman->middleware->received(new CRM_Chat_Middleware_RecordIncoming());
     $botman->middleware->sending(new CRM_Chat_Middleware_RecordOutgoing());
 
+    $hears = CRM_Chat_BAO_ChatHear::getActive();
 
-    foreach(CRM_Chat_BAO_Triggers::getAll() as $trigger){
-      $botman->hears($trigger['text'], function ($bot, $message) {
-        $bot->startConversation(new CRM_Chat_Conversation($trigger['conversation_id']));
+    while($hears->fetch()){
+      $botman->hears($hears->text, function ($bot, $message) use ($hears) {
+        $conversationType = CRM_Chat_BAO_ChatConversationType::findById($hears->chat_conversation_type_id);
+        $bot->startConversation(new CRM_Chat_Conversation($conversationType));
       });
     }
 
