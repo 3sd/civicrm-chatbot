@@ -65,12 +65,26 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
       'user_id' => $user->getId()
     ]);
 
+    $extraInfoClass = "addExtra{$service}Info";
+    if(method_exists($this, $extraInfoClass)){
+      $this->$extraInfoClass($user, $contact['id']);
+    }
 
     return $contact['id'];
   }
 
-  function addExtraFacebookInfo($user, $contactId){
-    //TODO Upload Facebook image
+  function addExtraFacebookInfo($user, $contactId) {
+
+    $info = $user->getInfo();
+
+    // TODO upload image
+
+    civicrm_api3('Contact', 'create', [
+      'id' => $contactId,
+      'image_URL' => $info['profile_pic'],
+      'gender' => $info['gender']
+    ]);
+
   }
 
 }
