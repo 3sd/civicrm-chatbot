@@ -4,17 +4,17 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 
 class CRM_Chat_Conversation extends Conversation
 {
-  protected $firstname;
 
-  protected $email;
-
-
-  public function __construct($id){
-    $this->id = $id;
+  public function __construct($conversationType){
+    $this->conversationType = $conversationType;
   }
 
-  public function run()
-  {
-    $this->askFirstname();
+  public function run() {
+    $this->askQuestion($this->conversationType->first_question_id);
+  }
+
+  public function askQuestion($questionId) {
+    $question = CRM_Chat_BAO_ChatQuestion::findById($questionId);
+    $this->ask($question->text, function(){});
   }
 }
