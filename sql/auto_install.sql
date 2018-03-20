@@ -67,6 +67,7 @@ DROP TABLE IF EXISTS `civicrm_chat_question`;
 DROP TABLE IF EXISTS `civicrm_chat_hear`;
 DROP TABLE IF EXISTS `civicrm_chat_conversation_type`;
 DROP TABLE IF EXISTS `civicrm_chat_cache`;
+DROP TABLE IF EXISTS `civicrm_chat_action`;
 
 SET FOREIGN_KEY_CHECKS=1;
 -- /*******************************************************
@@ -74,6 +75,31 @@ SET FOREIGN_KEY_CHECKS=1;
 -- * Create new tables
 -- *
 -- *******************************************************/
+
+-- /*******************************************************
+-- *
+-- * civicrm_chat_action
+-- *
+-- * FIXME
+-- *
+-- *******************************************************/
+CREATE TABLE `civicrm_chat_action` (
+
+
+     `id` int unsigned NOT NULL AUTO_INCREMENT  COMMENT 'Unique ChatAction ID',
+     `question_id` int unsigned    COMMENT 'FK to ChatQuestion',
+     `type` varchar(255) NOT NULL   ,
+     `check` text NOT NULL   ,
+     `action` text NOT NULL    
+,
+        PRIMARY KEY (`id`)
+ 
+    ,     UNIQUE INDEX `index_type`(
+        type
+  )
+  
+,          CONSTRAINT FK_civicrm_chat_action_question_id FOREIGN KEY (`question_id`) REFERENCES `civicrm_chat_question`(`id`) ON DELETE CASCADE  
+)    ;
 
 -- /*******************************************************
 -- *

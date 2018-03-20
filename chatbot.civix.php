@@ -456,6 +456,12 @@ function _chatbot_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
 
 function _chatbot_civix_civicrm_entityTypes(&$entityTypes) {
   $entityTypes = array_merge($entityTypes, array (
+    'CRM_Chat_DAO_ChatAction' => 
+    array (
+      'name' => 'ChatAction',
+      'class' => 'CRM_Chat_DAO_ChatAction',
+      'table' => 'civicrm_chat_action',
+    ),
     'CRM_Chat_DAO_ChatCache' => 
     array (
       'name' => 'ChatCache',

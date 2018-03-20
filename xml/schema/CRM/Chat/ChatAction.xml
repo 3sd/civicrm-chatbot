@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Chat</base>
+  <class>ChatAction</class>
+  <name>civicrm_chat_action</name>
+  <comment>FIXME</comment>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique ChatAction ID</comment>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>question_id</name>
+    <type>int unsigned</type>
+    <comment>FK to ChatQuestion</comment>
+  </field>
+  <foreignKey>
+    <name>question_id</name>
+    <table>civicrm_chat_question</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>type</name>
+    <type>varchar</type>
+    <length>255</length>
+    <required>true</required>
+  </field>
+  <index>
+    <name>index_type</name>
+    <fieldName>type</fieldName>
+    <unique>false</unique>
+  </index>
+
+  <field>
+    <name>check</name>
+    <type>text</type>
+    <required>true</required>
+  </field>
+
+  <field>
+    <name>action</name>
+    <type>text</type>
+    <required>true</required>
+  </field>
+
+
+</table>
