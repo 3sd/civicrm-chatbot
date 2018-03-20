@@ -41,7 +41,7 @@ class CRM_Chat_Botman {
     $config = self::getConfig($service);
 
     DriverManager::loadDriver($driver);
-    $botman = BotManFactory::create($config);
+    $botman = BotManFactory::create($config, new CRM_Chat_Cache);
 
     return $botman;
 
