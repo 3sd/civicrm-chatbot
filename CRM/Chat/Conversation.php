@@ -2,8 +2,7 @@
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 
-class CRM_Chat_Conversation extends Conversation
-{
+class CRM_Chat_Conversation extends Conversation {
 
   public function __construct($conversationType) {
 
@@ -21,7 +20,10 @@ class CRM_Chat_Conversation extends Conversation
   protected function askQuestion($questionId) {
 
     $question = CRM_Chat_BAO_ChatQuestion::findById($questionId);
-    $this->ask($question->text, $this->answer($questionId));
+
+    $text = $this->tokenReplacement($question->text, $this->contactId);// TODO contact token replacement
+
+    $this->ask($text, $this->answer($questionId));
     return;
 
   }
@@ -31,21 +33,36 @@ class CRM_Chat_Conversation extends Conversation
     return function(Answer $answer) use ($questionId) {
 
       $actions = [
-        'group' => function($action){
+        'group' => function($groupId){
+
+          civicrm_api3('GroupContact', 'create', [
+            'contact_id' => $this->contactId,
+            'group_id' => $groupId
+          ]);
 
         },
-        'field' => function($action){
+
+        'field' => function($field, $value){
+
+          civicrm_api3('Contact', 'create', [
+            'id' => $this->contactId,
+            $fieldName => $value
+          ]);
 
         },
-        'trigger' => function($action){
+
+        'conversation' => function($conversationTypeId){
+
+          $conversationType = CRM_Chat_BAO_ChatConversationType::findById($conversationTypeId);
+          $bot->startConversation(new CRM_Chat_Conversation($conversationType));
 
         },
-        'conversation' => function($action){
 
-        },
-        'next' => function($action){
-          $question = CRM_Chat_BAO_ChatQuestion::findById($action);
-          $this->ask($question->text, $this->answer($action));
+        'next' => function($questionId){
+
+          $question = CRM_Chat_BAO_ChatQuestion::findById($questionId);
+          $this->ask($question->text, $this->answer($questionId));
+
         },
       ];
 
@@ -58,16 +75,29 @@ class CRM_Chat_Conversation extends Conversation
   }
 
   protected function processAction($text, $questionId, $type, $closure) {
+
     $groups = CRM_Chat_BAO_ChatAction::findByTypeAndQuestion($type, $questionId);
 
     while($groups->fetch()){
       $check = unserialize($groups->check_object);
       if($check->matches($text)){
-        CRM_Chat_Logger::debug('mikey');
-        $closure($groups->action);
+
+        // TODO if $type == 'next' then break out of while since we can only go to one place.
+        // TODO add weight to actions so that they are executed in order
+
+        $closure($groups->action, $check->getMatch());
+
       }
 
     }
+
+  }
+
+  protected function tokenReplacement($text, $contactId) {
+
+    //TODO token replacement
+
+    return $text;
 
   }
 
