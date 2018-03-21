@@ -62,20 +62,20 @@ $entities['ChatConversationType'] = [
     'name' => 'Cats or dogs?',
     'timeout' => '30'
   ],
-  'email' => [
-    'name' => 'Email address',
+  'movie' => [
+    'name' => 'Favourite movie',
     'timeout' => '30'
   ],
 ];
 
 $entities['ChatHear'] = [
-  'petsurvey' => [
-    'text' => 'pet survey',
-    'chat_conversation_type_id' => '{{ChatConversationType.pets}}'
+  'movie' => [
+    'text' => 'movie',
+    'chat_conversation_type_id' => '{{ChatConversationType.movie}}'
   ],
-  'email' => [
-    'text' => 'email',
-    'chat_conversation_type_id' => '{{ChatConversationType.email}}'
+  'pets' => [
+    'text' => 'pets',
+    'chat_conversation_type_id' => '{{ChatConversationType.pets}}'
   ],
 ];
 
@@ -100,12 +100,12 @@ $entities['ChatQuestion'] = [
     'conversation_type_id' => '{{ChatConversationType.pets}}',
     'text' => 'Would you like to join our newsletter for Dog owners? (please answer yes or no)'
   ],
-  'email' => [
-    'conversation_type_id' => '{{ChatConversationType.email}}',
-    'text' => 'What is your email address?',
+  'movie' => [
+    'conversation_type_id' => '{{ChatConversationType.movie}}',
+    'text' => 'What is your favourite movie?',
   ],
   'petSurvey' => [
-    'conversation_type_id' => '{{ChatConversationType.email}}',
+    'conversation_type_id' => '{{ChatConversationType.movie}}',
     'text' => 'Would you like to take part in our pet survey?',
   ],
 ];
@@ -147,23 +147,23 @@ $entities['ChatAction'] = [
     'check_object' => serialize(new CRM_Chat_Check_Anything()),
     'action_data' => 'placeholder'
   ],
-  'email' => [
-    'question_id' => '{{ChatQuestion.email}}',
-    'type' => 'field',
+  'movie' => [
+    'question_id' => '{{ChatQuestion.movie}}',
+    'type' => 'say',
     'check_object' => serialize(new CRM_Chat_Check_Anything()),
-    'action_data' => 'email',
+    'action_data' => 'Thanks for letting me know!',
   ],
   'askAboutPetSurvey' => [
-    'question_id' => '{{ChatQuestion.email}}',
-    'type' => 'field',
+    'question_id' => '{{ChatQuestion.movie}}',
+    'type' => 'next',
     'check_object' => serialize(new CRM_Chat_Check_Anything()),
-    'action_data' => 'first_name'
+    'action_data' => '{{ChatQuestion.petSurvey}}'
   ],
-  'LastNameField' => [
-    'question_id' => '{{ChatQuestion.email}}',
-    'type' => 'field',
-    'check_object' => serialize(new CRM_Chat_Check_Anything()),
-    'action_data' => 'last_name'
+  'startPetSurvey' => [
+    'question_id' => '{{ChatQuestion.petSurvey}}',
+    'type' => 'conversation',
+    'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'yes'])),
+    'action_data' => '{{ChatConversationType.pets}}'
   ]
 ];
 
@@ -177,8 +177,7 @@ $entities['Group'] = [
 $entities['CustomGroup'] = [
   'petData' => [
     'title' => 'Pets',
-    'extends' => 'Contact',
-    'extends_entity_column_value' => 'Individual',
+    'extends' => 'Individual',
     'collapse_display' => false,
     'style' => 'inline'
   ]
@@ -198,11 +197,11 @@ while(createEntities($entities, $created, $batchId));
 $entities['ChatConversationType'] = [
   'pets' => [
     'id' => $created['ChatConversationType']['pets'],
-    'first_question_id' => $created['ChatQuestion']['dogNewsletter']
+    'first_question_id' => $created['ChatQuestion']['dogorcat']
   ],
-  'email' => [
-    'id' => $created['ChatConversationType']['email'],
-    'first_question_id' => $created['ChatQuestion']['email']
+  'movie' => [
+    'id' => $created['ChatConversationType']['movie'],
+    'first_question_id' => $created['ChatQuestion']['movie']
   ],
 ];
 
