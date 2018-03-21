@@ -8,10 +8,10 @@ use BotMan\Drivers\Facebook\FacebookDriver;
 class CRM_Chat_Webhook {
 
   public static function facebook() {
-    CRM_Chat_Botman::createListener('Facebook');
+    CRM_Chat_Listener::create('Facebook');
   }
 
   public static function devchat() {
-    CRM_Chat_Botman::createListener('DevChat');
+    CRM_Chat_Listener::create('DevChat');
   }
 }
