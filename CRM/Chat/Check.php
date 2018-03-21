@@ -8,18 +8,19 @@ abstract class CRM_Chat_Check{
   */
   final function matches($text){
     $this->text = $text;
+    $this->match = $text;
     return $this->check();
   }
 
   /**
   * Return a textual representation of the match
   */
-  final function getMatch(){
+  final function getMatch(){  
     return $this->match;
   }
 
   /**
-  * Check to see if $this->match should be considered a match.
+  * Check to see if $this->text should be considered a match.
   *
   * Optionally alter the return value (e.g. if only part of the string should
   * be matched)
