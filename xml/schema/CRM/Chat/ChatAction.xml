@@ -39,11 +39,10 @@
   <index>
     <name>index_type</name>
     <fieldName>type</fieldName>
-    <unique>false</unique>
   </index>
 
   <field>
-    <name>check</name>
+    <name>check_object</name>
     <type>text</type>
     <required>true</required>
   </field>
@@ -53,6 +52,5 @@
     <type>text</type>
     <required>true</required>
   </field>
-
 
 </table>

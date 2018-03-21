@@ -1,4 +1,5 @@
 <?php
+
 //Delete all existing entities
 
 $entities = [
@@ -13,8 +14,6 @@ foreach($entities as $entity){
   $entity->whereAdd('id > 0');
   $entity->delete(DB_DATAOBJECT_WHEREADD_ONLY);
 }
-
-echo "Creating demo data...\n";
 
 $entities['ChatConversationType'] = [
   'pets' => [
