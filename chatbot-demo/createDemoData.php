@@ -1,18 +1,56 @@
 <?php
+$tableTranslation = [];
+function getTableName($entityName){
+  global $tableTranslation;
+  if(!isset($tableTranslation[$entityName])){
+    $tableTranslation[$entityName] = CRM_Core_DAO_AllCoreTables::getTableForClass(CRM_Core_DAO_AllCoreTables::getFullName($entityName));
+  }
+  return $tableTranslation[$entityName];
+}
 
-//Delete all existing entities
+function getEntityName($tableName){
+  global $tableTranslation;
+  if(!array_search($tableName, $tableTranslation)){
+    $tableTranslation[CRM_Core_DAO_AllCoreTables::getBriefName(CRM_Core_DAO_AllCoreTables::getClassForTable($tableName))] = $tableName;
+  }
+  return array_search($tableName, $tableTranslation);
+}
 
-$entities = [
-  'CRM_Chat_DAO_ChatCache',
-  'CRM_Chat_DAO_ChatConversationType',
-  'CRM_Chat_DAO_ChatHear',
-  'CRM_Chat_DAO_ChatUser'
-];
-foreach($entities as $entity){
-  echo "Deleting all {$entity} entities\n";
-  $entity = new $entity;
-  $entity->whereAdd('id > 0');
-  $entity->delete(DB_DATAOBJECT_WHEREADD_ONLY);
+try {
+  $batchId = civicrm_api3('Batch', 'getvalue', [
+    'return' => 'id',
+    'name' => 'chatbotDemoData'
+  ]);
+} catch (\Exception $e) {
+  $batch = civicrm_api3('Batch', 'create', [
+    'title' => 'chatbotDemoData',
+    'status_id' => 'Open'
+  ]);
+  $batchId = $batch['id'];
+}
+
+//Clear conversation 'state'
+$entity = new CRM_Chat_DAO_ChatCache;
+$entity->whereAdd('id > 0');
+$entity->delete(DB_DATAOBJECT_WHEREADD_ONLY);
+
+$entityCount =  civicrm_api3('EntityBatch', 'getcount', [
+  'batch_id' => $batchId
+]
+);
+
+$entitiesToDelete = civicrm_api3('EntityBatch', 'get', [
+  'batch_id' => $batchId,
+  'options.limit' => $entityCount
+]);
+
+foreach($entitiesToDelete['values'] as $d){
+  try {
+    civicrm_api3(getEntityName($d['entity_table']), 'delete', ['id' => $d['entity_id']]);
+  } catch (\Exception $e) {}
+  try {
+    civicrm_api3('EntityBatch', 'delete', ['id' => $d['id']]);
+  } catch (\Exception $e) {}
 }
 
 $entities['ChatConversationType'] = [
@@ -42,11 +80,11 @@ $entities['ChatQuestion'] = [
     'conversation_type_id' => '{{ChatConversationType.pets}}',
     'text' => 'Are you a dog person or a cat person?',
   ],
-  'dog' => [
+  'haveDog' => [
     'conversation_type_id' => '{{ChatConversationType.pets}}',
     'text' => 'Do you have a dog?',
   ],
-  'cat' => [
+  'haveCat' => [
     'conversation_type_id' => '{{ChatConversationType.pets}}',
     'text' => 'Do you have a cat?',
   ],
@@ -56,7 +94,7 @@ $entities['ChatQuestion'] = [
   ],
   'dogNewsletter' => [
     'conversation_type_id' => '{{ChatConversationType.pets}}',
-    'text' => 'Would you like to join our newsletter for Dog owners?'
+    'text' => 'Would you like to join our newsletter for Dog owners? (please answer yes or no)'
   ],
   'firstName' => [
     'conversation_type_id' => '{{ChatConversationType.fullName}}',
@@ -69,48 +107,121 @@ $entities['ChatQuestion'] = [
 ];
 
 $entities['ChatAction'] = [
-  'nextDog' => [
+  'haveDog' => [
     'question_id' => '{{ChatQuestion.dogorcat}}',
-    'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'dog'])),
     'type' => 'next',
-    'action' => '{{ChatQuestion.dog}}'
+    'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'dog'])),
+    'action' => '{{ChatQuestion.haveDog}}'
+  ],
+  'dogNewsletter' => [
+    'question_id' => '{{ChatQuestion.haveDog}}',
+    'type' => 'next',
+    'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'yes'])),
+    'action' => '{{ChatQuestion.dogNewsletter}}'
+  ],
+  'dogNewsletterSignup' => [
+    'question_id' => '{{ChatQuestion.dogNewsletter}}',
+    'type' => 'group',
+    'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'yes'])),
+    'action' => '{{Group.dogNewsletter}}'
+  ],
+  'haveCat' => [
+    'question_id' => '{{ChatQuestion.dogorcat}}',
+    'type' => 'next',
+    'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'cat'])),
+    'action' => '{{ChatQuestion.haveCat}}'
+  ],
+  'catsName' => [
+    'question_id' => '{{ChatQuestion.haveCat}}',
+    'type' => 'next',
+    'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'yes'])),
+    'action' => '{{ChatQuestion.catsName}}'
+  ],
+  'catsNameAddField' => [
+    'question_id' => '{{ChatQuestion.catsName}}',
+    'type' => 'field',
+    'check_object' => serialize(new CRM_Chat_Check_Anything()),
+    'action' => 'placeholder'
+  ],
+];
+
+$entities['Group'] = [
+  'dogNewsletter' => [
+    'title' => 'Dog newsletter',
+    'type' => 'Mailing list',
   ]
 ];
 
-$created = [];
-while(createEntities($entities, $created));
+$entities['CustomGroup'] = [
+  'petData' => [
+    'title' => 'Pets',
+    'extends' => 'Contact',
+    'extends_entity_column_value' => 'Individual',
+    'collapse_display' => false,
+    'style' => 'inline'
+  ]
+];
+
+$entities['CustomField'] = [
+  'catName' => [
+    'label' => 'Cat name',
+    'data_type' => 'String',
+    'html_type' => 'Text',
+    'custom_group_id' => '{{CustomGroup.petData}}',
+  ]
+];
+
+while(createEntities($entities, $created, $batchId));
 
 $entities['ChatConversationType'] = [
   'pets' => [
     'id' => $created['ChatConversationType']['pets'],
-    'first_question_id' => $created['ChatQuestion']['dogorcat']
+    'first_question_id' => $created['ChatQuestion']['dogNewsletter']
   ],
   'fullName' => [
     'id' => $created['ChatConversationType']['fullName'],
     'first_question_id' => $created['ChatQuestion']['firstName']
+  ],
+];
+
+$entities['ChatAction'] = [
+  'catsNameAddField' => [
+    'id' => $created['ChatAction']['catsNameAddField'],
+    'action' => 'custom_'.$created['CustomField']['catName']
   ]
 ];
 
-while(createEntities($entities, $created));
-var_dump($created);
+while(createEntities($entities, $created, $batchId));
 
 ////////////////////////////////////////////////////////////////////////////////
 
-function createEntities(&$entities, &$created){
+function createEntities(&$entities, &$created, $batchId){
   foreach($entities as $type => $objects){
     foreach($objects as $tag => $params){
       if(substitute($params, $created)){
-        if(isset($params['id'])){
-          echo "Updating $type.$tag\n";
-        }else{
-          echo "Creating $type.$tag\n";
+        echo "Processing $type.$tag...\r";
+        try {
+          $entityResult = civicrm_api3($type, 'create', $params);
+        } catch (\Exception $e) {
+          var_dump($params);
+          exit;
         }
-        $result = civicrm_api3($type, 'create', $params);
-        $created[$type][$tag] = $result['id'];
+
+        if(isset($params['id'])){
+          echo "Updated $type.$tag({$entityResult['id']})\n";
+        }else{
+          echo "Created $type.$tag({$entityResult['id']})\n";
+          $batchResult = civicrm_api3('EntityBatch', 'create', [
+            'entity_table' => getTableName($type),
+            'entity_id' => $entityResult['id'],
+            'batch_id' => $batchId
+          ]);
+        }
+        $created[$type][$tag] = $entityResult['id'];
         unset($entities[$type][$tag]);
       }
     }
-    if(count($entities[$type] == 0)){
+    if(count($entities[$type]) == 0){
       unset($entities[$type]);
     }
   }
@@ -123,6 +234,7 @@ function substitute(&$params, $created){
       if(isset($created[$matches[1]][$matches[2]])){
         $params[$key] = $created[$matches[1]][$matches[2]];
       }else{
+        echo "Could not substitute {$params[$key]}\n";
         return false;
       }
     }
