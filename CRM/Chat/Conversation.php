@@ -18,8 +18,57 @@ class CRM_Chat_Conversation extends Conversation
 
   }
 
-  public function askQuestion($questionId) {
+  protected function askQuestion($questionId) {
+
     $question = CRM_Chat_BAO_ChatQuestion::findById($questionId);
-    $this->ask($question->text, function(){});
+    $this->ask($question->text, $this->answer($questionId));
+    return;
+
   }
+
+  protected function answer($questionId) {
+
+    return function(Answer $answer) use ($questionId) {
+
+      $actions = [
+        'group' => function($action){
+
+        },
+        'field' => function($action){
+
+        },
+        'trigger' => function($action){
+
+        },
+        'conversation' => function($action){
+
+        },
+        'next' => function($action){
+          $question = CRM_Chat_BAO_ChatQuestion::findById($action);
+          $this->ask($question->text, $this->answer($action));
+        },
+      ];
+
+      foreach($actions as $type => $closure) {
+        $this->processAction($answer->getText(), $questionId, $type, $closure);
+      }
+
+    };
+
+  }
+
+  protected function processAction($text, $questionId, $type, $closure) {
+    $groups = CRM_Chat_BAO_ChatAction::findByTypeAndQuestion($type, $questionId);
+
+    while($groups->fetch()){
+      $check = unserialize($groups->check_object);
+      if($check->matches($text)){
+        CRM_Chat_Logger::debug('mikey');
+        $closure($groups->action);
+      }
+
+    }
+
+  }
+
 }
