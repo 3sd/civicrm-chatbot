@@ -5,8 +5,8 @@ class CRM_Chat_Check_Contains extends CRM_Chat_Check {
     $this->contains = $params['contains'];
   }
 
-  function matches($text){
-    if(strpos($text, $this->contains) !== false) {
+  function check(){
+    if(strpos($this->text, $this->contains) !== false) {
       return true;
     }
     return false;

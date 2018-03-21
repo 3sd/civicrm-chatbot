@@ -6,11 +6,36 @@ abstract class CRM_Chat_Check{
   * @param  string $text
   * @return boolean
   */
-  abstract function matches($text);
+  final function matches($text){
+    $this->text = $text;
+    return $this->check();
+  }
 
   /**
-   * Return a textual representation of the match
+  * Return a textual representation of the match
+  */
+  final function getMatch(){
+    return $this->match;
+  }
+
+  /**
+  * Check to see if $this->match should be considered a match.
+  *
+  * Optionally alter the return value (e.g. if only part of the string should
+  * be matched)
+  */
+  abstract function check();
+  /**
+  * Return a textual representation of the match
+  */
+  abstract function summarise();
+
+  /**
+   * get Form elements so they can be used to build the form
    */
 
-  abstract function summarise();
+  final function getFormElements(){
+    return $this->formElements;
+  }
+
 }
