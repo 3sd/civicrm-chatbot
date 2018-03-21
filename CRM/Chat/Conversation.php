@@ -44,10 +44,7 @@ class CRM_Chat_Conversation extends Conversation {
 
         'field' => function($field, $value){
 
-          civicrm_api3('Contact', 'create', [
-            'id' => $this->contactId,
-            $fieldName => $value
-          ]);
+          civicrm_api3('Contact', 'create', ['id' => $this->contactId, $field => $value]);
 
         },
 
