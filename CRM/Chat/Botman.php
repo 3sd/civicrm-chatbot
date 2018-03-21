@@ -4,6 +4,8 @@ use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\Drivers\Facebook\FacebookDriver;
 
+// TODO refactor into bot/driver and listener
+
 class CRM_Chat_Botman {
 
   const SHORT_NAMES = [
@@ -12,30 +14,7 @@ class CRM_Chat_Botman {
     'CRM_Chat_Driver_DevChat' => 'DevChat'
   ];
 
-
-  static function createListener($driver) {
-
-    $botman = self::getBot($driver);
-
-    $botman->middleware->received(new CRM_Chat_Middleware_Identify());
-    $botman->middleware->received(new CRM_Chat_Middleware_RecordIncoming());
-    $botman->middleware->sending(new CRM_Chat_Middleware_RecordOutgoing());
-
-    $hears = CRM_Chat_BAO_ChatHear::getActive();
-
-    while($hears->fetch()){
-      $botman->hears($hears->text, function ($bot, $message) use ($hears) {
-        $conversationType = CRM_Chat_BAO_ChatConversationType::findById($hears->chat_conversation_type_id);
-        $bot->startConversation(new CRM_Chat_Conversation($conversationType));
-      });
-    }
-
-    $botman->listen();
-    CRM_Chat_Utils::exit();
-
-  }
-
-  static function getBot($service) {
+  static function get($service) {
 
     $driver = self::getDriver($service);
     $config = self::getConfig($service);
