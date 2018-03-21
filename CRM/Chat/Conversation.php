@@ -57,7 +57,7 @@ class CRM_Chat_Conversation extends Conversation {
         'conversation' => function($conversationTypeId){
 
           $conversationType = CRM_Chat_BAO_ChatConversationType::findById($conversationTypeId);
-          $bot->startConversation(new CRM_Chat_Conversation($conversationType));
+          $this->bot->startConversation(new CRM_Chat_Conversation($conversationType));
 
         },
 
