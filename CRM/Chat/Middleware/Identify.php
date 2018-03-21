@@ -77,11 +77,14 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
 
     $info = $user->getInfo();
 
-    // TODO upload image
+    // Download photo from Facebook
+    $imageName = md5($user->getId().$contactId) . '.jpg';
+    $path = Civi::paths()->getPath(Civi::settings()->get('customFileUploadDir')) . $imageName;
+    file_put_contents($path, file_get_contents($info['profile_pic']));
 
     civicrm_api3('Contact', 'create', [
       'id' => $contactId,
-      'image_URL' => $info['profile_pic'],
+      'image_URL' => CRM_Utils_System::url('civicrm/contact/imagefile', ['photo' => $imageName], true),
       'gender' => $info['gender']
     ]);
 
