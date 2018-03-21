@@ -51,6 +51,12 @@ class CRM_Chat_Conversation extends Conversation {
 
         },
 
+        'say' => function($text){
+
+          $this->say($text);
+
+        },
+
         'conversation' => function($conversationTypeId){
 
           $conversationType = CRM_Chat_BAO_ChatConversationType::findById($conversationTypeId);
@@ -85,7 +91,7 @@ class CRM_Chat_Conversation extends Conversation {
         // TODO if $type == 'next' then break out of while since we can only go to one place.
         // TODO add weight to actions so that they are executed in order
 
-        $closure($groups->action, $check->getMatch());
+        $closure($groups->action_data, $check->getMatch());
 
       }
 

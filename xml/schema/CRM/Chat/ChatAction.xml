@@ -48,7 +48,7 @@
   </field>
 
   <field>
-    <name>action</name>
+    <name>action_data</name>
     <type>text</type>
     <required>true</required>
   </field>

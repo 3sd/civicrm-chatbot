@@ -29,8 +29,12 @@ try {
   $batchId = $batch['id'];
 }
 
-//Clear conversation 'state'
+//Clear conversation 'state' and chat users
 $entity = new CRM_Chat_DAO_ChatCache;
+$entity->whereAdd('id > 0');
+$entity->delete(DB_DATAOBJECT_WHEREADD_ONLY);
+
+$entity = new CRM_Chat_DAO_ChatUser;
 $entity->whereAdd('id > 0');
 $entity->delete(DB_DATAOBJECT_WHEREADD_ONLY);
 
@@ -58,8 +62,8 @@ $entities['ChatConversationType'] = [
     'name' => 'Cats or dogs?',
     'timeout' => '30'
   ],
-  'fullName' => [
-    'name' => 'Full name',
+  'email' => [
+    'name' => 'Email address',
     'timeout' => '30'
   ],
 ];
@@ -69,10 +73,10 @@ $entities['ChatHear'] = [
     'text' => 'pet survey',
     'chat_conversation_type_id' => '{{ChatConversationType.pets}}'
   ],
-  'a' => [
-    'text' => 'a',
-    'chat_conversation_type_id' => '{{ChatConversationType.pets}}'
-  ]
+  'email' => [
+    'text' => 'email',
+    'chat_conversation_type_id' => '{{ChatConversationType.email}}'
+  ],
 ];
 
 $entities['ChatQuestion'] = [
@@ -96,13 +100,13 @@ $entities['ChatQuestion'] = [
     'conversation_type_id' => '{{ChatConversationType.pets}}',
     'text' => 'Would you like to join our newsletter for Dog owners? (please answer yes or no)'
   ],
-  'firstName' => [
-    'conversation_type_id' => '{{ChatConversationType.fullName}}',
-    'text' => 'What is your first name?',
+  'email' => [
+    'conversation_type_id' => '{{ChatConversationType.email}}',
+    'text' => 'What is your email address?',
   ],
-  'lastName' => [
-    'conversation_type_id' => '{{ChatConversationType.fullName}}',
-    'text' => 'What is your last name?',
+  'petSurvey' => [
+    'conversation_type_id' => '{{ChatConversationType.email}}',
+    'text' => 'Would you like to take part in our pet survey?',
   ],
 ];
 
@@ -111,38 +115,56 @@ $entities['ChatAction'] = [
     'question_id' => '{{ChatQuestion.dogorcat}}',
     'type' => 'next',
     'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'dog'])),
-    'action' => '{{ChatQuestion.haveDog}}'
+    'action_data' => '{{ChatQuestion.haveDog}}'
   ],
   'dogNewsletter' => [
     'question_id' => '{{ChatQuestion.haveDog}}',
     'type' => 'next',
     'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'yes'])),
-    'action' => '{{ChatQuestion.dogNewsletter}}'
+    'action_data' => '{{ChatQuestion.dogNewsletter}}'
   ],
   'dogNewsletterSignup' => [
     'question_id' => '{{ChatQuestion.dogNewsletter}}',
     'type' => 'group',
     'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'yes'])),
-    'action' => '{{Group.dogNewsletter}}'
+    'action_data' => '{{Group.dogNewsletter}}'
   ],
   'haveCat' => [
     'question_id' => '{{ChatQuestion.dogorcat}}',
     'type' => 'next',
     'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'cat'])),
-    'action' => '{{ChatQuestion.haveCat}}'
+    'action_data' => '{{ChatQuestion.haveCat}}'
   ],
   'catsName' => [
     'question_id' => '{{ChatQuestion.haveCat}}',
     'type' => 'next',
     'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'yes'])),
-    'action' => '{{ChatQuestion.catsName}}'
+    'action_data' => '{{ChatQuestion.catsName}}'
   ],
   'catsNameAddField' => [
     'question_id' => '{{ChatQuestion.catsName}}',
     'type' => 'field',
     'check_object' => serialize(new CRM_Chat_Check_Anything()),
-    'action' => 'placeholder'
+    'action_data' => 'placeholder'
   ],
+  'email' => [
+    'question_id' => '{{ChatQuestion.email}}',
+    'type' => 'field',
+    'check_object' => serialize(new CRM_Chat_Check_Anything()),
+    'action_data' => 'email',
+  ],
+  'askAboutPetSurvey' => [
+    'question_id' => '{{ChatQuestion.email}}',
+    'type' => 'field',
+    'check_object' => serialize(new CRM_Chat_Check_Anything()),
+    'action_data' => 'first_name'
+  ],
+  'LastNameField' => [
+    'question_id' => '{{ChatQuestion.email}}',
+    'type' => 'field',
+    'check_object' => serialize(new CRM_Chat_Check_Anything()),
+    'action_data' => 'last_name'
+  ]
 ];
 
 $entities['Group'] = [
@@ -178,16 +200,16 @@ $entities['ChatConversationType'] = [
     'id' => $created['ChatConversationType']['pets'],
     'first_question_id' => $created['ChatQuestion']['dogNewsletter']
   ],
-  'fullName' => [
-    'id' => $created['ChatConversationType']['fullName'],
-    'first_question_id' => $created['ChatQuestion']['firstName']
+  'email' => [
+    'id' => $created['ChatConversationType']['email'],
+    'first_question_id' => $created['ChatQuestion']['email']
   ],
 ];
 
 $entities['ChatAction'] = [
   'catsNameAddField' => [
     'id' => $created['ChatAction']['catsNameAddField'],
-    'action' => 'custom_'.$created['CustomField']['catName']
+    'action_data' => 'custom_'.$created['CustomField']['catName']
   ]
 ];
 

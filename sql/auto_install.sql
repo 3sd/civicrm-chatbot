@@ -69,7 +69,7 @@ CREATE TABLE `civicrm_chat_action` (
      `question_id` int unsigned    COMMENT 'FK to ChatQuestion',
      `type` varchar(255) NOT NULL   ,
      `check_object` text NOT NULL   ,
-     `action` text NOT NULL    
+     `action_data` text NOT NULL    
 ,
         PRIMARY KEY (`id`)
  
