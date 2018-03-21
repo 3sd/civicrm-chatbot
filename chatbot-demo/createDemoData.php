@@ -30,6 +30,10 @@ $entities['ChatHear'] = [
   'petsurvey' => [
     'text' => 'pet survey',
     'chat_conversation_type_id' => '{{ChatConversationType.pets}}'
+  ],
+  'a' => [
+    'text' => 'a',
+    'chat_conversation_type_id' => '{{ChatConversationType.pets}}'
   ]
 ];
 
@@ -64,25 +68,43 @@ $entities['ChatQuestion'] = [
   ],
 ];
 
+$entities['ChatAction'] = [
+  'nextDog' => [
+    'question_id' => '{{ChatQuestion.dogorcat}}',
+    'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'dog'])),
+    'type' => 'next',
+    'action' => '{{ChatQuestion.dog}}'
+  ]
+];
+
 $created = [];
 while(createEntities($entities, $created));
+
+$entities['ChatConversationType'] = [
+  'pets' => [
+    'id' => $created['ChatConversationType']['pets'],
+    'first_question_id' => $created['ChatQuestion']['dogorcat']
+  ],
+  'fullName' => [
+    'id' => $created['ChatConversationType']['fullName'],
+    'first_question_id' => $created['ChatQuestion']['firstName']
+  ]
+];
+
+while(createEntities($entities, $created));
 var_dump($created);
-var_dump(civicrm_api3('ChatConversationType', 'create', [
-  'id' => $created['ChatConversationType']['pets'],
-  'first_question_id' => $created['ChatQuestion']['dogorcat']
-]));
 
-var_dump(civicrm_api3('ChatConversationType', 'create', [
-  'id' => $created['ChatConversationType']['fullName'],
-  'first_question_id' => $created['ChatQuestion']['firstName']
-]));
-
+////////////////////////////////////////////////////////////////////////////////
 
 function createEntities(&$entities, &$created){
   foreach($entities as $type => $objects){
     foreach($objects as $tag => $params){
-      echo "$type.$tag\n";
       if(substitute($params, $created)){
+        if(isset($params['id'])){
+          echo "Updating $type.$tag\n";
+        }else{
+          echo "Creating $type.$tag\n";
+        }
         $result = civicrm_api3($type, 'create', $params);
         $created[$type][$tag] = $result['id'];
         unset($entities[$type][$tag]);
