@@ -6,7 +6,7 @@ use BotMan\Drivers\Facebook\FacebookDriver;
 
 // TODO refactor into bot/driver and listener
 
-class CRM_Chat_Listener {
+class CRM_Chat_Listen {
 
   static function create($driver) {
 
