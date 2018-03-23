@@ -68,8 +68,9 @@ CREATE TABLE `civicrm_chat_action` (
      `id` int unsigned NOT NULL AUTO_INCREMENT  COMMENT 'Unique ChatAction ID',
      `question_id` int unsigned    COMMENT 'FK to ChatQuestion',
      `type` varchar(255) NOT NULL   ,
-     `check_object` text NOT NULL   ,
-     `action_data` text NOT NULL    
+     `check_object` text NOT NULL   COMMENT 'Serialized representation of check object',
+     `action_data` text NOT NULL   ,
+     `weight` int unsigned NULL  DEFAULT 0 COMMENT 'Weight (useful for questions)' 
 ,
         PRIMARY KEY (`id`)
  

@@ -45,6 +45,7 @@
     <name>check_object</name>
     <type>text</type>
     <required>true</required>
+    <comment>Serialized representation of check object</comment>
   </field>
 
   <field>
@@ -52,5 +53,14 @@
     <type>text</type>
     <required>true</required>
   </field>
+
+  <field>
+    <name>weight</name>
+    <type>int unsigned</type>
+    <required>false</required>
+    <default>0</default>
+    <comment>Weight (useful for questions)</comment>
+  </field>
+
 
 </table>
