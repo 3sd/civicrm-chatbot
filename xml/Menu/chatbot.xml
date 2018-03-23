@@ -34,6 +34,18 @@
     <title>Conversation types</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/chat/conversationType/view</path>
+    <page_callback>CRM_Chat_Page_ConversationType_View</page_callback>
+    <title>Conversation type</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/chat/conversationType/add</path>
+    <page_callback>CRM_Chat_Form_ConversationType_Add</page_callback>
+    <title>Add conversation type</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>
 <!--
 
