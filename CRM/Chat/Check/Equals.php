@@ -13,6 +13,6 @@ class CRM_Chat_Check_Equals extends CRM_Chat_Match {
   }
 
   function summarise(){
-    return "Answer equals '{$this->equals}'";
+    return "answer equals '{$this->equals}'";
   }
 }

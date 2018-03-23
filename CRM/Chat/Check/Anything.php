@@ -9,6 +9,6 @@ class CRM_Chat_Check_Anything extends CRM_Chat_Check {
   }
 
   function summarise(){
-    return "All answers";
+    return "any answer";
   }
 }

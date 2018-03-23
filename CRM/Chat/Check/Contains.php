@@ -13,6 +13,6 @@ class CRM_Chat_Check_Contains extends CRM_Chat_Check {
   }
 
   function summarise(){
-    return "Answer contains '{$this->contains}'";
+    return "answer contains '{$this->contains}'";
   }
 }
