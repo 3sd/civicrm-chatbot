@@ -18,45 +18,62 @@ class CRM_Chat_Page_ConversationType_View extends CRM_Core_Page {
     $questions = civicrm_api3('ChatQuestion', 'get', [
       'conversation_type_id' => $id,
     ])['values'];
+    $this->assign('questions', $questions);
 
+    if(count($questions)) {
 
-    $actionParams = [
-      'question_id' => ['IN' => array_keys($questions)],
-      'options' => [ 'sort' => 'weight ASC' ]
-    ];
+      $actionParams = [
+        'question_id' => ['IN' => array_keys($questions)],
+        'options' => [ 'sort' => 'weight ASC' ]
+      ];
 
-    // Group actions by question, order by type, then weight (for those where weight is significant)
-    $groupActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'group']))['values'];
-    $fieldActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'field']))['values'];
-    $sayActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'say']))['values'];
-    $conversationActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'conversation']))['values'];
-    $nextActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'next']))['values'];
+      // Group actions by question, order by type, then weight (for those where weight is significant)
+      $groupActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'group']))['values'];
+      $fieldActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'field']))['values'];
+      $sayActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'say']))['values'];
+      $conversationActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'conversation']))['values'];
+      $nextActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'next']))['values'];
 
-    foreach(array_merge(
-      $groupActions,
-      $fieldActions,
-      $sayActions,
-      $conversationActions,
-      $nextActions
-    ) as $action){
-      $actionCheck = unserialize($action['check_object']);
-      if($actionCheck instanceof CRM_Chat_Check_Anything){
-        $action['check_text'] = '';
-      }else{
-        $action['check_text'] = $actionCheck->summarise();
+      $actions = [];
+
+      foreach(array_merge(
+        $groupActions,
+        $fieldActions,
+        $sayActions,
+        $conversationActions,
+        $nextActions
+      ) as $action){
+        $actionCheck = unserialize($action['check_object']);
+        if($actionCheck instanceof CRM_Chat_Check_Anything){
+          $action['check_text'] = '';
+        }else{
+          $action['check_text'] = $actionCheck->summarise();
+        }
+        $actions[$action['question_id']][$action['id']] = $action;
       }
-      $actions[$action['question_id']][$action['id']] = $action;
+
+      if(count($actions)) {
+        $this->assign('actions', $actions);
+      }
+
+      // Order questions by creating and flattening a question tree
+      $tree[$conversationType['first_question_id']] = [];
+      $questionOrder = [];
+      $this->addBranches($tree, $nextActions);
+      $this->order($questions, $tree, $orderedQuestions);
+      $this->assign('orderedQuestions', $orderedQuestions);
+
+      if($conversationActions){
+        $this->assign('conversations', civicrm_api3('ChatConversationType', 'get', ['id' => ['IN' => array_column($conversationActions, 'action_data')]])['values']);
+      }
+      if($groupActions){
+        $this->assign('groups', civicrm_api3('Group', 'get', ['id' => ['IN' => array_column($groupActions, 'action_data')]])['values']);
+      }
+
+
+      $this->assign('questionMap', array_column($orderedQuestions, 'number', 'id'));
+      $this->assign('missingQuestions', array_diff(array_column($questions, 'id'), array_column($orderedQuestions, 'id')));
     }
-
-    $this->assign('actions', $actions);
-
-    // Order questions by creating and flattening a question tree
-    $tree[$conversationType['first_question_id']] = [];
-    $questionOrder = [];
-    $this->addBranches($tree, $nextActions);
-    $this->order($questions, $tree, $orderedQuestions);
-    $this->assign('questions', $orderedQuestions);
-
     parent::run();
 
   }
