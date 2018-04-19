@@ -1,6 +1,6 @@
 {include file="CRM/Chat/Parts/Header.tpl}
 
-<p>{ts}A conversation type is a defined structure for a conversation with your contacts.{/ts}</p>
+<p>{ts}A conversation type is a framework for conversations with your contacts.{/ts}</p>
 
 {foreach item=conversationType from=$conversationTypes}
 <h2><a href="{crmURL p='civicrm/chat/conversationType/view' q="id=`$conversationType.id`"}">{$conversationType.name}</a></h2>
