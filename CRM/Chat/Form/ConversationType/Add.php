@@ -10,7 +10,6 @@ use CRM_Chat_ExtensionUtil as E;
 
 class CRM_Chat_Form_ConversationType_Add extends CRM_Chat_Form_Good {
 
-  var $title = 'Add Conversation type';
 
   var $fields = [
     [
@@ -49,6 +48,11 @@ class CRM_Chat_Form_ConversationType_Add extends CRM_Chat_Form_Good {
   ];
 
   var $submitText = 'Add';
+
+
+  function getGoodTitle(){
+    return 'Add Conversation type';
+  }
 
   function setDefaultValues(){
 

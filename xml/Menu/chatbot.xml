@@ -57,6 +57,24 @@
     <page_callback>CRM_Chat_Form_ConversationType_Delete</page_callback>
     <title>Edit conversation type</title>
     <access_arguments>access CiviCRM</access_arguments>
+  <item>
+    <path>civicrm/chat/question/add</path>
+    <page_callback>CRM_Chat_Form_Question_Add</page_callback>
+    <title>Add question</title>
+    <access_arguments>access chatbot</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/chat/question/edit</path>
+    <page_callback>CRM_Chat_Form_Question_Edit</page_callback>
+    <title>Edit question</title>
+    <access_arguments>access chatbot</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/chat/question/delete</path>
+    <page_callback>CRM_Chat_Form_Question_Delete</page_callback>
+    <title>Edit question</title>
+    <access_arguments>access chatbot</access_arguments>
+  </item>
   </item>
 </menu>
 <!--

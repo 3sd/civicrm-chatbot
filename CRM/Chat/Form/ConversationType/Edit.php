@@ -1,7 +1,4 @@
 <?php
-
-use CRM_Chat_ExtensionUtil as E;
-
 /**
  * Form controller class
  *
@@ -10,7 +7,9 @@ use CRM_Chat_ExtensionUtil as E;
 
 class CRM_Chat_Form_ConversationType_Edit extends CRM_Chat_Form_Good {
 
-  var $title = 'Edit Conversation type';
+  function getGoodTitle(){
+    return 'Edit Conversation type';
+  }
 
   var $fields = [
     1 => [

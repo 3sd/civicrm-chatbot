@@ -11,7 +11,7 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
   var $help = [];
 
-  function getTitle(){
+  function getTitle2(){
     return $this->title;
   }
 
@@ -24,7 +24,7 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
   }
 
   function getButtons(){
-    return [
+    $buttons = [
       [
         'type' => 'submit',
         'name' => ts($this->submitText),
@@ -35,6 +35,8 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
         'name' => ts('Cancel'),
       ]
     ];
+
+    return $buttons;
   }
 
   function preProcess() {
@@ -62,13 +64,19 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
     $this->assign( 'help', $this->help);
 
-    CRM_Utils_System::setTitle($this->getTitle());
+    CRM_Utils_System::setTitle($this->getGoodTitle());
 
+    $this->addButtons($this->getButtons());
+    $this->assign('delete', $this->getDelete());
     $this->addButtons($this->getButtons());
 
     $session = CRM_Core_Session::singleton();
     $session->pushUserContext($this->getContext());
 
+  }
+
+  function getDelete(){
+    return false;
   }
 
   function addFields() {
@@ -158,6 +166,8 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
         foreach($entity['references'] as $field => $reference) {
           if(isset($this->entities[$reference['entity']]['after'][$reference['field']])) {
             $params[$field] = $this->entities[$reference['entity']]['after'][$reference['field']];
+          }elseif(isset($this->entities[$reference['entity']]['before'][$reference['field']])) {
+            $params[$field] = $this->entities[$reference['entity']]['before'][$reference['field']];
           }
         }
       }
