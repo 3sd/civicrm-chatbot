@@ -1,1 +1,1 @@
-{include file='CRM/Chat/Form/Sensible.tpl'}
+{include file='CRM/Chat/Form/Good.tpl'}
