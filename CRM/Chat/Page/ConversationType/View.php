@@ -34,6 +34,12 @@ class CRM_Chat_Page_ConversationType_View extends CRM_Core_Page {
       $conversationActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'conversation']))['values'];
       $nextActions = civicrm_api3('ChatAction', 'get', array_merge($actionParams, ['type' => 'next']))['values'];
 
+      foreach($nextActions as $key => $nextAction) {
+        if(!in_array($nextAction['action_data'], array_keys($questions))){
+          unset($nextActions[$key]);
+        }
+      }
+
       $actions = [];
 
       foreach(array_merge(
@@ -61,6 +67,7 @@ class CRM_Chat_Page_ConversationType_View extends CRM_Core_Page {
       $questionOrder = [];
       $this->addBranches($tree, $nextActions);
       $this->order($questions, $tree, $orderedQuestions);
+
       $this->assign('orderedQuestions', $orderedQuestions);
 
       if($conversationActions){
