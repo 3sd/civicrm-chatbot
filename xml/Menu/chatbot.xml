@@ -46,6 +46,18 @@
     <title>Add conversation type</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/chat/conversationType/edit</path>
+    <page_callback>CRM_Chat_Form_ConversationType_Edit</page_callback>
+    <title>Edit conversation type</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/chat/conversationType/delete</path>
+    <page_callback>CRM_Chat_Form_ConversationType_Delete</page_callback>
+    <title>Edit conversation type</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>
 <!--
 

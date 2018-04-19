@@ -28,6 +28,9 @@
     <name>first_question_id</name>
     <type>int unsigned</type>
     <comment>FK to question</comment>
+    <html>
+      <type>EntityRef</type>
+    </html>
   </field>
 
 </table>
