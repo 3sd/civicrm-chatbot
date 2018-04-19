@@ -10,7 +10,8 @@ use CRM_Chat_ExtensionUtil as E;
  * @see http://wiki.civicrm.org/confluence/display/CRMDOC/API+Architecture+Standards
  */
 function _civicrm_api3_chat_conversation_type_create_spec(&$spec) {
-  // $spec['some_parameter']['api.required'] = 1;
+  $spec['first_question_id']['FKClassName'] = 'CRM_Chat_BAO_ChatQuestion';
+  $spec['first_question_id']['FKApiName'] = 'ChatQuestion';
 }
 
 /**
