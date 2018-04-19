@@ -4,19 +4,19 @@
     <path>civicrm/chat</path>
     <page_callback>CRM_Chat_Page_Dashboard</page_callback>
     <title>Chatbot dashboard</title>
-    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>access chatbot</access_arguments>
   </item>
   <item>
     <path>civicrm/admin/chat</path>
     <page_callback>CRM_Chat_Form_Admin</page_callback>
     <title>Chatbot settings</title>
-    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>access chatbot</access_arguments>
   </item>
   <item>
     <path>civicrm/admin/chat/facebook</path>
     <page_callback>CRM_Chat_Form_Admin_Facebook</page_callback>
     <title>Chatbot Facebook settings</title>
-    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>access chatbot</access_arguments>
   </item>
   <item>
     <path>civicrm/chat/webhook/facebook</path>
@@ -32,31 +32,32 @@
     <path>civicrm/chat/conversationType</path>
     <page_callback>CRM_Chat_Page_ConversationType</page_callback>
     <title>Conversation types</title>
-    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>access chatbot</access_arguments>
   </item>
   <item>
     <path>civicrm/chat/conversationType/view</path>
     <page_callback>CRM_Chat_Page_ConversationType_View</page_callback>
     <title>Conversation type</title>
-    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>access chatbot</access_arguments>
   </item>
   <item>
     <path>civicrm/chat/conversationType/add</path>
     <page_callback>CRM_Chat_Form_ConversationType_Add</page_callback>
     <title>Add conversation type</title>
-    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>access chatbot</access_arguments>
   </item>
   <item>
     <path>civicrm/chat/conversationType/edit</path>
     <page_callback>CRM_Chat_Form_ConversationType_Edit</page_callback>
     <title>Edit conversation type</title>
-    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>access chatbot</access_arguments>
   </item>
   <item>
     <path>civicrm/chat/conversationType/delete</path>
     <page_callback>CRM_Chat_Form_ConversationType_Delete</page_callback>
     <title>Edit conversation type</title>
-    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>access chatbot</access_arguments>
+  </item>
   <item>
     <path>civicrm/chat/question/add</path>
     <page_callback>CRM_Chat_Form_Question_Add</page_callback>
@@ -75,6 +76,23 @@
     <title>Edit question</title>
     <access_arguments>access chatbot</access_arguments>
   </item>
+  <item>
+    <path>civicrm/chat/action/add</path>
+    <page_callback>CRM_Chat_Form_Action_Add</page_callback>
+    <title>Add action</title>
+    <access_arguments>access chatbot</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/chat/action/edit</path>
+    <page_callback>CRM_Chat_Form_Action_Edit</page_callback>
+    <title>Edit action</title>
+    <access_arguments>access chatbot</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/chat/action/delete</path>
+    <page_callback>CRM_Chat_Form_Action_Delete</page_callback>
+    <title>Edit action</title>
+    <access_arguments>access chatbot</access_arguments>
   </item>
 </menu>
 <!--
