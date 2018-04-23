@@ -83,16 +83,17 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
     foreach($this->fields as $field){
 
-
-      if(isset($this->entities[$field['entity']]['fields'][$field['field']]['html']['type'])){
+      if(isset($field['type'])) {
+        $type = $field['type'];
+      }elseif(isset($this->entities[$field['entity']]['fields'][$field['field']]['html']['type'])) {
         $type = $this->entities[$field['entity']]['fields'][$field['field']]['html']['type'];
       }else{
         $type = 'Text';
       }
 
-      switch ($type) {
+      switch (strtolower($type)) {
 
-        case 'Text':
+        case 'text':
           $element = $this->addElement(
             'text',
             $field['name'],
@@ -101,7 +102,16 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
           );
           break;
 
-        case 'EntityRef':
+        case 'select':
+          $element = $this->addElement(
+            'select',
+            $field['name'],
+            $field['title'],
+            $field['options']
+          );
+          break;
+
+        case 'entityref':
           $element = $this->addEntityRef(
             $field['name'],
             $field['title'],

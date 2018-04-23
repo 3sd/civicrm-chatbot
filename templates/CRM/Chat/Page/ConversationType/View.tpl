@@ -32,7 +32,7 @@
 
   </li>
   {/foreach}
-  <li>add action <a href="{crmURL p='civicrm/chat/action/add' q="type=3&question_id=`$question.id`"}" title="add action"><i class="crm-i fa-plus"></i></a></li>
+  <li>add action <a href="{crmURL p='civicrm/chat/action/add' q="questionId=`$question.id`"}" title="add action"><i class="crm-i fa-plus"></i></a></li>
   </ul>
 
 {foreachelse}

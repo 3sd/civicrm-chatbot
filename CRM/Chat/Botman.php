@@ -4,8 +4,6 @@ use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\Drivers\Facebook\FacebookDriver;
 
-// TODO refactor into bot/driver and listener
-
 class CRM_Chat_Botman {
 
   const SHORT_NAMES = [

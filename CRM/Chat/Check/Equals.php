@@ -1,5 +1,5 @@
 <?php
-class CRM_Chat_Check_Equals extends CRM_Chat_Match {
+class CRM_Chat_Check_Equals extends CRM_Chat_Check {
 
   function __construct($params){
     $this->equals = $params['equals'];
