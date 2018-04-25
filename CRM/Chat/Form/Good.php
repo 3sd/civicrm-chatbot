@@ -107,7 +107,8 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
             'select',
             $field['name'],
             $field['title'],
-            $field['options']
+            $field['options'],
+            ['class' => 'form-control']
           );
           break;
 
