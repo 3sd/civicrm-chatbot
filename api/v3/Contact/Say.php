@@ -24,7 +24,7 @@ function civicrm_api3_contact_say($params) {
     throw new API_Exception("Could not find {$params['service']} user for contact_id {$params['id']}");
   }
 
-  $botman = CRM_Chat_Botman::getBot($params['service']);
+  $botman = CRM_Chat_Botman::get($params['service']);
 
   $botman->middleware->sending(new CRM_Chat_Middleware_Identify());
   $botman->middleware->sending(new CRM_Chat_Middleware_RecordOutgoing());
