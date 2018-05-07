@@ -4,15 +4,20 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 
 class CRM_Chat_Conversation extends Conversation {
 
-  public function __construct($conversationType) {
+  public $contactId;
+
+  public function __construct($conversationType, $contactId = null) {
 
     $this->conversationType = $conversationType;
+    $this->contactId = $contactId;
 
   }
 
   public function run() {
 
-    $this->contactId = $this->getBot()->getMessage()->getExtras('contact_id');
+    if(empty($this->contactId)){
+      $this->contactId = $this->getBot()->getMessage()->getExtras('contact_id');
+    }
     $this->askQuestion($this->conversationType->first_question_id);
 
   }
