@@ -29,7 +29,14 @@ function civicrm_api3_contact_start_conversation($params) {
   $botman->middleware->sending(new CRM_Chat_Middleware_Identify());
   $botman->middleware->sending(new CRM_Chat_Middleware_RecordOutgoing());
 
-  $botman->startConversation(new CRM_Chat_Conversation($params['conversation_type_id']), $user['user_id'], CRM_Chat_Botman::getDriver($params['service']));
+  $botman->startConversation(
+    new CRM_Chat_Conversation(
+      CRM_Chat_BAO_ChatConversationType::findById($params['conversation_type_id']),
+      $params['id']
+    ),
+    $user['user_id'],
+    CRM_Chat_Botman::getDriver($params['service'])
+  );
 
   return civicrm_api3_create_success();
 
