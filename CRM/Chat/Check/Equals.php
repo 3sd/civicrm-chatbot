@@ -5,8 +5,8 @@ class CRM_Chat_Check_Equals extends CRM_Chat_Check {
     $this->equals = $params['equals'];
   }
 
-  function matches($text){
-    if($text == $this->equals){
+  function check(){
+    if(strtolower($this->text) == strtolower($this->equals)){
       return true;
     }
     return false;
