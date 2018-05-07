@@ -70,25 +70,25 @@ class CRM_Chat_Conversation extends Conversation {
       ];
 
       foreach($actions as $type => $closure) {
-        $this->processAction($answer->getText(), $questionId, $type, $closure);
+        $this->processAction($type, $answer->getText(), $questionId, $closure);
       }
 
     };
 
   }
 
-  protected function processAction($text, $questionId, $type, $closure) {
+  protected function processAction($type, $text, $questionId, $closure) {
 
-    $groups = CRM_Chat_BAO_ChatAction::findByTypeAndQuestion($type, $questionId);
+    $action = CRM_Chat_BAO_ChatAction::findByTypeAndQuestion($type, $questionId);
 
-    while($groups->fetch()){
-      $check = unserialize($groups->check_object);
+    while($action->fetch()){
+      $check = unserialize($action->check_object);
       if($check->matches($text)){
 
         // TODO if $type == 'next' then break out of while since we can only go to one place.
-        // TODO add weight to actions so that they are executed in order
+        // TODO add weight to 'next' actions so that they are executed in order
 
-        $closure($groups->action_data, $check->getMatch());
+        $closure($action->action_data, $check->getMatch());
 
       }
 
