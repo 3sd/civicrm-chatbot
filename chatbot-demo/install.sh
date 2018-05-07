@@ -38,6 +38,7 @@ drush role-add-perm 'civicrm user' 'access CiviCRM'
 drush role-add-perm 'civicrm user' 'administer CiviCRM'
 drush role-add-perm 'civicrm user' 'access chatbot'
 drush role-add-perm 'civicrm user' 'view all contacts'
+drush role-add-perm 'civicrm user' 'edit all contacts'
 
 drush user-add-role 'civicrm user' 'chat'
 
