@@ -16,14 +16,23 @@ abstract class CRM_Chat_Form_Good_Delete extends CRM_Chat_Form_Good {
   var $submitText = 'Delete';
 
   function buildQuickForm() {
-    $label = reset($this->entities)['before'][$this->deleteEntityLabelField];
-    $this->addHelp('form', 'top', "Are you sure you want to delete the {$this->deleteEntityText} '{$label}'", 'warning');
+    $description = $this->getDescription();
+    $this->addHelp('form', 'top', "Are you sure you want to delete the {$this->deleteEntityText} '{$description}'", 'warning');
     parent::buildQuickForm();
+  }
+
+  function getDescription(){
+    return reset($this->entities)['before'][$this->deleteEntityLabelField];
   }
 
   function postProcess() {
 
     foreach($this->entities as &$entity) {
+
+      if(isset($entity['process']) && $entity['process'] === false){
+        continue;
+      }
+
       $result = civicrm_api3($entity['type'], 'delete', ['id' => $entity['before']['id']]);
     }
 

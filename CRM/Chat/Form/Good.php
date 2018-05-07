@@ -15,6 +15,12 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
     return $this->title;
   }
 
+  function loadFields(){
+  }
+
+  function loadEntities(){
+  }
+
   function getFields(){
     return $this->fields;
   }
@@ -41,11 +47,21 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
   function preProcess() {
 
+    $this->loadEntities();
+    $this->loadFields();
+
     foreach($this->entities as &$entity) {
       $entity['fields'] = civicrm_api3($entity['type'], 'getfields', ['action' => 'create'])['values'];
       if(isset($entity['param'])){
         $entityId = CRM_Utils_Request::retrieve($entity['param'], 'String', $this);
         $entity['before'] = civicrm_api3($entity['type'], 'getsingle', ['id' => $entityId]);
+      }
+      if(isset($entity['references'])){
+        foreach($entity['references'] as $field => $reference){
+          if(isset($entity['before'][$field])){
+            $this->entities[$reference['entity']]['before'] = civicrm_api3($reference['entity'], 'getsingle', [$reference['field'] => $entity['before'][$field]]);
+          }
+        }
       }
     }
 
@@ -55,6 +71,12 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
     foreach($this->entities as &$entity) {
     }
+
+    $this->preProcessMassage();
+
+  }
+
+  function preProcessMassage(){
 
   }
 
@@ -108,23 +130,33 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
             $field['name'],
             $field['title'],
             $field['options'],
-            ['class' => 'form-control']
+            ['class' => 'form-control crm-form-select']
           );
           break;
 
         case 'entityref':
+          $props = [
+            'class' => 'form-control crm-form-select',
+          ];
+          if(isset($field['entityref_api'])){
+            $props['api'] = $field['entityref_api'];
+          }
+          if(isset($field['entityref_entity'])){
+            $props['entity'] = $field['entityref_entity'];
+          }else{
+            $props['entity'] = $this->entities[$field['entity']]['fields'][$field['field']]['FKApiName'];
+          }
           $element = $this->addEntityRef(
             $field['name'],
             $field['title'],
-            [
-              'entity' => $this->entities[$field['entity']]['fields'][$field['field']]['FKApiName'],
-              'class' => 'form-control crm-form-select',
-              'api' => $field['entityref_api']
-            ]
+            $props
           );
           break;
       }
-      $this->addHelp('field', $field['name'], $field['help']);
+
+      if(isset($field['help'])) {
+        $this->addHelp('field', $field['name'], $field['help']);
+      }
 
     }
     // exit;
@@ -157,7 +189,15 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
     $submitted = $this->exportValues();
 
+    $submitted = $this->postProcessMassage($submitted);
+
+    var_dump($this->entities);
+
     foreach($this->entities as &$entity) {
+
+      if(isset($entity['process']) && $entity['process'] === false){
+        continue;
+      }
 
       $params = [];
 
@@ -183,6 +223,9 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
         }
       }
 
+      var_dump($entity['type']);
+      var_dump($params);
+
       $result = civicrm_api3($entity['type'], 'create', $params);
       $entity['after'] = $result['values'][$result['id']];
 
@@ -190,6 +233,10 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
     $this->controller->_destination = $this->getDestination();
 
+  }
+
+  function postProcessMassage($submitted){
+    return $submitted;
   }
 
   abstract function getDestination();

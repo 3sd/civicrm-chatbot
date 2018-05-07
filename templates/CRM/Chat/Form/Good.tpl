@@ -6,7 +6,7 @@
 
 {foreach from=$fields item=field}
 
-<div class="form-group">
+<div class="form-group {$form.$field.name}">
   {$form.$field.label}
   <div class="content">{$form.$field.html}</div>
   <p class="help-block">{$help.field.$field.text}</p>
