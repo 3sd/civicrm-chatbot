@@ -54,7 +54,7 @@ class CRM_Chat_Driver_DevChatDriver extends HttpDriver {
   public function getUser(IncomingMessage $matchingMessage) {
 
     // For this driver, all messages all come from Mr Dev Chat.
-    return new User('1', 'Dev', 'Chat');
+    return new User('1', 'Joe', 'Bloggs');
 
   }
 

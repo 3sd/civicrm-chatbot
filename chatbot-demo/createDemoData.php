@@ -69,12 +69,8 @@ $entities['ChatConversationType'] = [
 ];
 
 $entities['ChatHear'] = [
-  'movie' => [
-    'text' => 'movie',
-    'chat_conversation_type_id' => '{{ChatConversationType.movie}}'
-  ],
   'pets' => [
-    'text' => 'pets',
+    'text' => 'start',
     'chat_conversation_type_id' => '{{ChatConversationType.pets}}'
   ],
 ];
@@ -128,6 +124,18 @@ $entities['ChatAction'] = [
     'type' => 'group',
     'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'yes'])),
     'action_data' => '{{Group.dogNewsletter}}'
+  ],
+  'dogNewsletterSignupConfirmYes' => [
+    'question_id' => '{{ChatQuestion.dogNewsletter}}',
+    'type' => 'say',
+    'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'yes'])),
+    'action_data' => "OK - we'll sign you up to the Dog newsletter!"
+  ],
+  'dogNewsletterSignupConfirmNo' => [
+    'question_id' => '{{ChatQuestion.dogNewsletter}}',
+    'type' => 'say',
+    'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'no'])),
+    'action_data' => "Understood - we won't add you to our Dog newsletter"
   ],
   'haveCat' => [
     'question_id' => '{{ChatQuestion.dogorcat}}',
