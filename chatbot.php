@@ -140,7 +140,7 @@ function chatbot_civicrm_entityTypes(&$entityTypes) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
  **/
- function chatbot_civicrm_navigationMenu(&$menu) {
+function chatbot_civicrm_navigationMenu(&$menu) {
   foreach(CRM_Chat_Navigation::getItems() as $item){
     _chatbot_civix_insert_navigation_menu($menu, $item['parent'], $item);
   }
@@ -155,6 +155,21 @@ function chatbot_civicrm_permission(&$permissions){
     $prefix . E::ts('access chatbot'),
     E::ts('Provides access to chatbot')
   ];
+}
+
+function chatbot_civicrm_summaryActions(&$actions, $contactId){
+
+  // If the contact has a mobile phone, start a conversation with them
+  $count = civicrm_api3('ChatUser', 'getcount', ['contact_id' => $contactId]);
+  if($count){
+      $actions['chatbot'] = [
+      'title' => 'Chat - start a conversation',
+      'weight' => 999,
+      'ref' => 'chatbot',
+      'key' => 'chatbot',
+      'href' => CRM_Utils_System::url('civicrm/chat/start', "cid=$contactId"),
+    ];
+  }
 }
 
 function chatbot_civicrm_searchTasks( $objectName, &$tasks ){

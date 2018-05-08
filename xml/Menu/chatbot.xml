@@ -94,6 +94,12 @@
     <title>Edit action</title>
     <access_arguments>access chatbot</access_arguments>
   </item>
+  <item>
+    <path>civicrm/chat/start</path>
+    <page_callback>CRM_Chat_Form_Start</page_callback>
+    <title>Edit action</title>
+    <access_arguments>access chatbot</access_arguments>
+  </item>
 </menu>
 <!--
 

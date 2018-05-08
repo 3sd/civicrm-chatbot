@@ -43,7 +43,6 @@ class CRM_Chat_Form_StartMultiple extends CRM_Contact_Form_Task{
 
     $values = $this->exportValues();
     $session = CRM_Core_Session::singleton();
-    var_dump($values);
 
     foreach($this->serviceUsers[$values['service']] as $contactId){
       $params = [
