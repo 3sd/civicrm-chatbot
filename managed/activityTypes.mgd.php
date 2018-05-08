@@ -9,6 +9,7 @@ return [
       'label' => 'Incoming chat',
       'name' => 'Incoming chat',
       'description' => 'Chat message received from a contact',
+      'filter' => '1',
       'is_reserved' => '1',
       'is_active' => '1'
     ]
@@ -22,6 +23,7 @@ return [
       'label' => 'Outgoing chat',
       'name' => 'Outgoing chat',
       'description' => 'Chat message send to a contact',
+      'filter' => '1',
       'is_reserved' => '1',
       'is_active' => '1'
     ]
