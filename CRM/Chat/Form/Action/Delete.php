@@ -10,7 +10,7 @@ use CRM_Chat_ExtensionUtil as E;
 
 class CRM_Chat_Form_Action_Delete extends CRM_Chat_Form_Good_Delete {
 
-  function loadEntities(){
+  function initEntities(){
 
     $this->entities = [
       'ChatAction' => [

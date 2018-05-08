@@ -11,14 +11,20 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
   var $help = [];
 
+  var $fields = [];
+
+  var $entities = [];
+
+  var $submitText = 'Save';
+
   function getTitle2(){
     return $this->title;
   }
 
-  function loadFields(){
+  function initFields(){
   }
 
-  function loadEntities(){
+  function initEntities(){
   }
 
   function getFields(){
@@ -47,8 +53,7 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
   function preProcess() {
 
-    $this->loadEntities();
-    $this->loadFields();
+    $this->initEntities();
 
     foreach($this->entities as &$entity) {
       $entity['fields'] = civicrm_api3($entity['type'], 'getfields', ['action' => 'create'])['values'];
@@ -65,11 +70,9 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
       }
     }
 
+    $this->initFields();
     foreach($this->fields as &$field) {
       $field['name'] = "{$field['entity']}:{$field['field']}";
-    }
-
-    foreach($this->entities as &$entity) {
     }
 
     $this->preProcessMassage();
@@ -103,7 +106,7 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
   function addFields() {
 
-    foreach($this->fields as $field){
+    foreach($this->getFields() as $field){
 
       if(isset($field['type'])) {
         $type = $field['type'];
@@ -161,7 +164,7 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
     }
     // exit;
 
-    $this->assign( 'fields', array_map(function($field){ return $field['name']; }, $this->fields));
+    $this->assign( 'fields', array_map(function($field){ return $field['name']; }, $this->getFields()));
   }
 
   function addHelp($type, $key, $text, $level = 'info') {
@@ -174,7 +177,7 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
     $defaults = [];
 
-    foreach($this->fields as $field){
+    foreach($this->getFields() as $field){
 
       if(isset($this->entities[$field['entity']]['before'][$field['field']])){
         $defaults[$field['name']] = $this->entities[$field['entity']]['before'][$field['field']];
@@ -191,9 +194,7 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
     $submitted = $this->postProcessMassage($submitted);
 
-    var_dump($this->entities);
-
-    foreach($this->entities as &$entity) {
+    foreach($this->getEntities() as $entity) {
 
       if(isset($entity['process']) && $entity['process'] === false){
         continue;
@@ -205,7 +206,7 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
         $params['id'] = $entity['before']['id'];
       }
 
-      foreach($this->fields as $field) {
+      foreach($this->getFields() as $field) {
         if($field['entity'] == $entity['type']) {
           if(isset($submitted[$field['name']])){
             $params[$field['field']] = $submitted[$field['name']];
@@ -222,9 +223,6 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
           }
         }
       }
-
-      var_dump($entity['type']);
-      var_dump($params);
 
       $result = civicrm_api3($entity['type'], 'create', $params);
       $entity['after'] = $result['values'][$result['id']];

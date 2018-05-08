@@ -9,7 +9,7 @@ class CRM_Chat_Form_Action_Add extends CRM_Chat_Form_Good {
 
   var $submitText = 'Save';
 
-  function loadFields(){
+  function initFields(){
 
     $matches = civicrm_api3('OptionValue', 'get', ['option_group_id' => 'chat_check_type']);
 
@@ -102,7 +102,7 @@ class CRM_Chat_Form_Action_Add extends CRM_Chat_Form_Good {
     ];
   }
 
-  function loadEntities(){
+  function initEntities(){
 
     $this->entities = [
       'ChatAction' => [
