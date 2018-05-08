@@ -156,3 +156,12 @@ function chatbot_civicrm_permission(&$permissions){
     E::ts('Provides access to chatbot')
   ];
 }
+
+function chatbot_civicrm_searchTasks( $objectName, &$tasks ){
+  if($objectName == 'contact'){
+    $tasks[] = [
+      'title' => 'Chat - start a conversation',
+      'class' => 'CRM_Chat_Form_StartMultiple'
+    ];
+  }
+}
