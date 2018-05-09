@@ -33,10 +33,10 @@ class CRM_Chat_Conversation extends Conversation {
 
   }
 
-  protected function answer($questionId) {
+  protected function action($questionId) {
 
     return function(Answer $answer) use ($questionId) {
-
+      $this->end = true;
       $actions = [
         'group' => function($groupId){
 
@@ -69,15 +69,20 @@ class CRM_Chat_Conversation extends Conversation {
         'next' => function($questionId){
 
           $question = CRM_Chat_BAO_ChatQuestion::findById($questionId);
-          $this->ask($question->text, $this->answer($questionId));
+          $this->end = false;
+          $this->askQuestion($questionId);
 
         },
       ];
 
       foreach($actions as $type => $closure) {
         $this->processAction($type, $answer->getText(), $questionId, $closure);
+      if($this->end){
+        civicrm_api3('Activity', 'create', [
+          'id' => CRM_Chat_Utils::getOngoingConversation($contactId)['id'],
+          'activity_status_id' => 'Completed'
+        ]);
       }
-
     };
 
   }
