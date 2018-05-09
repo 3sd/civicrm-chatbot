@@ -91,7 +91,11 @@ class CRM_Chat_Page_ConversationType_View extends CRM_Core_Page {
       foreach($nextActions as $actionId => &$action){
         if($action['question_id'] == $questionId){
           $child[$action['action_data']] = [];
-          unset($action);
+          foreach($nextActions as $actionToDeleteId => $actionToDelete){
+            if($actionToDelete['action_data'] == $action['action_data']){
+              unset($nextActions[$actionToDeleteId]);
+            }
+          }
           $this->addBranches($child, $nextActions);
         }
       }
@@ -100,7 +104,7 @@ class CRM_Chat_Page_ConversationType_View extends CRM_Core_Page {
 
   // Orders questions based on the tree, adding a consecutive number for each so
   // they can be cross referenced.
-  function order($questions, &$tree, &$orderedQuestions, $number = 0) {
+  function order($questions, $tree, &$orderedQuestions, $number = 0) {
     foreach($tree as $key => $branch) {
       $number++;
       $orderedQuestions[$number] = $questions[$key];
