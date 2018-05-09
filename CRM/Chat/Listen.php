@@ -15,12 +15,18 @@ class CRM_Chat_Listen {
     $botman->middleware->sending(new CRM_Chat_Middleware_RecordOutgoing());
 
     $botman->hears('(.*)', function ($bot, $hears) {
+
       $hear = new CRM_Chat_BAO_ChatHear;
       $hear->text = $hears;
       if($hear->find() == 1){
         $hear->fetch();
-        CRM_Chat_Logger::debug($hear->chat_conversation_type_id);
-        $bot->startConversation(new CRM_Chat_Conversation(CRM_Chat_BAO_ChatConversationType::findById($hear->chat_conversation_type_id)));
+        // CRM_Chat_Logger::debug($bot->getMessage());
+        civicrm_api3('Contact', 'start_conversation', [
+          'id' => $bot->getMessage()->getExtras('contact_id'),
+          'source_contact_id' => $bot->getMessage()->getExtras('contact_id'),
+          'service' => CRM_Chat_Botman::shortName($bot->getDriver()),
+          'conversation_type_id' => CRM_Chat_BAO_ChatConversationType::findById($hear->chat_conversation_type_id)
+        ]);
       }
     });
 

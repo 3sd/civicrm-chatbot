@@ -25,4 +25,18 @@ class CRM_Chat_Utils {
 
   }
 
+  static function getOngoingConversation($contactId) {
+    try {
+      $conversation = civicrm_api3('activity', 'getsingle', [
+        'target_contact_id' => $contactId,
+        'activity_type_id' => 'Conversation',
+        'activity_status_id' => 'Ongoing'
+      ]);
+      return $conversation;
+    } catch (Exception $e) {
+      return null;
+    }
+  }
+
+
 }

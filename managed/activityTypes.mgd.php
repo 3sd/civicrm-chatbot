@@ -28,4 +28,18 @@ return [
       'is_active' => '1'
     ]
   ],
+  [
+    'name' => 'Conversation',
+    'entity' => 'OptionValue',
+    'params' => [
+      'version' => 3,
+      'option_group_id' => 'activity_type',
+      'label' => 'Conversation',
+      'name' => 'Conversation',
+      'description' => 'A conversation with a contact',
+      'filter' => '1',
+      'is_reserved' => '1',
+      'is_active' => '1'
+    ]
+  ],
 ];
