@@ -100,10 +100,14 @@ $entities['ChatQuestion'] = [
     'conversation_type_id' => '{{ChatConversationType.movie}}',
     'text' => 'What is your favourite movie?',
   ],
-  'petSurvey' => [
+  'movieTimes' => [
     'conversation_type_id' => '{{ChatConversationType.movie}}',
-    'text' => 'Would you like to take part in our pet survey?',
+    'text' => 'Thanks for letting me know! How many times have you seen it?',
   ],
+  // 'petSurvey' => [
+  //   'conversation_type_id' => '{{ChatConversationType.movie}}',
+  //   'text' => 'Would you like to take part in our pet survey?',
+  // ],
 ];
 
 $entities['ChatAction'] = [
@@ -157,22 +161,22 @@ $entities['ChatAction'] = [
   ],
   'movie' => [
     'question_id' => '{{ChatQuestion.movie}}',
-    'type' => 'say',
-    'check_object' => serialize(new CRM_Chat_Check_Anything()),
-    'action_data' => 'Thanks for letting me know!',
-  ],
-  'askAboutPetSurvey' => [
-    'question_id' => '{{ChatQuestion.movie}}',
     'type' => 'next',
     'check_object' => serialize(new CRM_Chat_Check_Anything()),
-    'action_data' => '{{ChatQuestion.petSurvey}}'
+    'action_data' => '{{ChatQuestion.movieTimes}}',
   ],
-  'startPetSurvey' => [
-    'question_id' => '{{ChatQuestion.petSurvey}}',
-    'type' => 'conversation',
-    'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'yes'])),
-    'action_data' => '{{ChatConversationType.pets}}'
-  ]
+  // 'askAboutPetSurvey' => [
+  //   'question_id' => '{{ChatQuestion.movie}}',
+  //   'type' => 'next',
+  //   'check_object' => serialize(new CRM_Chat_Check_Anything()),
+  //   'action_data' => '{{ChatQuestion.petSurvey}}'
+  // ],
+  // 'startPetSurvey' => [
+  //   'question_id' => '{{ChatQuestion.petSurvey}}',
+  //   'type' => 'conversation',
+  //   'check_object' => serialize(new CRM_Chat_Check_Contains(['contains' => 'yes'])),
+  //   'action_data' => '{{ChatConversationType.pets}}'
+  // ]
 ];
 
 $entities['Group'] = [

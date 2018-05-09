@@ -66,14 +66,14 @@ class CRM_Chat_Form_Action_Add extends CRM_Chat_Form_Good {
         'type' => 'text',
         'entityref_entity' => 'ChatQuestion',
       ],
-      'ChatAction:startConversation' => [
-        'entity' => 'ChatAction',
-        'field' => 'conversation',
-        'title' => 'Start conversation',
-        'help' => 'The conversation type to start',
-        'type' => 'EntityRef',
-        'entityref_entity' => 'ChatConversationType',
-      ],
+      // 'ChatAction:startConversation' => [
+      //   'entity' => 'ChatAction',
+      //   'field' => 'conversation',
+      //   'title' => 'Start conversation',
+      //   'help' => 'The conversation type to start',
+      //   'type' => 'EntityRef',
+      //   'entityref_entity' => 'ChatConversationType',
+      // ],
       'ChatAction:addToGroup' => [
         'entity' => 'ChatAction',
         'field' => 'group',
@@ -195,9 +195,9 @@ class CRM_Chat_Form_Action_Add extends CRM_Chat_Form_Good {
         $submitted['ChatAction:action_data'] = $submitted['ChatAction:say'];
         break;
 
-      case 'conversation':
-        $submitted['ChatAction:action_data'] = $submitted['ChatAction:conversation'];
-        break;
+      // case 'conversation':
+      //   $submitted['ChatAction:action_data'] = $submitted['ChatAction:conversation'];
+      //   break;
 
       case 'group':
         $submitted['ChatAction:action_data'] = $submitted['ChatAction:group'];
@@ -210,7 +210,7 @@ class CRM_Chat_Form_Action_Add extends CRM_Chat_Form_Good {
 
     unset($submitted['ChatAction:next']);
     unset($submitted['ChatAction:say']);
-    unset($submitted['ChatAction:conversation']);
+    // unset($submitted['ChatAction:conversation']);
     unset($submitted['ChatAction:group']);
     unset($submitted['ChatAction:field']);
 

@@ -59,12 +59,13 @@ class CRM_Chat_Conversation extends Conversation {
 
         },
 
-        'conversation' => function($conversationTypeId){
-
-          $conversationType = CRM_Chat_BAO_ChatConversationType::findById($conversationTypeId);
-          $this->bot->startConversation(new CRM_Chat_Conversation($conversationType));
-
-        },
+        // 'conversation' => function($conversationTypeId){
+        //
+        //   $conversationType = CRM_Chat_BAO_ChatConversationType::findById($conversationTypeId);
+        //   $this->end = false;
+        //   $this->bot->startConversation(new CRM_Chat_Conversation($conversationType));
+        //
+        // },
 
         'next' => function($questionId){
 
@@ -95,10 +96,12 @@ class CRM_Chat_Conversation extends Conversation {
       $check = unserialize($action->check_object);
       if($check->matches($text)){
 
-        // TODO if $type == 'next' then break out of while since we can only go to one place.
         // TODO add weight to 'next' actions so that they are executed in order
 
         $closure($action->action_data, $check->getMatch());
+        if($type == 'next' || $type == 'conversation') {
+          return;
+        }
 
       }
 
