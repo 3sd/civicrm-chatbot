@@ -32,7 +32,7 @@
 
   </li>
   {/foreach}
-  <li>add action <a href="{crmURL p='civicrm/chat/action/add' q="questionId=`$question.id`"}" title="add action"><i class="crm-i fa-plus"></i></a></li>
+  <li><em>add action <a href="{crmURL p='civicrm/chat/action/add' q="questionId=`$question.id`"}" title="add action"><i class="crm-i fa-plus"></i></em></a></li>
   </ul>
 
 {foreachelse}
@@ -51,7 +51,7 @@
     </ul>
   </div>
 {/if}
-<h4>{ts}Add question{/ts} <a href="{crmURL p='civicrm/chat/question/add' q="conversationTypeId=`$conversationType.id`"}" role="button"><i class="crm-i fa-plus"></i></a></h4>
+<h4><em>{ts}Add question{/ts} <a href="{crmURL p='civicrm/chat/question/add' q="conversationTypeId=`$conversationType.id`"}" role="button"><i class="crm-i fa-plus"></i></a></em></h4>
 <p>{ts}Conversation timeout:{/ts} {$conversationType.timeout} {ts}minutes{/ts}</p>
 <br/><br/>
 <p>
