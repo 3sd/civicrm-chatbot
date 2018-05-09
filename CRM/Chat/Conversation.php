@@ -28,7 +28,7 @@ class CRM_Chat_Conversation extends Conversation {
 
     $text = $this->tokenReplacement($question->text, $this->contactId);// TODO contact token replacement
 
-    $this->ask($text, $this->answer($questionId));
+    $this->ask($text, $this->action($questionId));
     return;
 
   }
@@ -78,14 +78,15 @@ class CRM_Chat_Conversation extends Conversation {
 
       foreach($actions as $type => $closure) {
         $this->processAction($type, $answer->getText(), $questionId, $closure);
+      }
       if($this->end){
+
         civicrm_api3('Activity', 'create', [
-          'id' => CRM_Chat_Utils::getOngoingConversation($contactId)['id'],
+          'id' => CRM_Chat_Utils::getOngoingConversation($this->contactId)['id'],
           'activity_status_id' => 'Completed'
         ]);
       }
     };
-
   }
 
   protected function processAction($type, $text, $questionId, $closure) {
