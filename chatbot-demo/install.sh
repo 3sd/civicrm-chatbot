@@ -43,8 +43,12 @@ drush role-add-perm 'civicrm user' 'edit all contacts'
 
 drush user-add-role 'civicrm user' 'chat'
 
+pushd `cv path -x chatbot`/chatbot-demo
+
 cv scr createDemoData.php
 
-if [ -f sites/all/modules/civicrm/tools/extensions/civicrm-chatbot//chatbot-demo/secrets.sh ]; then
-    bash sites/all/modules/civicrm/tools/extensions/civicrm-chatbot/chatbot-demo/secrets.sh
+if [ -f secrets.sh ]; then
+    secrets.sh
 fi
+
+popd
