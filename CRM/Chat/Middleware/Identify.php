@@ -8,10 +8,10 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
 
   public function received(IncomingMessage $message, $next, BotMan $bot) {
 
-    $service = CRM_Chat_Botman::shortName($bot->getDriver());
+    $driver = $bot->getDriver();
     $user = $bot->getDriver()->getUser($message);
 
-    $this->identify($message, $service, $user);
+    $this->identify($message, $driver, $user);
 
     return $next($message);
 
@@ -22,16 +22,19 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
 
     // The server fakes an incoming message from the user
     // Use this to identify the recipient
+
     $message = $bot->getMessage();
-    $service = CRM_Chat_Botman::shortName($bot->getDriver());
+    $driver = $bot->getDriver();
     $user = $bot->getDriver()->getUser($message);
-    $this->identify($message, $service, $user);
+
+    $this->identify($message, $driver, $user);
 
     return $next($payload);
 
   }
 
-  function identify($message, $service, $user){
+  function identify($message, $driver, $user){
+    $service = CRM_Chat_Driver::getServiceName($driver);
 
     try {
       $chatUser = civicrm_api3('ChatUser', 'getsingle', [

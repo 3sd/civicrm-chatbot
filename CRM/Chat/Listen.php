@@ -20,11 +20,10 @@ class CRM_Chat_Listen {
       $hear->text = $hears;
       if($hear->find() == 1){
         $hear->fetch();
-        // CRM_Chat_Logger::debug($bot->getMessage());
         civicrm_api3('Contact', 'start_conversation', [
           'id' => $bot->getMessage()->getExtras('contact_id'),
           'source_contact_id' => $bot->getMessage()->getExtras('contact_id'),
-          'service' => CRM_Chat_Botman::shortName($bot->getDriver()),
+          'service' => CRM_Chat_Driver::getServiceName($bot->getDriver()),
           'conversation_type_id' => CRM_Chat_BAO_ChatConversationType::findById($hear->chat_conversation_type_id)->id
         ]);
       }

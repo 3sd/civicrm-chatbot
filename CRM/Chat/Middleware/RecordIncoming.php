@@ -8,10 +8,8 @@ class CRM_Chat_Middleware_RecordIncoming extends CRM_Chat_Middleware implements 
   public function received(IncomingMessage $message, $next, BotMan $bot) {
 
     $details = $message->getText();
-    $subject = CRM_Chat_Botman::shortName($bot->getDriver()) . ': ' . CRM_Chat_Utils::shorten($details, 50);
+    $subject = CRM_Chat_Driver::getServiceName($bot->getDriver()) . ': ' . CRM_Chat_Utils::shorten($details, 50);
     $contactId = $message->getExtras('contact_id');
-
-
 
     civicrm_api3('activity', 'create', [
       'activity_type_id' => 'Incoming chat',

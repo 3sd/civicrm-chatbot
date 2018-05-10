@@ -8,7 +8,7 @@ class CRM_Chat_Middleware_RecordOutgoing extends CRM_Chat_Middleware implements 
   public function sending($payload, $next, BotMan $bot) {
 
     $details = $payload['message']['text'];
-    $subject = CRM_Chat_Botman::shortName($bot->getDriver()) . ': ' . CRM_Chat_Utils::shorten($details, 50);
+    $subject = CRM_Chat_Driver::getServiceName($bot->getDriver()) . ': ' . CRM_Chat_Utils::shorten($details, 50);
     $contactId = $bot->getMessage()->getExtras('contact_id');
     $conversationId = $bot->getMessage()->getExtras('conversation_id');
 
