@@ -2,6 +2,7 @@
 
 # Local
 git_cache_setup "https://github.com/3sd/civicrm-chatbot.git" "$CACHE_DIR/3sd/civicrm-chatbot.git"
+git_cache_setup "https://github.com/3sd/io.3sd.dummysms.git" "$CACHE_DIR/3sd/io.3sd.dummysms.git"
 git_cache_setup "https://github.com/3sd/tivy.git" "$CACHE_DIR/3sd/tivy.git"
 git_cache_setup "https://github.com/civicrm/org.civicrm.shoreditch.git" "$CACHE_DIR/civicrm/org.civicrm.shoreditch.git"
 
@@ -20,6 +21,7 @@ pushd "$WEB_ROOT"
     git clone "${CACHE_DIR}/civicrm/civicrm-drupal.git" -b "7.x-$CIVI_VERSION" civicrm/drupal
     git clone "${CACHE_DIR}/civicrm/civicrm-packages.git" -b "$CIVI_VERSION" civicrm/packages
     git clone "${CACHE_DIR}/3sd/civicrm-chatbot.git" civicrm/tools/extensions/civicrm-chatbot
+    git clone "${CACHE_DIR}/3sd/io.3sd.dummysms.git" civicrm/tools/extensions/io.3sd.dummysms
     git clone "${CACHE_DIR}/civicrm/org.civicrm.shoreditch.git" civicrm/tools/extensions/org.civicrm.shoreditch
 
     # Use my chatbot branch of CivICRM for now

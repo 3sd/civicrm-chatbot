@@ -32,6 +32,7 @@ drush sql-query "UPDATE block SET status= 1, region = 'right' WHERE theme = 'tiv
 cv ext:enable org.civicrm.shoreditch
 cv api setting.create customCSSURL=$CMS_URL/sites/all/modules/civicrm/tools/extensions/org.civicrm.shoreditch/css/custom-civicrm.css
 cv ext:enable chatbot
+cv ext:enable dummysms
 
 drush role-create 'civicrm user'
 drush role-add-perm 'civicrm user' 'access CiviCRM'
