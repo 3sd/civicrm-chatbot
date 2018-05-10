@@ -25,7 +25,7 @@ class CRM_Chat_Listen {
           'id' => $bot->getMessage()->getExtras('contact_id'),
           'source_contact_id' => $bot->getMessage()->getExtras('contact_id'),
           'service' => CRM_Chat_Botman::shortName($bot->getDriver()),
-          'conversation_type_id' => CRM_Chat_BAO_ChatConversationType::findById($hear->chat_conversation_type_id)
+          'conversation_type_id' => CRM_Chat_BAO_ChatConversationType::findById($hear->chat_conversation_type_id)->id
         ]);
       }
     });
