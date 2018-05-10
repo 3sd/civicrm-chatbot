@@ -34,7 +34,12 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
   }
 
   function identify($message, $driver, $user){
+
     $service = CRM_Chat_Driver::getServiceName($driver);
+    $params = [
+      'service' => $service,
+      'user_id' => $user->getId()
+    ];
 
     try {
       $chatUser = civicrm_api3('ChatUser', 'getsingle', [
@@ -43,7 +48,16 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
       ]);
       $contactId = $chatUser['contact_id'];
     } catch (Exception $e) {
-      $contactId = $this->createContact($user, $service);
+
+      if(defined(get_class($driver).'::KNOWS_CONTACT_ID') && $driver::KNOWS_CONTACT_ID){
+
+        $this->createUser($service, $user->getId(), $user->getId());
+        $contactId = $user->getId();
+      }else{
+
+        $contactId = $this->createContact($user);
+        $this->createUser($service, $user->getId(), $contactId);
+      }
     }
 
     $message->addExtras('contact_id', $contactId);
@@ -62,11 +76,6 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
       'contact_id' => $contact['id'],
       'tag_id' => "Chatbot"
     ));
-    $result = civicrm_api3('ChatUser', 'create', [
-      'contact_id' => $contact['id'],
-      'service' => $service,
-      'user_id' => $user->getId()
-    ]);
 
     $extraInfoClass = "addExtra{$service}Info";
     if(method_exists($this, $extraInfoClass)){
@@ -74,6 +83,14 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
     }
 
     return $contact['id'];
+  }
+
+  function createUser($service, $userId, $contactId){
+    $result = civicrm_api3('ChatUser', 'create', [
+      'service' => $service,
+      'user_id' => $userId,
+      'contact_id' => $contactId
+    ]);
   }
 
   function addExtraFacebookInfo($user, $contactId) {
