@@ -2,6 +2,7 @@
 use BotMan\BotMan\Interfaces\Middleware\Received;
 use BotMan\BotMan\Interfaces\Middleware\Sending;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
+use BotMan\BotMan\Users\User;
 use BotMan\BotMan\BotMan;
 
 class CRM_Chat_Middleware_Identify implements Received, Sending {
@@ -26,6 +27,10 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
     $message = $bot->getMessage();
     $driver = $bot->getDriver();
     $user = $bot->getDriver()->getUser($message);
+
+    if($user->getId() == null){
+      $user = new User($message->getSender());
+    }
 
     $this->identify($message, $driver, $user);
 
