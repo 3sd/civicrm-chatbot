@@ -14,4 +14,8 @@ class CRM_Chat_Webhook {
   public static function devchat() {
     CRM_Chat_Listen::create('DevChat');
   }
+
+  public static function civisms() {
+    CRM_Chat_Listen::create('CiviSMS');
+  }
 }

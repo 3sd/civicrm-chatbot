@@ -29,6 +29,11 @@
     <access_callback>1</access_callback>
   </item>
   <item>
+    <path>civicrm/chat/webhook/civisms</path>
+    <page_callback>CRM_Chat_Webhook::civisms</page_callback>
+    <access_callback>1</access_callback>
+  </item>
+  <item>
     <path>civicrm/chat/conversationType</path>
     <page_callback>CRM_Chat_Page_ConversationType</page_callback>
     <title>Conversation types</title>

@@ -6,16 +6,11 @@ use BotMan\Drivers\Facebook\FacebookDriver;
 
 class CRM_Chat_Botman {
 
-  const SHORT_NAMES = [
-    'Facebook' => 'Facebook',
-    'CRM_Chat_Driver_CiviSMS' => 'CiviSMS',
-    'CRM_Chat_Driver_DevChat' => 'DevChat'
-  ];
-
   static function get($service) {
 
     $driver = self::getDriver($service);
     $config = self::getConfig($service);
+
 
     DriverManager::loadDriver($driver);
     $botman = BotManFactory::create($config, new CRM_Chat_Cache);
@@ -62,21 +57,13 @@ class CRM_Chat_Botman {
           'endpoint' => civicrm_api3('setting', 'getvalue', ['name' => 'chatbot_devchat_endpoint'])
         ];
 
-      default:
+      case 'CiviSMS':
 
-        return [];
+        return [
+          'authentication_token' => civicrm_api3('setting', 'getvalue', ['name' => 'chatbot_civisms_authentication_token'])
+        ];
 
     }
-
-  }
-
-  static function shortName($driver) {
-
-    if(!isset(self::SHORT_NAMES[$driver::DRIVER_NAME])) {
-      throw new \Exception('Could not find short name for CiviCRM chatbot driver: ' . $driver);
-    }
-
-    return self::SHORT_NAMES[$driver::DRIVER_NAME];
 
   }
 

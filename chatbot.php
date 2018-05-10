@@ -9,7 +9,35 @@ use CRM_Chat_ExtensionUtil as E;
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_config
  */
 function chatbot_civicrm_config(&$config) {
+  if (isset(Civi::$statics[__FUNCTION__])) {
+    return;
+  }
+  Civi::$statics[__FUNCTION__] = 1;
   _chatbot_civix_civicrm_config($config);
+  Civi::dispatcher()->addListener('hook_civicrm_post', 'chatbot_post_sms',1000);
+}
+
+function chatbot_post_sms($event){
+  if($event->entity=='Activity' && $event->object->activity_type_id == CRM_Core_PseudoConstant::getKey('CRM_Activity_BAO_Activity', 'activity_type_id', 'Inbound SMS')) {
+    $activity = civicrm_api3('Activity', 'getsingle', ['id' => $event->id]);
+    $client = new GuzzleHttp\Client();
+    try {
+
+      $response = $client->request('POST', CRM_Utils_System::url('civicrm/chat/webhook/civisms', null, true), [
+        'body' => json_encode([
+          'authentication_token' => civicrm_api3('setting', 'getvalue', ['name' => 'chatbot_civisms_authentication_token']),
+          'text' => $activity['details'],
+          'contact_id' => $activity['source_contact_id']
+        ])
+      ]);
+      echo (string) $response->getBody();
+
+    } catch (\Exception $e) {
+
+        echo $e->getResponse()->getBody()->getContents();
+    }
+
+  }
 }
 
 /**
@@ -28,6 +56,9 @@ function chatbot_civicrm_xmlMenu(&$files) {
  */
 function chatbot_civicrm_install() {
   _chatbot_civix_civicrm_install();
+  // Necessary since we are communicating with outselves via public post requests
+  // (since that is what Botman wants us to do)
+  civicrm_api3('setting', 'create', ['chatbot_civisms_authentication_token' => CRM_Chat_Utils::generateToken()]);
 }
 
 /**
