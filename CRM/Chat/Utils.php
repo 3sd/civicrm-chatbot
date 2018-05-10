@@ -45,4 +45,8 @@ class CRM_Chat_Utils {
       ])
     ;
   }
+
+  static function generateToken($length = 24){
+    return bin2hex(openssl_random_pseudo_bytes($length));
+  }
 }

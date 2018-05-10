@@ -50,7 +50,7 @@ class CRM_Chat_Form_Admin_Facebook extends CRM_Chat_Form_Sensible {
    */
   function setDefaultToken(){
     if($this->fields['chatbot_facebook_verify_token']['value'] == ''){
-      $token = bin2hex(openssl_random_pseudo_bytes(24));
+      $token = CRM_Chat_Utils::generateToken();
       $this->fields['chatbot_facebook_verify_token']['value'] = $token;
       civicrm_api3('setting', 'create', ['chatbot_facebook_verify_token' => $token]);
     }
