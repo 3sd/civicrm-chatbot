@@ -100,6 +100,24 @@
     <title>Edit action</title>
     <access_arguments>access chatbot</access_arguments>
   </item>
+  <item>
+    <path>civicrm/chat/conversation/view</path>
+    <page_callback>CRM_Chat_Page_Conversation_View</page_callback>
+    <title>Edit action</title>
+    <access_arguments>access chatbot</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/contact/view/chat</path>
+    <page_callback>CRM_Chat_Page_Contact_Tab</page_callback>
+    <title>Edit action</title>
+    <access_arguments>access chatbot</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/ajax/chat/list</path>
+    <page_callback>CRM_Chat_Page_AJAX::getContactConversations</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+
 </menu>
 <!--
 

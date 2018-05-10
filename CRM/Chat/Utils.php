@@ -38,5 +38,11 @@ class CRM_Chat_Utils {
     }
   }
 
-
+  static function getChatCount($contactId) {
+    return civicrm_api3('Activity', 'getcount', [
+        'contact_id' => $contactId,
+        'activity_type_id' => 'Conversation'
+      ])
+    ;
+  }
 }

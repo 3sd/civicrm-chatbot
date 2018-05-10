@@ -1,0 +1,15 @@
+.chat{
+  border-radius:10px;
+  border:4px silver solid;
+  padding: 10px;
+  margin: 10px;
+  width: auto;
+  clear: both;
+}
+.chat-incoming{
+  float: left;
+  background-color: #E8EEF0;
+}
+.chat-outgoing{
+  float: right;
+}
