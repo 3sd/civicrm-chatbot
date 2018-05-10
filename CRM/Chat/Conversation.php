@@ -28,7 +28,7 @@ class CRM_Chat_Conversation extends Conversation {
 
     $text = $this->tokenReplacement($question->text, $this->contactId);// TODO contact token replacement
 
-    $this->ask($text, $this->action($questionId));
+    $this->ask($text, $this->action($questionId), ['contact_id' => $this->contactId]);
     return;
 
   }
@@ -55,7 +55,7 @@ class CRM_Chat_Conversation extends Conversation {
 
         'say' => function($text){
 
-          $this->say($text);
+          $this->say($text, ['contact_id' => $this->contactId]);
 
         },
 

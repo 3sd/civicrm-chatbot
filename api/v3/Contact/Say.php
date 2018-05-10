@@ -29,7 +29,7 @@ function civicrm_api3_contact_say($params) {
   $botman->middleware->sending(new CRM_Chat_Middleware_Identify());
   $botman->middleware->sending(new CRM_Chat_Middleware_RecordOutgoing());
 
-  $botman->say($params['text'], $user['user_id'], CRM_Chat_Botman::getDriver($params['service']));
+  $botman->say($params['text'], $user['user_id'], CRM_Chat_Botman::getDriver($params['service']), ['contact_id' => $params['id']]);
 
   return civicrm_api3_create_success();
 }
