@@ -12,6 +12,7 @@ class CRM_Chat_Form_Question_Add extends CRM_Chat_Form_Good {
       'entity' => 'ChatQuestion',
       'field' => 'text',
       'title' => 'Question',
+      'required' => true,
       'help' => 'The text of the question',
     ]
   ];

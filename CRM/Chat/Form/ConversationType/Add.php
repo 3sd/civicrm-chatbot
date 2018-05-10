@@ -16,18 +16,21 @@ class CRM_Chat_Form_ConversationType_Add extends CRM_Chat_Form_Good {
       'entity' => 'ChatConversationType',
       'field' => 'name',
       'title' => 'Conversation name',
+      'required' => true,
       'help' => 'A descriptive name for the conversation',
     ],
     [
       'entity' => 'ChatQuestion',
       'field' => 'text',
       'title' => 'Opening question',
+      'required' => true,
       'help' => 'The first question of this conversation',
     ],
     [
       'entity' => 'ChatConversationType',
       'field' => 'timeout',
       'title' => 'Timeout',
+      'required' => true,
       'help' => 'Time in minutes, after which this conversation should be considered complete',
     ],
   ];

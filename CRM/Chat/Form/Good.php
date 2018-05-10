@@ -108,6 +108,9 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
     foreach($this->getFields() as $field){
 
+      if(!isset($field['required'])) {
+        $field['required'] =  false;
+      }
       if(isset($field['type'])) {
         $type = $field['type'];
       }elseif(isset($this->entities[$field['entity']]['fields'][$field['field']]['html']['type'])) {
@@ -119,20 +122,22 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
       switch (strtolower($type)) {
 
         case 'text':
-          $element = $this->addElement(
+          $element = $this->add(
             'text',
             $field['name'],
             $field['title'],
-            ['class' => 'form-control']
+            ['class' => 'form-control'],
+            $field['required']
           );
           break;
 
         case 'select':
-          $element = $this->addElement(
+          $element = $this->add(
             'select',
             $field['name'],
             $field['title'],
             $field['options'],
+            $field['required'],
             ['class' => 'form-control crm-form-select']
           );
           break;
@@ -152,7 +157,8 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
           $element = $this->addEntityRef(
             $field['name'],
             $field['title'],
-            $props
+            $props,
+            $field['required']
           );
           break;
       }
