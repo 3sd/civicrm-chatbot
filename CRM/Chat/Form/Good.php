@@ -205,7 +205,7 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
     $submitted = $this->postProcessMassage($submitted);
 
-    foreach($this->getEntities() as $entity) {
+    foreach($this->entities as &$entity) {
 
       if(isset($entity['process']) && $entity['process'] === false){
         continue;
