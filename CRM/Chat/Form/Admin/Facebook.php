@@ -40,9 +40,9 @@ class CRM_Chat_Form_Admin_Facebook extends CRM_Chat_Form_Good {
       ],
     ];
 
-    if($this->fields['chatbot_facebook_verify_token']['value'] == ''||1){
+    if($this->entities['Setting']['before']['chatbot_facebook_verify_token'] == ''){
       $token = CRM_Chat_Utils::generateToken();
-      $this->fields['chatbot_facebook_verify_token']['value'] = $token;
+      $this->entities['Setting']['before']['chatbot_facebook_verify_token'] = $token;
       civicrm_api3('setting', 'create', ['chatbot_facebook_verify_token' => $token]);
     }
 
