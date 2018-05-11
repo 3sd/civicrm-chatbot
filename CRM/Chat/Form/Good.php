@@ -17,8 +17,11 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
   var $submitText = 'Save';
 
-  function getTitle2(){
-    return $this->title;
+  function getGoodTitle(){
+  }
+
+  function getSaveMessage(){
+    return ts('The form has been saved.');
   }
 
   function initFields(){
@@ -89,7 +92,9 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
     $this->assign( 'help', $this->help);
 
-    CRM_Utils_System::setTitle($this->getGoodTitle());
+    if($title = $this->getGoodTitle()){
+      CRM_Utils_System::setTitle($title);
+    }
 
     $this->addButtons($this->getButtons());
     $this->assign('delete', $this->getDelete());
@@ -234,6 +239,8 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
       $entity['after'] = $result['values'][$result['id']];
 
     }
+
+    CRM_Core_Session::setStatus($this->getSaveMessage());
 
     $this->controller->_destination = $this->getDestination();
 
