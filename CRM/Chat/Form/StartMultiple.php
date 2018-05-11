@@ -19,11 +19,12 @@ class CRM_Chat_Form_StartMultiple extends CRM_Contact_Form_Task{
 
     $this->assign( 'serviceUsers', $this->serviceUsers);
 
-    $element = $this->addElement(
+    $element = $this->add(
       'select',
       'service',
       'Service',
       $services,
+      true,
       ['class' => 'form-control crm-form-select']
     );
 
@@ -33,7 +34,8 @@ class CRM_Chat_Form_StartMultiple extends CRM_Contact_Form_Task{
       [
         'entity' => 'ChatConversationType',
         'class' => 'form-control crm-form-select'
-      ]
+      ],
+      true
     );
 
     $this->assign( 'fields', ['conversation_type_id', 'service']);

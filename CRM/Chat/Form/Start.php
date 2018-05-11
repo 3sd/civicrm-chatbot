@@ -33,10 +33,12 @@ class CRM_Chat_Form_Start extends CRM_Chat_Form_Good{
         'field' => 'conversationTypeId',
         'title' => 'Conversation type',
         'type' => 'entityref',
+        'required' => true,
         'entityref_entity' => 'ChatConversationType',
       ],
       'Conversation:ChatService' => [
         'entity' => 'Conversation',
+        'required' => true,
         'field' => 'ChatService',
         'title' => 'Chat service',
         'type' => 'select',
