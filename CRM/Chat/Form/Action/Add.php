@@ -45,7 +45,7 @@ class CRM_Chat_Form_Action_Add extends CRM_Chat_Form_Good {
         'options' => [
           'next' => 'Go to question',
           'say' => 'Say',
-          'conversation' => 'Start conversation',
+          // 'conversation' => 'Start conversation',
           'group' => 'Add to group',
           'field' => 'Add to field',
         ],
@@ -220,6 +220,31 @@ class CRM_Chat_Form_Action_Add extends CRM_Chat_Form_Good {
 
   function postProcess() {
     parent::postProcess();
+  }
+
+  public function validate() {
+    parent::validate();
+    $submitted = $this->exportValues();
+    if($submitted['ChatAction:match'] == 'CRM_Chat_Check_Contains' && empty($submitted['ChatAction:match_contains'])){
+      $this->_errors['ChatAction:match_contains'] = 'This field cannot be blank';
+    }
+    if($submitted['ChatAction:match'] == 'CRM_Chat_Check_Equals' && empty($submitted['ChatAction:match_equals'])){
+      $this->_errors['ChatAction:match_equals'] = 'This field cannot be blank';
+    }
+    if($submitted['ChatAction:type'] == 'next' && empty($submitted['ChatAction:next'])){
+      $this->_errors['ChatAction:next'] = 'This field cannot be blank';
+    }
+    if($submitted['ChatAction:type'] == 'say' && empty($submitted['ChatAction:say'])){
+      $this->_errors['ChatAction:say'] = 'This field cannot be blank';
+    }
+    if($submitted['ChatAction:type'] == 'group' && empty($submitted['ChatAction:group'])){
+      $this->_errors['ChatAction:group'] = 'This field cannot be blank';
+    }
+    if($submitted['ChatAction:type'] == 'field' && empty($submitted['ChatAction:field'])){
+      $this->_errors['ChatAction:field'] = 'This field cannot be blank';
+    }
+
+    return (0 == count($this->_errors));
   }
 
 }
