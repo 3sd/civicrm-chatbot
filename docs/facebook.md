@@ -11,7 +11,7 @@ The following instructions walk you through how to do this.
 
 ## Before you start
 
-Make sure that your CiviCRM site is publicly accessible and served over HTTP ([Let’s Encrypt](https://letsencrypt.org/) offer the certificates you need for HTTPS for free if you don't already have them).
+Make sure that your CiviCRM site is publicly accessible and served over HTTPS ([Let’s Encrypt](https://letsencrypt.org/) offer the certificates you need for HTTPS for free if you don't already have them).
 
 ## Set up your Facebook page
 
