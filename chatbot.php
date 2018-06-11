@@ -56,9 +56,6 @@ function chatbot_civicrm_xmlMenu(&$files) {
  */
 function chatbot_civicrm_install() {
   _chatbot_civix_civicrm_install();
-  // Necessary since we are communicating with outselves via public post requests
-  // (since that is what Botman wants us to do)
-  civicrm_api3('setting', 'create', ['chatbot_civisms_authentication_token' => CRM_Chat_Utils::generateToken()]);
 }
 
 /**
@@ -68,6 +65,9 @@ function chatbot_civicrm_install() {
  */
 function chatbot_civicrm_postInstall() {
   _chatbot_civix_civicrm_postInstall();
+  // Necessary since we are communicating with ourselves via public post requests
+  // (since that is what Botman wants us to do)
+  civicrm_api3('setting', 'create', ['chatbot_civisms_authentication_token' => CRM_Chat_Utils::generateToken()]);
 }
 
 /**
