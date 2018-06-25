@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/civirule/form/action/conversation/start</path>
+    <page_callback>CRM_Chatbot_Rules_Actions_Form_StartConversation</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+</menu>
