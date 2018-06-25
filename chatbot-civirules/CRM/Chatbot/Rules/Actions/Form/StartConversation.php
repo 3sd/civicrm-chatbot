@@ -22,6 +22,7 @@ class CRM_Chatbot_Rules_Actions_Form_StartConversation extends CRM_CivirulesActi
       'placeholder' => ts('- Select conversation -'),
       'select' => ['minimumInputLength' => 0]
     ], TRUE);
+    $this->add( 'select', 'service', 'Chat service', CRM_Chat_Botman::getAllServices(), true, ['class' => 'form-control crm-form-select']);
     $this->addButtons(array(
       array('type' => 'next', 'name' => ts('Save'), 'isDefault' => TRUE,),
       array('type' => 'cancel', 'name' => ts('Cancel'))));
@@ -36,8 +37,11 @@ class CRM_Chatbot_Rules_Actions_Form_StartConversation extends CRM_CivirulesActi
   public function setDefaultValues() {
     $defaultValues = parent::setDefaultValues();
     $data = unserialize($this->ruleAction->action_params);
-    if (!empty($data['conversationTypeId'])) {
-      $defaultValues['conversationTypeId'] = $data['conversationTypeId'];
+    if (!empty($data['conversation_type_id'])) {
+      $defaultValues['conversationTypeId'] = $data['conversation_type_id'];
+    }
+    if (!empty($data['service'])) {
+      $defaultValues['service'] = $data['service'];
     }
     return $defaultValues;
   }
@@ -48,7 +52,8 @@ class CRM_Chatbot_Rules_Actions_Form_StartConversation extends CRM_CivirulesActi
    * @access public
    */
   public function postProcess() {
-    $data['conversationTypeId'] = $this->_submitValues['conversationTypeId'];
+    $data['conversation_type_id'] = $this->_submitValues['conversationTypeId'];
+    $data['service'] = $this->_submitValues['service'];
     $this->ruleAction->action_params = serialize($data);
     $this->ruleAction->save();
     parent::postProcess();

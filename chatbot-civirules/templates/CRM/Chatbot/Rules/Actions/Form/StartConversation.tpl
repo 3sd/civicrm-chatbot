@@ -5,6 +5,11 @@
         <div class="content">{$form.conversationTypeId.html}</div>
         <div class="clear"></div>
     </div>
+    <div class="crm-section">
+        <div class="label">{$form.service.label}</div>
+        <div class="content">{$form.service.html}</div>
+        <div class="clear"></div>
+    </div>
 </div>
 <div class="crm-submit-buttons">
     {include file="CRM/common/formButtons.tpl" location="bottom"}

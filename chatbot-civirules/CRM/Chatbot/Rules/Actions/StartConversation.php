@@ -35,17 +35,12 @@ class CRM_Chatbot_Rules_Actions_StartConversation extends CRM_CivirulesActions_G
    * @access protected
    */
   protected function alterApiParameters($parameters, CRM_Civirules_TriggerData_TriggerData $triggerData) {
-    // $action_params = $this->getActionParameters();
-    // $activityData = $triggerData->getEntityData('Activity');
-    // $acParams['activity_id'] = $activityData['id'];
-    // $acParams['record_type_id'] = 3;
-    // $this->ac = civicrm_api3('ActivityContact', 'getsingle', $acParams);
-    // $parameters['contact_id'] = $this->ac['contact_id'];
-    // $parameters['conversation_id'] = $action_params['conversation_id'];
-    // $parameters['process_now'] = true;
-    // $parameters['source_contact_id'] = $this->ac['contact_id']; // Set the source of the conversation to be the target contact of the triggering activity (this presumes we are being triggered by an activity)
-    // $parameters['source_record_id'] = true;
-
+    $activityData = $triggerData->getEntityData('Activity');
+    $acParams['activity_id'] = $activityData['id'];
+    $acParams['record_type_id'] = 3;
+    $this->ac = civicrm_api3('ActivityContact', 'getsingle', $acParams);
+    $parameters['id'] = $this->ac['contact_id'];
+    $parameters['source_contact_id'] = $this->ac['contact_id'];
     return $parameters;
   }
 
@@ -72,8 +67,8 @@ class CRM_Chatbot_Rules_Actions_StartConversation extends CRM_CivirulesActions_G
   public function userFriendlyConditionParams() {
     $return = '';
     $params = $this->getActionParameters();
-    $conversation = civicrm_api3('ChatConversationType', 'Getsingle', ['id' => $params['conversationTypeId']]);
-    $return .= ts("Conversation: %1", array(1 => $conversation['name']));
+    $conversation = civicrm_api3('ChatConversationType', 'Getsingle', ['id' => $params['conversation_type_id']]);
+    $return .= ts("Conversation '%1' via '%2'", array(1 => $conversation['name'], 2 => $params['service']));
 
     return $return;
   }
@@ -95,15 +90,4 @@ class CRM_Chatbot_Rules_Actions_StartConversation extends CRM_CivirulesActions_G
     }
     return false;
   }
-
-  // protected function executeApiAction($entity, $action, $parameters) {
-  //
-  //   $currentConversation = civicrm_api3('SmsConversationContact', 'getcurrent', array('contact_id' => $this->ac['contact_id']));
-  //   if (isset($currentConversation['count']) && $currentConversation['count']) {
-  //     return;
-  //   }
-  //   parent::executeApiAction($entity, $action, $parameters);
-  // }
-
-
 }
