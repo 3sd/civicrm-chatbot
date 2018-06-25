@@ -1,15 +1,15 @@
 # CiviCRM Chatbot
 
-A chatbot for CiviCRM. Integrates various chat services with CiviCRM so you can chat with your contacts.
+A chatbot for CiviCRM. Integrates various chat services (e.g. Facebook messenger) so you can chat with your contacts.
 
 ## Requirements
 
-* CiviCRM 4.7
+* CiviCRM 5.x
 * PHP 7.0
 
 ## Installation
 
-This extension is currently under development and not yet ready for production use. Developers can try it out by following the instructions below.
+This extension is ***currently in beta***. You are welcome to try it out but be prepared for a couple of bumps along the way. Please report any issues you have using the [github issue tracker](https://github.com/3sd/civicrm-chatbot/issues).
 
 ## Documentation
 
@@ -17,7 +17,7 @@ This extension is currently under development and not yet ready for production u
 
 ## Developers
 
-Build a development / demonstration environment site using the build scripts in the build directory.
+Check out the [chatbot-demo](chatbot-demo) directory for a demonstration environment built using buildkit.
 
 ### Tests
 
@@ -25,19 +25,17 @@ Tests can be run from the extension directory with:
 
 `CIVICRM_UF=UnitTests phpunit4 tests/phpunit`
 
-**Note:** following the buildkit build is the easiest way to ensure that you have all the dependencies in place, and the site set up correctly.
-
 ## Credits
 
 Development of the CiviCRM Chatbot extension has been generously funded by the [National Democratic Institute](https://ndi.org).
 
-It has been written by [Michael McAndrew](https://twitter.com/michaelmcandrew) from [Third Sector Design](https://thirdsectordesign.org/) who you can [contact](https://thirdsectordesign.org/contact) for help, support and further development.
+It is maintained by [Michael McAndrew](https://twitter.com/michaelmcandrew) from [Third Sector Design](https://thirdsectordesign.org/) who you can [contact](https://thirdsectordesign.org/contact) for help, support and further development.
 
 It builds on [Botman.io](https://botman.io/), the excellent PHP chatbot framework by [Marcel Pociot](https://twitter.com/marcelpociot).
 
 ## Contributing
 
-Contributions to this repository are very welcome. For small changes, feel free to submit a pull request. For larger changes, please create an issue first so we can talk about your ideas.
+Contributions large and small are very welcome to this repository. For small changes, feel free to submit a pull request. For larger changes, its better to create an issue first so we can talk things through before you start.
 
 ## License
 
