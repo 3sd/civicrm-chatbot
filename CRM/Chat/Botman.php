@@ -6,6 +6,18 @@ use BotMan\Drivers\Facebook\FacebookDriver;
 
 class CRM_Chat_Botman {
 
+  // Might want to turn into option groups at some point
+  static function getAllServices(){
+    $services = [
+      'Facebook' => 'Facebook',
+      'CiviSMS' => 'CiviSMS',
+    ];
+    if(Civi::settings()->get('debug_enabled')){
+      $services['DevChat'] = 'DevChat';
+    }
+    return $services;
+  }
+
   static function get($service) {
 
     $driver = self::getDriver($service);
