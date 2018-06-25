@@ -262,7 +262,7 @@ function _chatbot_civix_find_files($dir, $pattern) {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_managed
  */
 function _chatbot_civix_civicrm_managed(&$entities) {
-  $mgdFiles = _chatbot_civix_find_files(__DIR__, '*.mgd.php');
+  $mgdFiles = _chatbot_civix_find_files(__DIR__, '/managed/*.mgd.php');
   foreach ($mgdFiles as $file) {
     $es = include $file;
     foreach ($es as $e) {
@@ -450,37 +450,37 @@ function _chatbot_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
 
 function _chatbot_civix_civicrm_entityTypes(&$entityTypes) {
   $entityTypes = array_merge($entityTypes, array (
-    'CRM_Chat_DAO_ChatAction' => 
+    'CRM_Chat_DAO_ChatAction' =>
     array (
       'name' => 'ChatAction',
       'class' => 'CRM_Chat_DAO_ChatAction',
       'table' => 'civicrm_chat_action',
     ),
-    'CRM_Chat_DAO_ChatCache' => 
+    'CRM_Chat_DAO_ChatCache' =>
     array (
       'name' => 'ChatCache',
       'class' => 'CRM_Chat_DAO_ChatCache',
       'table' => 'civicrm_chat_cache',
     ),
-    'CRM_Chat_DAO_ChatConversationType' => 
+    'CRM_Chat_DAO_ChatConversationType' =>
     array (
       'name' => 'ChatConversationType',
       'class' => 'CRM_Chat_DAO_ChatConversationType',
       'table' => 'civicrm_chat_conversation_type',
     ),
-    'CRM_Chat_DAO_ChatHear' => 
+    'CRM_Chat_DAO_ChatHear' =>
     array (
       'name' => 'ChatHear',
       'class' => 'CRM_Chat_DAO_ChatHear',
       'table' => 'civicrm_chat_hear',
     ),
-    'CRM_Chat_DAO_ChatQuestion' => 
+    'CRM_Chat_DAO_ChatQuestion' =>
     array (
       'name' => 'ChatQuestion',
       'class' => 'CRM_Chat_DAO_ChatQuestion',
       'table' => 'civicrm_chat_question',
     ),
-    'CRM_Chat_DAO_ChatUser' => 
+    'CRM_Chat_DAO_ChatUser' =>
     array (
       'name' => 'ChatUser',
       'class' => 'CRM_Chat_DAO_ChatUser',
