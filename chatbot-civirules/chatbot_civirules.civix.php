@@ -262,7 +262,7 @@ function _chatbot_civirules_civix_find_files($dir, $pattern) {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_managed
  */
 function _chatbot_civirules_civix_civicrm_managed(&$entities) {
-  $mgdFiles = _chatbot_civirules_civix_find_files(__DIR__, 'managed/*.mgd.php');
+  $mgdFiles = _chatbot_civirules_civix_find_files(__DIR__, '*.mgd.php');
   foreach ($mgdFiles as $file) {
     $es = include $file;
     foreach ($es as $e) {
