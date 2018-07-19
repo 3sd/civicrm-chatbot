@@ -1,17 +1,14 @@
 # Integrating with Facebook messenger
 
-
 To integrate CiviCRM and Facebook messenger, you will need to:
 
 * create a *Facebook page* where people will chat with you (or use one you have already created)
 * connect your *Facebook page* to a *Facebook app*
 * enter credentials into your *Facebook app* and into *CiviCRM* so they can talk each other.
 
-The following instructions walk you through how to do this.
-
 ## Before you start
 
-Make sure that your CiviCRM site is publicly accessible and served over HTTPS ([Let’s Encrypt](https://letsencrypt.org/) offer the certificates you need for HTTPS for free if you don't already have them).
+Make sure that your CiviCRM site is publicly accessible and served over HTTPS ([Let’s Encrypt](https://letsencrypt.org/) offer free and trustworthy certificates for HTTPS for free if you don't already have one).
 
 ## Set up your Facebook page
 
@@ -44,4 +41,4 @@ Create a *Facebook App* to integrate your free *Facebook Page* with CiviCRM.
   3. Ensure that you are subscribed to *messages*, *message_deliveries*, and *message_reads*.
 8. Click *verify and save*.
 
-If all goes well, your page will be verified and you are ready to start chatting. If the webook does not vefify, make sure that you have followed the above instructions completely. If you are still having issues, [get in contact for some help](../help).
+If all goes well, your page will be verified and you are ready to start chatting. If the webook does not vefify, make sure that you have followed the above instructions completely. If you are still having issues, please [file an issue and someone should be able to help](https://github.com/3sd/civicrm-chatbot/issues).

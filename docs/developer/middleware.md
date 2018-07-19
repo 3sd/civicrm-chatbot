@@ -1,5 +1,7 @@
 # Middleware
 
+***Developer documentation is work in progress - please feel free to contribute***
+
 Chatbot takes advantage of Botman's middleware to build out functionality.
 
 ## Identification

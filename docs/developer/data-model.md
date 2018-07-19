@@ -1,5 +1,7 @@
 # Data model
 
+***Developer documentation is work in progress - please feel free to contribute***
+
 Chatbot is based on the following data model:
 
 ## New entities
