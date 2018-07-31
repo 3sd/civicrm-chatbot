@@ -11,6 +11,8 @@ A chatbot for CiviCRM. Integrates various chat services (e.g. Facebook messenger
 
 This extension is ***currently in beta***. You are welcome to try it out but be prepared for a couple of bumps along the way. Please report any issues you have using the [github issue tracker](https://github.com/3sd/civicrm-chatbot/issues).
 
+**Note:** this repository also contains [chatbot-civirules](chatbot-civirules) an extension that provides integration between Chatbot with CiviRules. Please ensure that you have CiviRules installed before enabling this extension.
+
 ## Documentation
 
 [Read our WIP documentation here](docs).
