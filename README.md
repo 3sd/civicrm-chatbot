@@ -15,7 +15,7 @@ This extension is ***currently in beta***. You are welcome to try it out but be 
 
 ## Documentation
 
-[Read our WIP documentation here](docs).
+Read the docs at [https://docs.civicrm.org/chatbot](https://docs.civicrm.org/chatbot).
 
 ## Developers
 
