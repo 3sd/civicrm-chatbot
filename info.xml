@@ -18,7 +18,7 @@
   <version>1.0.0-beta.1</version>
   <develStage>beta</develStage>
   <compatibility>
-    <ver>5</ver>
+    <ver>5.0</ver>
   </compatibility>
   <civix>
     <namespace>CRM/Chat</namespace>
