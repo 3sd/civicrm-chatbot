@@ -8,7 +8,7 @@ use BotMan\Drivers\Facebook\FacebookDriver;
 class CRM_Chat_Webhook {
 
   public static function facebook() {
-    CRM_Chat_Listen::create('Facebook');
+    CRM_Chat_Listen::create('Facebook', $_SERVER['REQUEST_METHOD'] == 'GET');
   }
 
   public static function devchat() {
