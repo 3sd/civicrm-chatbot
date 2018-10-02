@@ -14,3 +14,15 @@ pages:
     - Facebook messenger: service/facebook.md
     - Other services: service/other.md
   - CiviRules integration: civirules-integration.md
+
+markdown_extensions:
+  - attr_list
+  - admonition
+  - def_list
+  - codehilite
+  - toc(permalink=true)
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tilde
+  - pymdownx.betterem
+  - pymdownx.mark
