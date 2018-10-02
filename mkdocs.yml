@@ -1,4 +1,6 @@
 site_name: CiviCRM chatbot
+site_description: A CiviCRM extension to provide an interface to common chat platforms.
+theme: material
 pages:
   - Introduction: index.md
   - Installation: installation.md
