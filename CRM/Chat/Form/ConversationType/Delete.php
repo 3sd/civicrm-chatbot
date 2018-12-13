@@ -24,7 +24,7 @@ class CRM_Chat_Form_ConversationType_Delete extends CRM_Chat_Form_Good_Delete {
     return 'Delete conversation type';
   }
 
-  function getContext() {
+  function getGoodContext() {
     return CRM_Utils_System::url('civicrm/chat/conversationType/view', 'id='.$this->entities['ChatConversationType']['before']['id']);
   }
 

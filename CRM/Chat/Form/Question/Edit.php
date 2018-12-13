@@ -43,7 +43,7 @@ class CRM_Chat_Form_Question_Edit extends CRM_Chat_Form_Good {
     return CRM_Utils_System::url('civicrm/chat/conversationType/view', 'id='.$this->entities['ChatQuestion']['before']['conversation_type_id']);
   }
 
-  function getContext() {
+  function getGoodContext() {
     return CRM_Utils_System::url('civicrm/chat/conversationType/view', 'id='.$this->entities['ChatQuestion']['before']['conversation_type_id']);
   }
 

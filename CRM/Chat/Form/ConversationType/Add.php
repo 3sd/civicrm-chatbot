@@ -68,7 +68,7 @@ class CRM_Chat_Form_ConversationType_Add extends CRM_Chat_Form_Good {
     return CRM_Utils_System::url('civicrm/chat/conversationType/view', 'id='.$this->entities['ChatConversationType']['after']['id']);
   }
 
-  function getContext() {
+  function getGoodContext() {
     return CRM_Utils_System::url('civicrm/chat/conversationType');
   }
 

@@ -5,7 +5,7 @@ class CRM_Chat_Form_Start extends CRM_Chat_Form_Good{
     return CRM_Utils_System::url('civicrm/contact/view', 'reset=1&cid='.$this->entities['Contact']['before']['id']);
   }
 
-  function getContext() {
+  function getGoodContext() {
     return CRM_Utils_System::url('civicrm/contact/view', 'reset=1&cid='.$this->entities['Contact']['before']['id']);
   }
 

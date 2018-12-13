@@ -59,7 +59,7 @@ class CRM_Chat_Form_Admin_Facebook extends CRM_Chat_Form_Good {
     return CRM_Utils_System::url('civicrm/admin/chat/facebook/');
   }
 
-  function getContext() {
+  function getGoodContext() {
     return CRM_Utils_System::url('civicrm/admin/chat/facebook/');
   }
 

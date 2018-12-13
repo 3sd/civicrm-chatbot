@@ -101,7 +101,7 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
     $this->addButtons($this->getButtons());
 
     $session = CRM_Core_Session::singleton();
-    $session->pushUserContext($this->getContext());
+    $session->pushUserContext($this->getGoodContext());
 
   }
 
@@ -252,7 +252,7 @@ abstract class CRM_Chat_Form_Good extends CRM_Core_Form {
 
   abstract function getDestination();
 
-  abstract function getContext();
+  abstract function getGoodContext();
 
   function getTemplateFileName() {
     return 'CRM/Chat/Form/Good.tpl';
