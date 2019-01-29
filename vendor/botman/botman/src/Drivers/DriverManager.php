@@ -8,7 +8,6 @@ use BotMan\BotMan\Interfaces\HttpInterface;
 use BotMan\BotMan\Interfaces\DriverInterface;
 use BotMan\BotMan\Interfaces\VerifiesService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class DriverManager
 {
@@ -67,7 +66,7 @@ class DriverManager
         * DriverInterface object.
         */
         if (class_exists($name) && is_subclass_of($name, DriverInterface::class)) {
-            $name = rtrim(basename(str_replace('\\', '/', $name)), 'Driver');
+            $name = preg_replace('#(Driver$)#', '', basename(str_replace('\\', '/', $name)));
         }
         /*
          * Use the driver name constant if we try to load a driver by it's
@@ -148,7 +147,7 @@ class DriverManager
      *
      * @param array $config
      * @param Request|null $request
-     * @return Response|null
+     * @return bool
      */
     public static function verifyServices(array $config, Request $request = null)
     {
@@ -156,9 +155,11 @@ class DriverManager
         foreach (self::getAvailableHttpDrivers() as $driver) {
             $driver = new $driver($request, $config, new Curl());
             if ($driver instanceof VerifiesService && ! is_null($driver->verifyRequest($request))) {
-                break;
+                return true;
             }
         }
+
+        return false;
     }
 
     /**

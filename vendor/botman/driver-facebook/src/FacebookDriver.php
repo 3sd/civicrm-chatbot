@@ -29,10 +29,15 @@ use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
 use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
 use BotMan\Drivers\Facebook\Extensions\ReceiptTemplate;
 use BotMan\Drivers\Facebook\Exceptions\FacebookException;
+use BotMan\Drivers\Facebook\Extensions\OpenGraphTemplate;
 
 class FacebookDriver extends HttpDriver implements VerifiesService
 {
     const HANDOVER_INBOX_PAGE_ID = '263902037430900';
+
+    const TYPE_RESPONSE = 'RESPONSE';
+    const TYPE_UPDATE = 'UPDATE';
+    const TYPE_MESSAGE_TAG = 'MESSAGE_TAG';
 
     /** @var string */
     protected $signature;
@@ -50,6 +55,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         ListTemplate::class,
         ReceiptTemplate::class,
         MediaTemplate::class,
+        OpenGraphTemplate::class,
     ];
 
     private $supportedAttachments = [
@@ -62,7 +68,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /** @var DriverEventInterface */
     protected $driverEvent;
 
-    protected $facebookProfileEndpoint = 'https://graph.facebook.com/v2.6/';
+    protected $facebookProfileEndpoint = 'https://graph.facebook.com/v3.0/';
 
     /** @var bool If the incoming request is a FB postback */
     protected $isPostback = false;
@@ -184,6 +190,23 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      * @param IncomingMessage $matchingMessage
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    public function markSeen(IncomingMessage $matchingMessage)
+    {
+        $parameters = [
+            'recipient' => [
+                'id' => $matchingMessage->getSender(),
+            ],
+            'access_token' => $this->config->get('token'),
+            'sender_action' => 'mark_seen',
+        ];
+
+        return $this->http->post($this->facebookProfileEndpoint.'me/messages', [], $parameters);
+    }
+
+    /**
+     * @param IncomingMessage $matchingMessage
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function types(IncomingMessage $matchingMessage)
     {
         $parameters = [
@@ -235,7 +258,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         $messages = Collection::make($this->event->get('messaging'));
         $messages = $messages->transform(function ($msg) {
             $message = new IncomingMessage('', $this->getMessageSender($msg), $this->getMessageRecipient($msg), $msg);
-            if (isset($msg['message']['text'])) {
+            if (isset($msg['message']['text']) && ! isset($msg['message']['quick_reply']['payload'])) {
                 $message->setText($msg['message']['text']);
 
                 if (isset($msg['message']['nlp'])) {
@@ -245,6 +268,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
                 $this->isPostback = true;
 
                 $message->setText($msg['postback']['payload']);
+            } elseif (isset($msg['message']['quick_reply']['payload'])) {
+                $this->isPostback = true;
+
+                $message->setText($msg['message']['quick_reply']['payload']);
             }
 
             return $message;
@@ -287,14 +314,19 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $questionData = $question->toArray();
 
-        $replies = Collection::make($question->getButtons())->map(function ($button) {
-            return array_merge([
-                'content_type' => 'text',
-                'title' => $button['text'],
-                'payload' => $button['value'],
-                'image_url' => $button['image_url'],
-            ], $button['additional']);
-        });
+        $replies = Collection::make($question->getButtons())
+            ->map(function ($button) {
+                if (isset($button['content_type']) && $button['content_type'] !== 'text') {
+                    return ['content_type' => $button['content_type']];
+                }
+
+                return array_merge([
+                    'content_type' => 'text',
+                    'title' => $button['text'] ?? $button['title'],
+                    'payload' => $button['value'] ?? $button['payload'],
+                    'image_url' => $button['image_url'] ?? $button['image_url'],
+                ], $button['additional'] ?? []);
+            });
 
         return [
             'text' => $questionData['text'],
@@ -321,6 +353,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             $recipient = ['id' => $matchingMessage->getSender()];
         }
         $parameters = array_merge_recursive([
+            'messaging_type' => self::TYPE_RESPONSE,
             'recipient' => $recipient,
             'message' => [
                 'text' => $message,
@@ -342,6 +375,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
                 $parameters['message']['attachment'] = [
                     'type' => $attachmentType,
                     'payload' => [
+                        'is_reusable' => $attachment->getExtras('is_reusable') ?? false,
                         'url' => $attachment->getUrl(),
                     ],
                 ];
@@ -358,6 +392,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /**
      * @param mixed $payload
      * @return Response
+     * @throws FacebookException
      */
     public function sendPayload($payload)
     {
@@ -376,17 +411,45 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     }
 
     /**
+     * Retrieve specific User field information.
+     *
+     * @param array $fields
+     * @param IncomingMessage $matchingMessage
+     * @return User
+     * @throws FacebookException
+     */
+    public function getUserWithFields(array $fields, IncomingMessage $matchingMessage)
+    {
+        $messagingDetails = $this->event->get('messaging')[0];
+        // implode field array to create concatinated comma string
+        $fields = implode(',', $fields);
+        // WORKPLACE (Facebook for companies)
+        // if community isset in sender Object, it is a request done by workplace
+        if (isset($messagingDetails['sender']['community'])) {
+            $fields = 'first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time';
+        }
+        $userInfoData = $this->http->get($this->facebookProfileEndpoint.$matchingMessage->getSender().'?fields='.$fields.'&access_token='.$this->config->get('token'));
+        $this->throwExceptionIfResponseNotOk($userInfoData);
+        $userInfo = json_decode($userInfoData->getContent(), true);
+        $firstName = $userInfo['first_name'] ?? null;
+        $lastName = $userInfo['last_name'] ?? null;
+
+        return new User($matchingMessage->getSender(), $firstName, $lastName, null, $userInfo);
+    }
+
+    /**
      * Retrieve User information.
      *
      * @param IncomingMessage $matchingMessage
      * @return User
+     * @throws FacebookException
      */
     public function getUser(IncomingMessage $matchingMessage)
     {
         $messagingDetails = $this->event->get('messaging')[0];
 
         // field string available at Facebook
-        $fields = 'first_name,last_name,profile_pic,locale,timezone,gender,is_payment_enabled,last_ad_referral';
+        $fields = 'name,first_name,last_name,profile_pic';
 
         // WORKPLACE (Facebook for companies)
         // if community isset in sender Object, it is a request done by workplace

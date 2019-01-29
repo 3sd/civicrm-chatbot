@@ -9,9 +9,9 @@ return array(
     'ad155f8f1cf0d418fe49e248db8c661b' => $vendorDir . '/react/promise/src/functions_include.php',
     '6b06ce8ccf69c43a60a1e48495a034c9' => $vendorDir . '/react/promise-timer/src/functions.php',
     '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
-    '5255c38a0faeba867671b61dfda6d864' => $vendorDir . '/paragonie/random_compat/lib/random.php',
     '023d27dca8066ef29e6739335ea73bad' => $vendorDir . '/symfony/polyfill-php70/bootstrap.php',
     '667aeda72477189d0494fecd327c3641' => $vendorDir . '/symfony/var-dumper/Resources/functions/dump.php',
+    '538ca81a9a966a6716601ecf48f4eaef' => $vendorDir . '/opis/closure/functions.php',
     'fe62ba7e10580d903cc46d808b5961a4' => $vendorDir . '/tightenco/collect/src/Collect/Support/helpers.php',
     'caf31cc6ec7cf2241cb6f12c226c3846' => $vendorDir . '/tightenco/collect/src/Collect/Support/alias.php',
 );

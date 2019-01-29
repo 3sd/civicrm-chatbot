@@ -13,10 +13,13 @@ class ApiAi implements MiddlewareInterface
     /** @var string */
     protected $token;
 
+    /** @var string */
+    protected $lang = 'en';
+
     /** @var HttpInterface */
     protected $http;
 
-    /** @var stdClass */
+    /** @var \stdClass */
     protected $response;
 
     /** @var string */
@@ -30,23 +33,26 @@ class ApiAi implements MiddlewareInterface
 
     /**
      * Wit constructor.
-     * @param string $token wit.ai access token
+     * @param string $token api.ai access token
+     * @param string $lang language
      * @param HttpInterface $http
      */
-    public function __construct($token, HttpInterface $http)
+    public function __construct($token, HttpInterface $http, $lang = 'en')
     {
         $this->token = $token;
+        $this->lang = $lang;
         $this->http = $http;
     }
 
     /**
-     * Create a new Wit middleware instance.
-     * @param string $token wit.ai access token
+     * Create a new API.ai middleware instance.
+     * @param string $token api.ai access token
+     * @param string $lang language
      * @return ApiAi
      */
-    public static function create($token)
+    public static function create($token, $lang = 'en')
     {
-        return new static($token, new Curl());
+        return new static($token, new Curl(), $lang);
     }
 
     /**
@@ -64,14 +70,14 @@ class ApiAi implements MiddlewareInterface
     /**
      * Perform the API.ai API call and cache it for the message.
      * @param  \BotMan\BotMan\Messages\Incoming\IncomingMessage $message
-     * @return stdClass
+     * @return \stdClass
      */
     protected function getResponse(IncomingMessage $message)
     {
         $response = $this->http->post($this->apiUrl, [], [
             'query' => [$message->getText()],
             'sessionId' => md5($message->getConversationIdentifier()),
-            'lang' => 'en',
+            'lang' => $this->lang,
         ], [
             'Authorization: Bearer '.$this->token,
             'Content-Type: application/json; charset=utf-8',
@@ -109,10 +115,10 @@ class ApiAi implements MiddlewareInterface
     {
         $response = $this->getResponse($message);
 
-        $reply = isset($response->result->fulfillment->speech) ? $response->result->fulfillment->speech : '';
-        $action = isset($response->result->action) ? $response->result->action : '';
+        $reply = $response->result->fulfillment->speech ?? '';
+        $action = $response->result->action ?? '';
         $actionIncomplete = isset($response->result->actionIncomplete) ? (bool) $response->result->actionIncomplete : false;
-        $intent = isset($response->result->metadata->intentName) ? $response->result->metadata->intentName : '';
+        $intent = $response->result->metadata->intentName ?? '';
         $parameters = isset($response->result->parameters) ? (array) $response->result->parameters : [];
 
         $message->addExtras('apiReply', $reply);

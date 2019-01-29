@@ -1,27 +1,27 @@
 [
     {
         "name": "botman/botman",
-        "version": "2.3.0",
-        "version_normalized": "2.3.0.0",
+        "version": "2.4.1",
+        "version_normalized": "2.4.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/botman/botman.git",
-            "reference": "b25798642e724fd54f61b491f377c8867385010f"
+            "reference": "b4d07814c5848fce1e841bba836c7d1a3ee51d29"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/botman/botman/zipball/b25798642e724fd54f61b491f377c8867385010f",
-            "reference": "b25798642e724fd54f61b491f377c8867385010f",
+            "url": "https://api.github.com/repos/botman/botman/zipball/b4d07814c5848fce1e841bba836c7d1a3ee51d29",
+            "reference": "b4d07814c5848fce1e841bba836c7d1a3ee51d29",
             "shasum": ""
         },
         "require": {
             "mpociot/pipeline": "^1.0",
-            "opis/closure": "^2.3",
+            "opis/closure": "^2.3 || ^3.0",
             "php": ">=7.0",
             "psr/container": "^1.0",
             "react/socket": "~0.4",
             "spatie/macroable": "^1.0",
-            "symfony/http-foundation": "2.8.*|3.0.*|3.1.*|3.2.*|3.3.*|3.4.*|4.0.*",
+            "symfony/http-foundation": "^2.8 || ^3.0 || ^4.0",
             "tightenco/collect": "~5.0"
         },
         "require-dev": {
@@ -29,7 +29,7 @@
             "doctrine/cache": "^1.6",
             "ext-curl": "*",
             "illuminate/support": "^5.4",
-            "mockery/mockery": "dev-master",
+            "mockery/mockery": "^1.1",
             "orchestra/testbench": "~3.0",
             "phpunit/phpunit": "~6.4",
             "sllh/php-cs-fixer-styleci-bridge": "^2.1",
@@ -39,7 +39,7 @@
             "doctrine/cache": "Use any Doctrine cache driver for cache",
             "symfony/cache": "Use any Symfony cache driver for cache"
         },
-        "time": "2018-02-20T22:22:44+00:00",
+        "time": "2018-08-09T13:15:19+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -80,21 +80,21 @@
     },
     {
         "name": "botman/driver-facebook",
-        "version": "1.6.0",
-        "version_normalized": "1.6.0.0",
+        "version": "1.9.4",
+        "version_normalized": "1.9.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/botman/driver-facebook.git",
-            "reference": "bf8f43d45c52b42db830836b6cf41f97a0b15199"
+            "reference": "8071f777388de7cde8122a340acdab01694d517b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/botman/driver-facebook/zipball/bf8f43d45c52b42db830836b6cf41f97a0b15199",
-            "reference": "bf8f43d45c52b42db830836b6cf41f97a0b15199",
+            "url": "https://api.github.com/repos/botman/driver-facebook/zipball/8071f777388de7cde8122a340acdab01694d517b",
+            "reference": "8071f777388de7cde8122a340acdab01694d517b",
             "shasum": ""
         },
         "require": {
-            "botman/botman": "~2.1",
+            "botman/botman": "~2.1|~3.0",
             "php": ">=7.0"
         },
         "require-dev": {
@@ -104,9 +104,12 @@
             "mockery/mockery": "dev-master",
             "phpunit/phpunit": "~5.0"
         },
-        "time": "2018-01-21T20:15:29+00:00",
+        "time": "2018-10-04T06:45:12+00:00",
         "type": "library",
         "extra": {
+            "branch-alias": {
+                "dev-master": "2.0-dev"
+            },
             "laravel": {
                 "providers": [
                     "BotMan\\Drivers\\Facebook\\Providers\\FacebookServiceProvider"
@@ -232,38 +235,41 @@
     },
     {
         "name": "opis/closure",
-        "version": "2.4.1",
-        "version_normalized": "2.4.1.0",
+        "version": "3.1.5",
+        "version_normalized": "3.1.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/opis/closure.git",
-            "reference": "ceee85c76bcd1fcc13e14a7579c481d533dfafbe"
+            "reference": "41f5da65d75cf473e5ee582df8fc7f2c733ce9d6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/opis/closure/zipball/ceee85c76bcd1fcc13e14a7579c481d533dfafbe",
-            "reference": "ceee85c76bcd1fcc13e14a7579c481d533dfafbe",
+            "url": "https://api.github.com/repos/opis/closure/zipball/41f5da65d75cf473e5ee582df8fc7f2c733ce9d6",
+            "reference": "41f5da65d75cf473e5ee582df8fc7f2c733ce9d6",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.0"
+            "php": "^5.4 || ^7.0"
         },
         "require-dev": {
             "jeremeamia/superclosure": "^2.0",
-            "phpunit/phpunit": "3.7.*"
+            "phpunit/phpunit": "^4.0|^5.0|^6.0|^7.0"
         },
-        "time": "2017-04-13T08:14:00+00:00",
+        "time": "2019-01-14T14:45:33+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.4.x-dev"
+                "dev-master": "3.1.x-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Opis\\Closure\\": "lib/"
-            }
+                "Opis\\Closure\\": "src/"
+            },
+            "files": [
+                "functions.php"
+            ]
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -273,10 +279,14 @@
             {
                 "name": "Marius Sarca",
                 "email": "marius.sarca@gmail.com"
+            },
+            {
+                "name": "Sorin Sarca",
+                "email": "sarca_sorin@hotmail.com"
             }
         ],
-        "description": "A library for PHP 5.3+ that can be used to serialize closures (anonymous functions).",
-        "homepage": "http://www.opis.io/closure",
+        "description": "A library that can be used to serialize closures (anonymous functions) and arbitrary objects.",
+        "homepage": "https://opis.io/closure",
         "keywords": [
             "anonymous functions",
             "closure",
@@ -288,36 +298,32 @@
     },
     {
         "name": "paragonie/random_compat",
-        "version": "v2.0.11",
-        "version_normalized": "2.0.11.0",
+        "version": "v9.99.99",
+        "version_normalized": "9.99.99.0",
         "source": {
             "type": "git",
             "url": "https://github.com/paragonie/random_compat.git",
-            "reference": "5da4d3c796c275c55f057af5a643ae297d96b4d8"
+            "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/paragonie/random_compat/zipball/5da4d3c796c275c55f057af5a643ae297d96b4d8",
-            "reference": "5da4d3c796c275c55f057af5a643ae297d96b4d8",
+            "url": "https://api.github.com/repos/paragonie/random_compat/zipball/84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
+            "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.2.0"
+            "php": "^7"
         },
         "require-dev": {
-            "phpunit/phpunit": "4.*|5.*"
+            "phpunit/phpunit": "4.*|5.*",
+            "vimeo/psalm": "^1"
         },
         "suggest": {
             "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
         },
-        "time": "2017-09-27T21:40:39+00:00",
+        "time": "2018-07-02T15:55:56+00:00",
         "type": "library",
         "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "lib/random.php"
-            ]
-        },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
@@ -332,6 +338,7 @@
         "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
         "keywords": [
             "csprng",
+            "polyfill",
             "pseudorandom",
             "random"
         ]
@@ -389,17 +396,17 @@
     },
     {
         "name": "react/cache",
-        "version": "v0.4.2",
-        "version_normalized": "0.4.2.0",
+        "version": "v0.5.0",
+        "version_normalized": "0.5.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/reactphp/cache.git",
-            "reference": "75494f26b4ef089db9bf8c90b63c296246e099e8"
+            "reference": "7d7da7fb7574d471904ba357b39bbf110ccdbf66"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/reactphp/cache/zipball/75494f26b4ef089db9bf8c90b63c296246e099e8",
-            "reference": "75494f26b4ef089db9bf8c90b63c296246e099e8",
+            "url": "https://api.github.com/repos/reactphp/cache/zipball/7d7da7fb7574d471904ba357b39bbf110ccdbf66",
+            "reference": "7d7da7fb7574d471904ba357b39bbf110ccdbf66",
             "shasum": ""
         },
         "require": {
@@ -409,7 +416,7 @@
         "require-dev": {
             "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
         },
-        "time": "2017-12-20T16:47:13+00:00",
+        "time": "2018-06-25T12:52:40+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -431,33 +438,32 @@
     },
     {
         "name": "react/dns",
-        "version": "v0.4.12",
-        "version_normalized": "0.4.12.0",
+        "version": "v0.4.16",
+        "version_normalized": "0.4.16.0",
         "source": {
             "type": "git",
             "url": "https://github.com/reactphp/dns.git",
-            "reference": "c74a0af0c7254e73600fd8c5c95f6bf23c5998f4"
+            "reference": "0a0bedfec72b38406413c6ea01e1c015bd0bf72b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/reactphp/dns/zipball/c74a0af0c7254e73600fd8c5c95f6bf23c5998f4",
-            "reference": "c74a0af0c7254e73600fd8c5c95f6bf23c5998f4",
+            "url": "https://api.github.com/repos/reactphp/dns/zipball/0a0bedfec72b38406413c6ea01e1c015bd0bf72b",
+            "reference": "0a0bedfec72b38406413c6ea01e1c015bd0bf72b",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0",
-            "react/cache": "~0.4.0|~0.3.0",
+            "react/cache": "^0.5 || ^0.4 || ^0.3",
             "react/event-loop": "^1.0 || ^0.5 || ^0.4 || ^0.3.5",
             "react/promise": "^2.1 || ^1.2.1",
             "react/promise-timer": "^1.2",
-            "react/socket": "^1.0 || ^0.8 || ^0.7 || ^0.6 || ^0.5 || ^0.4.4",
             "react/stream": "^1.0 || ^0.7 || ^0.6 || ^0.5 || ^0.4.5"
         },
         "require-dev": {
             "clue/block-react": "^1.2",
             "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
         },
-        "time": "2018-01-14T10:04:36+00:00",
+        "time": "2018-11-11T11:21:13+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -479,31 +485,30 @@
     },
     {
         "name": "react/event-loop",
-        "version": "v0.4.3",
-        "version_normalized": "0.4.3.0",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/reactphp/event-loop.git",
-            "reference": "8bde03488ee897dc6bb3d91e4e17c353f9c5252f"
+            "reference": "0266aff7aa7b0613b1f38a723e14a0ebc55cfca3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/reactphp/event-loop/zipball/8bde03488ee897dc6bb3d91e4e17c353f9c5252f",
-            "reference": "8bde03488ee897dc6bb3d91e4e17c353f9c5252f",
+            "url": "https://api.github.com/repos/reactphp/event-loop/zipball/0266aff7aa7b0613b1f38a723e14a0ebc55cfca3",
+            "reference": "0266aff7aa7b0613b1f38a723e14a0ebc55cfca3",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.4.0"
+            "php": ">=5.3.0"
         },
         "require-dev": {
-            "phpunit/phpunit": "~4.8"
+            "phpunit/phpunit": "~4.8.35 || ^5.7 || ^6.4"
         },
         "suggest": {
-            "ext-event": "~1.0",
-            "ext-libev": "*",
-            "ext-libevent": ">=0.1.0"
+            "ext-event": "~1.0 for ExtEventLoop",
+            "ext-pcntl": "For signal handling support when using the StreamSelectLoop"
         },
-        "time": "2017-04-27T10:56:23+00:00",
+        "time": "2018-07-11T14:37:46+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -515,7 +520,7 @@
         "license": [
             "MIT"
         ],
-        "description": "Event loop abstraction layer that libraries can use for evented I/O.",
+        "description": "ReactPHP's core reactor event loop that libraries can use for evented I/O.",
         "keywords": [
             "asynchronous",
             "event-loop"
@@ -523,17 +528,17 @@
     },
     {
         "name": "react/promise",
-        "version": "v2.5.1",
-        "version_normalized": "2.5.1.0",
+        "version": "v2.7.1",
+        "version_normalized": "2.7.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/reactphp/promise.git",
-            "reference": "62785ae604c8d69725d693eb370e1d67e94c4053"
+            "reference": "31ffa96f8d2ed0341a57848cbb84d88b89dd664d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/reactphp/promise/zipball/62785ae604c8d69725d693eb370e1d67e94c4053",
-            "reference": "62785ae604c8d69725d693eb370e1d67e94c4053",
+            "url": "https://api.github.com/repos/reactphp/promise/zipball/31ffa96f8d2ed0341a57848cbb84d88b89dd664d",
+            "reference": "31ffa96f8d2ed0341a57848cbb84d88b89dd664d",
             "shasum": ""
         },
         "require": {
@@ -542,7 +547,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.8"
         },
-        "time": "2017-03-25T12:08:31+00:00",
+        "time": "2019-01-07T21:25:54+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -571,28 +576,28 @@
     },
     {
         "name": "react/promise-timer",
-        "version": "v1.2.1",
-        "version_normalized": "1.2.1.0",
+        "version": "v1.5.0",
+        "version_normalized": "1.5.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/reactphp/promise-timer.git",
-            "reference": "9b4cd9cbe7457e0d87fe8aa7ccceab8a2c830fbd"
+            "reference": "a11206938ca2394dc7bb368f5da25cd4533fa603"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/reactphp/promise-timer/zipball/9b4cd9cbe7457e0d87fe8aa7ccceab8a2c830fbd",
-            "reference": "9b4cd9cbe7457e0d87fe8aa7ccceab8a2c830fbd",
+            "url": "https://api.github.com/repos/reactphp/promise-timer/zipball/a11206938ca2394dc7bb368f5da25cd4533fa603",
+            "reference": "a11206938ca2394dc7bb368f5da25cd4533fa603",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3",
             "react/event-loop": "^1.0 || ^0.5 || ^0.4 || ^0.3.5",
-            "react/promise": "~2.1|~1.2"
+            "react/promise": "^2.7.0 || ^1.2.1"
         },
         "require-dev": {
             "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
         },
-        "time": "2017-12-22T15:41:41+00:00",
+        "time": "2018-06-13T16:45:37+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -614,7 +619,7 @@
             }
         ],
         "description": "A trivial implementation of timeouts for Promises, built on top of ReactPHP.",
-        "homepage": "https://github.com/react/promise-timer",
+        "homepage": "https://github.com/reactphp/promise-timer",
         "keywords": [
             "async",
             "event-loop",
@@ -626,33 +631,33 @@
     },
     {
         "name": "react/socket",
-        "version": "v0.8.9",
-        "version_normalized": "0.8.9.0",
+        "version": "v0.8.12",
+        "version_normalized": "0.8.12.0",
         "source": {
             "type": "git",
             "url": "https://github.com/reactphp/socket.git",
-            "reference": "9db38c58cbb1343bbe6523d1b930a40d0e110839"
+            "reference": "7f7e6c56ccda7418a1a264892a625f38a5bdee0c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/reactphp/socket/zipball/9db38c58cbb1343bbe6523d1b930a40d0e110839",
-            "reference": "9db38c58cbb1343bbe6523d1b930a40d0e110839",
+            "url": "https://api.github.com/repos/reactphp/socket/zipball/7f7e6c56ccda7418a1a264892a625f38a5bdee0c",
+            "reference": "7f7e6c56ccda7418a1a264892a625f38a5bdee0c",
             "shasum": ""
         },
         "require": {
             "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
             "php": ">=5.3.0",
-            "react/dns": "^0.4.11",
+            "react/dns": "^0.4.13",
             "react/event-loop": "^1.0 || ^0.5 || ^0.4 || ^0.3.5",
-            "react/promise": "^2.1 || ^1.2",
-            "react/promise-timer": "~1.0",
+            "react/promise": "^2.6.0 || ^1.2.1",
+            "react/promise-timer": "^1.4.0",
             "react/stream": "^1.0 || ^0.7.1"
         },
         "require-dev": {
             "clue/block-react": "^1.2",
             "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
         },
-        "time": "2018-01-18T11:29:21+00:00",
+        "time": "2018-06-11T14:33:43+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -675,17 +680,17 @@
     },
     {
         "name": "react/stream",
-        "version": "v0.7.7",
-        "version_normalized": "0.7.7.0",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/reactphp/stream.git",
-            "reference": "10100896018fd847a257cd81143b8e1b7be08e40"
+            "reference": "50426855f7a77ddf43b9266c22320df5bf6c6ce6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/reactphp/stream/zipball/10100896018fd847a257cd81143b8e1b7be08e40",
-            "reference": "10100896018fd847a257cd81143b8e1b7be08e40",
+            "url": "https://api.github.com/repos/reactphp/stream/zipball/50426855f7a77ddf43b9266c22320df5bf6c6ce6",
+            "reference": "50426855f7a77ddf43b9266c22320df5bf6c6ce6",
             "shasum": ""
         },
         "require": {
@@ -697,7 +702,7 @@
             "clue/stream-filter": "~1.2",
             "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
         },
-        "time": "2018-01-19T15:04:38+00:00",
+        "time": "2019-01-01T16:15:09+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -771,17 +776,17 @@
     },
     {
         "name": "symfony/http-foundation",
-        "version": "v3.4.4",
-        "version_normalized": "3.4.4.0",
+        "version": "v3.4.21",
+        "version_normalized": "3.4.21.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/http-foundation.git",
-            "reference": "8c39071ac9cc7e6d8dab1d556c990dc0d2cc3d30"
+            "reference": "2b97319e68816d2120eee7f13f4b76da12e04d03"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/http-foundation/zipball/8c39071ac9cc7e6d8dab1d556c990dc0d2cc3d30",
-            "reference": "8c39071ac9cc7e6d8dab1d556c990dc0d2cc3d30",
+            "url": "https://api.github.com/repos/symfony/http-foundation/zipball/2b97319e68816d2120eee7f13f4b76da12e04d03",
+            "reference": "2b97319e68816d2120eee7f13f4b76da12e04d03",
             "shasum": ""
         },
         "require": {
@@ -792,7 +797,7 @@
         "require-dev": {
             "symfony/expression-language": "~2.8|~3.0|~4.0"
         },
-        "time": "2018-01-29T09:03:43+00:00",
+        "time": "2019-01-05T08:05:37+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -827,17 +832,17 @@
     },
     {
         "name": "symfony/polyfill-mbstring",
-        "version": "v1.7.0",
-        "version_normalized": "1.7.0.0",
+        "version": "v1.10.0",
+        "version_normalized": "1.10.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b"
+            "reference": "c79c051f5b3a46be09205c73b80b346e4153e494"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/78be803ce01e55d3491c1397cf1c64beb9c1b63b",
-            "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b",
+            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/c79c051f5b3a46be09205c73b80b346e4153e494",
+            "reference": "c79c051f5b3a46be09205c73b80b346e4153e494",
             "shasum": ""
         },
         "require": {
@@ -846,11 +851,11 @@
         "suggest": {
             "ext-mbstring": "For best performance"
         },
-        "time": "2018-01-30T19:27:44+00:00",
+        "time": "2018-09-21T13:07:52+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.7-dev"
+                "dev-master": "1.9-dev"
             }
         },
         "installation-source": "dist",
@@ -888,28 +893,28 @@
     },
     {
         "name": "symfony/polyfill-php70",
-        "version": "v1.7.0",
-        "version_normalized": "1.7.0.0",
+        "version": "v1.10.0",
+        "version_normalized": "1.10.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-php70.git",
-            "reference": "3532bfcd8f933a7816f3a0a59682fc404776600f"
+            "reference": "6b88000cdd431cd2e940caa2cb569201f3f84224"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-php70/zipball/3532bfcd8f933a7816f3a0a59682fc404776600f",
-            "reference": "3532bfcd8f933a7816f3a0a59682fc404776600f",
+            "url": "https://api.github.com/repos/symfony/polyfill-php70/zipball/6b88000cdd431cd2e940caa2cb569201f3f84224",
+            "reference": "6b88000cdd431cd2e940caa2cb569201f3f84224",
             "shasum": ""
         },
         "require": {
-            "paragonie/random_compat": "~1.0|~2.0",
+            "paragonie/random_compat": "~1.0|~2.0|~9.99",
             "php": ">=5.3.3"
         },
-        "time": "2018-01-30T19:27:44+00:00",
+        "time": "2018-09-21T06:26:08+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.7-dev"
+                "dev-master": "1.9-dev"
             }
         },
         "installation-source": "dist",
@@ -949,17 +954,17 @@
     },
     {
         "name": "symfony/var-dumper",
-        "version": "v3.4.4",
-        "version_normalized": "3.4.4.0",
+        "version": "v3.4.21",
+        "version_normalized": "3.4.21.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/var-dumper.git",
-            "reference": "472a9849930cf21f73abdb02240f17cf5b5bd1a7"
+            "reference": "a5f39641bb62e8b74e343467b145331273f615a2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/var-dumper/zipball/472a9849930cf21f73abdb02240f17cf5b5bd1a7",
-            "reference": "472a9849930cf21f73abdb02240f17cf5b5bd1a7",
+            "url": "https://api.github.com/repos/symfony/var-dumper/zipball/a5f39641bb62e8b74e343467b145331273f615a2",
+            "reference": "a5f39641bb62e8b74e343467b145331273f615a2",
             "shasum": ""
         },
         "require": {
@@ -978,7 +983,7 @@
             "ext-intl": "To show region name in time zone dump",
             "ext-symfony_debug": ""
         },
-        "time": "2018-01-29T09:03:43+00:00",
+        "time": "2019-01-01T13:45:19+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

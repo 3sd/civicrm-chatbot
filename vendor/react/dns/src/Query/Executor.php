@@ -11,6 +11,10 @@ use React\Promise;
 use React\Stream\DuplexResourceStream;
 use React\Stream\Stream;
 
+/**
+ * @deprecated unused, exists for BC only
+ * @see UdpTransportExecutor
+ */
 class Executor implements ExecutorInterface
 {
     private $loop;

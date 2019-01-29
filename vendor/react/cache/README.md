@@ -18,7 +18,7 @@ provide alternate implementations.
   * [CacheInterface](#cacheinterface)
     * [get()](#get)
     * [set()](#set)
-    * [remove()](#remove)
+    * [delete()](#delete)
   * [ArrayCache](#arraycache)
 * [Common usage](#common-usage)
   * [Fallback get](#fallback-get)
@@ -37,6 +37,14 @@ provide alternate implementations.
 
 #### get()
 
+The `get(string $key, mixed $default = null): PromiseInterface` method can be used to
+retrieve an item from the cache.
+
+This method will resolve with the cached value on success or with the
+given `$default` value when no item can be found or when an error occurs.
+Similarly, an expired cache item (once the time-to-live is expired) is
+considered a cache miss.
+
 ```php
 $cache
     ->get('foo')
@@ -47,37 +55,69 @@ This example fetches the value of the key `foo` and passes it to the
 `var_dump` function. You can use any of the composition provided by
 [promises](https://github.com/reactphp/promise).
 
-If the key `foo` does not exist, the promise will be rejected.
-
 #### set()
 
+The `set(string $key, mixed $value, ?float $ttl = null): PromiseInterface` method can be used to
+store an item in the cache.
+
+This method will resolve with `true` on success or `false` when an error
+occurs. If the cache implementation has to go over the network to store
+it, it may take a while.
+
+The optional `$ttl` parameter sets the maximum time-to-live in seconds
+for this cache item. If this parameter is omitted (or `null`), the item
+will stay in the cache for as long as the underlying implementation
+supports. Trying to access an expired cache item results in a cache miss,
+see also [`get()`](#get).
+
 ```php
-$cache->set('foo', 'bar');
+$cache->set('foo', 'bar', 60);
 ```
 
 This example eventually sets the value of the key `foo` to `bar`. If it
-already exists, it is overridden. No guarantees are made as to when the cache
-value is set. If the cache implementation has to go over the network to store
-it, it may take a while.
+already exists, it is overridden.
 
-#### remove()
+#### delete()
+
+Deletes an item from the cache.
+
+This method will resolve with `true` on success or `false` when an error
+occurs. When no item for `$key` is found in the cache, it also resolves
+to `true`. If the cache implementation has to go over the network to
+delete it, it may take a while.
 
 ```php
-$cache->remove('foo');
+$cache->delete('foo');
 ```
 
-This example eventually removes the key `foo` from the cache. As with `set`,
-this may not happen instantly.
+This example eventually deletes the key `foo` from the cache. As with
+`set()`, this may not happen instantly and a promise is returned to
+provide guarantees whether or not the item has been removed from cache.
 
 ### ArrayCache
 
-The `ArrayCache` provides an in-memory implementation of the
-[`CacheInterface`](#cacheinterface).
+The `ArrayCache` provides an in-memory implementation of the [`CacheInterface`](#cacheinterface).
 
 ```php
 $cache = new ArrayCache();
 
 $cache->set('foo', 'bar');
+```
+
+Its constructor accepts an optional `?int $limit` parameter to limit the
+maximum number of entries to store in the LRU cache. If you add more
+entries to this instance, it will automatically take care of removing
+the one that was least recently used (LRU).
+
+For example, this snippet will overwrite the first value and only store
+the last two entries:
+
+```php
+$cache = new ArrayCache(2);
+
+$cache->set('foo', '1');
+$cache->set('bar', '2');
+$cache->set('baz', '3');
 ```
 
 ## Common usage
@@ -91,14 +131,20 @@ example of that:
 ```php
 $cache
     ->get('foo')
-    ->then(null, 'getFooFromDb')
+    ->then(function ($result) {
+        if ($result === null) {
+            return getFooFromDb();
+        }
+        
+        return $result;
+    })
     ->then('var_dump');
 ```
 
-First an attempt is made to retrieve the value of `foo`. A promise rejection
-handler of the function `getFooFromDb` is registered. `getFooFromDb` is a
-function (can be any PHP callable) that will be called if the key does not
-exist in the cache.
+First an attempt is made to retrieve the value of `foo`. A callback function is 
+registered that will call `getFooFromDb` when the resulting value is null. 
+`getFooFromDb` is a function (can be any PHP callable) that will be called if the 
+key does not exist in the cache.
 
 `getFooFromDb` can handle the missing key by returning a promise for the
 actual value from the database (or any other data source). As a result, this
@@ -112,7 +158,13 @@ cache after fetching it from the data source.
 ```php
 $cache
     ->get('foo')
-    ->then(null, array($this, 'getAndCacheFooFromDb'))
+    ->then(function ($result) {
+        if ($result === null) {
+            return $this->getAndCacheFooFromDb();
+        }
+        
+        return $result;
+    })
     ->then('var_dump');
 
 public function getAndCacheFooFromDb()
@@ -141,7 +193,7 @@ The recommended way to install this library is [through Composer](https://getcom
 This will install the latest supported version:
 
 ```bash
-$ composer require react/cache:^0.4.2
+$ composer require react/cache:^0.5.0
 ```
 
 See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.

@@ -1,17 +1,16 @@
 <?php
 /* ===========================================================================
- * Opis Project
- * http://opis.io
- * ===========================================================================
- * Copyright (c) 2014-2016 Opis Project
- * 
+ * Copyright (c) 2018 Zindex Software
+ *
  * Licensed under the MIT License
  * =========================================================================== */
+
+require_once 'functions.php';
 
 spl_autoload_register(function($class){
    
     $class = ltrim($class, '\\');
-    $dir = __DIR__ . '/lib';
+    $dir = __DIR__ . '/src';
     $namespace = 'Opis\Closure';
     
     if(strpos($class, $namespace) === 0)

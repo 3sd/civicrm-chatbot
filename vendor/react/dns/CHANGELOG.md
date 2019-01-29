@@ -1,5 +1,70 @@
 # Changelog
 
+## 0.4.16 (2018-11-11)
+
+*   Feature: Improve promise cancellation for DNS lookup retries and clean up any garbage references.
+    (#118 by @clue)
+
+*   Fix: Reject parsing malformed DNS response messages such as incomplete DNS response messages,
+    malformed record data or malformed compressed domain name labels.
+    (#115 and #117 by @clue)
+
+*   Fix: Fix interpretation of TTL as UINT32 with most significant bit unset.
+    (#116 by @clue)
+
+*   Fix: Fix caching advanced MX/SRV/TXT/SOA structures.
+    (#112 by @clue)
+
+## 0.4.15 (2018-07-02)
+
+*   Feature: Add `resolveAll()` method to support custom query types in `Resolver`.
+    (#110 by @clue and @WyriHaximus)
+
+    ```php
+    $resolver->resolveAll('reactphp.org', Message::TYPE_AAAA)->then(function ($ips) {
+        echo 'IPv6 addresses for reactphp.org ' . implode(', ', $ips) . PHP_EOL;
+    });
+    ```
+
+*   Feature: Support parsing `NS`, `TXT`, `MX`, `SOA` and `SRV` records.
+    (#104, #105, #106, #107 and #108 by @clue)
+
+*   Feature: Add support for `Message::TYPE_ANY` and parse unknown types as binary data.
+    (#104 by @clue)
+
+*   Feature: Improve error messages for failed queries and improve documentation.
+    (#109 by @clue)
+
+*   Feature: Add reverse DNS lookup example.
+    (#111 by @clue)
+
+## 0.4.14 (2018-06-26)
+
+*   Feature: Add `UdpTransportExecutor`, validate incoming DNS response messages
+    to avoid cache poisoning attacks and deprecate legacy `Executor`.
+    (#101 and #103 by @clue)
+
+*   Feature: Forward compatibility with Cache 0.5
+    (#102 by @clue)
+
+*   Deprecate legacy `Query::$currentTime` and binary parser data attributes to clean up and simplify API.
+    (#99 by @clue)
+
+## 0.4.13 (2018-02-27)
+
+*   Add `Config::loadSystemConfigBlocking()` to load default system config
+    and support parsing DNS config on all supported platforms
+    (`/etc/resolv.conf` on Unix/Linux/Mac and WMIC on Windows)
+    (#92, #93, #94 and #95 by @clue)
+
+    ```php
+    $config = Config::loadSystemConfigBlocking();
+    $server = $config->nameservers ? reset($config->nameservers) : '8.8.8.8';
+    ```
+
+*   Remove unneeded cyclic dependency on react/socket
+    (#96 by @clue)
+
 ## 0.4.12 (2018-01-14)
 
 *   Improve test suite by adding forward compatibility with PHPUnit 6,

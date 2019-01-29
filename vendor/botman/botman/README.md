@@ -2,7 +2,7 @@
 <h1 align="center">BotMan</h1>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/botman/botman.svg?style=flat-square)](https://packagist.org/packages/botman/botman)
-[![Build Status](https://travis-ci.org/botman/botman.svg?branch=master)](https://travis-ci.org/botman/botman)
+[![Build Status](https://travis-ci.org/botman/botman.svg?branch=2.0)](https://travis-ci.org/botman/botman)
 [![codecov](https://codecov.io/gh/botman/botman/branch/master/graph/badge.svg)](https://codecov.io/gh/botman/botman)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/botman/botman/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/botman/botman/?branch=master)
 [![Packagist](https://img.shields.io/packagist/l/botman/botman.svg)]()
@@ -12,7 +12,7 @@
 
 ## About BotMan
 
-BotMan is a framework agnostic PHP library that is designed to simplify the task of developing innovative bots for multiple messaging platforms, including [Slack](http://slack.com), [Telegram](http://telegram.me), [Microsoft Bot Framework](https://dev.botframework.com/), [Nexmo](https://nexmo.com), [HipChat](http://hipchat.com), [Facebook Messenger](http://messenger.com) and [WeChat](http://web.wechat.com).
+BotMan is a framework agnostic PHP library that is designed to simplify the task of developing innovative bots for multiple messaging platforms, including [Slack](https://slack.com), [Telegram](https://telegram.org), [Microsoft Bot Framework](https://dev.botframework.com), [Nexmo](https://www.nexmo.com), [HipChat](https://www.hipchat.com), [Facebook Messenger](https://www.messenger.com) and [WeChat](https://web.wechat.com).
 
 ```php
 $botman->hears('I want cross-platform bots with PHP!', function (BotMan $bot) {
@@ -22,13 +22,14 @@ $botman->hears('I want cross-platform bots with PHP!', function (BotMan $bot) {
 
 ## Documentation
 
-You can find the BotMan documentation at [http://botman.io](http://botman.io).
+You can find the BotMan documentation at [https://botman.io](https://botman.io).
 
 ## Support the development
 **Do you like this project? Support it by donating**
 
 - PayPal: [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=m%2epociot%40googlemail%2ecom&lc=CY&item_name=BotMan&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest)
-- Patreon: [Donate](https://www.patreon.com/botman)
+- Open Collective: [Become A Backer](https://opencollective.com/botman)
+- Patreon: [Become A Backer](https://www.patreon.com/botman)
 
 ## Contributing
 

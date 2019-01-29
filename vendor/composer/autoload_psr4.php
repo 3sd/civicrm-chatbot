@@ -20,7 +20,7 @@ return array(
     'React\\Dns\\' => array($vendorDir . '/react/dns/src'),
     'React\\Cache\\' => array($vendorDir . '/react/cache/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
-    'Opis\\Closure\\' => array($vendorDir . '/opis/closure/lib'),
+    'Opis\\Closure\\' => array($vendorDir . '/opis/closure/src'),
     'Mpociot\\Pipeline\\' => array($vendorDir . '/mpociot/pipeline/src'),
     'BotMan\\Drivers\\Facebook\\' => array($vendorDir . '/botman/driver-facebook/src'),
     'BotMan\\BotMan\\' => array($vendorDir . '/botman/botman/src'),

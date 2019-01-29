@@ -1,13 +1,28 @@
 # Changelog
 
+## 1.5.0 (2018-06-13)
+
+*   Feature: Improve memory consumption by cleaning up garbage references to pending promise without canceller.
+    (#34 by @clue)
+
+## 1.4.0 (2018-06-11)
+
+*   Feature: Improve memory consumption by cleaning up garbage references.
+    (#33 by @clue)
+
+## 1.3.0 (2018-04-24)
+
+*   Feature: Improve memory consumption by cleaning up unneeded references.
+    (#32 by @clue)
+
 ## 1.2.1 (2017-12-22)
 
-*    README improvements
-     (#28 by @jsor)
+*   README improvements
+    (#28 by @jsor)
 
-*    Improve test suite by adding forward compatiblity with PHPUnit 6 and
-     fix test suite forward compatibility with upcoming EventLoop releases
-     (#30 and #31 by @clue)
+*   Improve test suite by adding forward compatiblity with PHPUnit 6 and
+    fix test suite forward compatibility with upcoming EventLoop releases
+    (#30 and #31 by @clue)
 
 ## 1.2.0 (2017-08-08)
 
