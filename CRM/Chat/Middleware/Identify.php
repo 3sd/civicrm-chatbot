@@ -60,7 +60,7 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
         $contactId = $user->getId();
       }else{
 
-        $contactId = $this->createContact($user);
+        $contactId = $this->createContact($user, $service);
         $this->createUser($service, $user->getId(), $contactId);
       }
     }
