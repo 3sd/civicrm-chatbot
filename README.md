@@ -1,15 +1,17 @@
 # CiviCRM Chatbot
 
+**NOTE: DEPRECATED IN FAVOUR OF https://civicrm.org/extensions/dialogflow**
+
 A chatbot for CiviCRM. Integrates various chat services (e.g. Facebook messenger) so you can chat with your contacts.
 
 ## Requirements
 
-* CiviCRM 5.x
-* PHP 7.0
+- CiviCRM 5.x
+- PHP 7.0
 
 ## Installation
 
-This extension is ***currently in beta***. You are welcome to try it out but be prepared for a couple of bumps along the way. Please report any issues you have using the [github issue tracker](https://github.com/3sd/civicrm-chatbot/issues).
+This extension is **_currently in beta_**. You are welcome to try it out but be prepared for a couple of bumps along the way. Please report any issues you have using the [github issue tracker](https://github.com/3sd/civicrm-chatbot/issues).
 
 **Note:** this repository also contains [chatbot-civirules](chatbot-civirules) an extension that provides integration between Chatbot with CiviRules. Please ensure that you have CiviRules installed before enabling this extension.
 
