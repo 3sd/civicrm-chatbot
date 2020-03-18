@@ -2,7 +2,6 @@
 
 namespace React\EventLoop;
 
-use React\EventLoop\Signal\Pcntl;
 use React\EventLoop\Tick\FutureTickQueue;
 use React\EventLoop\Timer\Timer;
 use React\EventLoop\Timer\Timers;
@@ -10,7 +9,7 @@ use React\EventLoop\Timer\Timers;
 /**
  * A `stream_select()` based event loop.
  *
- * This uses the [`stream_select()`](http://php.net/manual/en/function.stream-select.php)
+ * This uses the [`stream_select()`](https://www.php.net/manual/en/function.stream-select.php)
  * function and is the only implementation which works out of the box with PHP.
  *
  * This event loop works out of the box on PHP 5.4 through PHP 7+ and HHVM.
@@ -38,16 +37,17 @@ use React\EventLoop\Timer\Timers;
  * If this extension is missing (or you're running on Windows), signal handling is
  * not supported and throws a `BadMethodCallException` instead.
  *
- * This event loop is known to rely on wall-clock time to schedule future
- * timers, because a monotonic time source is not available in PHP by default.
+ * This event loop is known to rely on wall-clock time to schedule future timers
+ * when using any version before PHP 7.3, because a monotonic time source is
+ * only available as of PHP 7.3 (`hrtime()`).
  * While this does not affect many common use cases, this is an important
  * distinction for programs that rely on a high time precision or on systems
  * that are subject to discontinuous time adjustments (time jumps).
- * This means that if you schedule a timer to trigger in 30s and then adjust
- * your system time forward by 20s, the timer may trigger in 10s.
+ * This means that if you schedule a timer to trigger in 30s on PHP < 7.3 and
+ * then adjust your system time forward by 20s, the timer may trigger in 10s.
  * See also [`addTimer()`](#addtimer) for more details.
  *
- * @link http://php.net/manual/en/function.stream-select.php
+ * @link https://www.php.net/manual/en/function.stream-select.php
  */
 final class StreamSelectLoop implements LoopInterface
 {
@@ -62,14 +62,21 @@ final class StreamSelectLoop implements LoopInterface
     private $writeListeners = array();
     private $running;
     private $pcntl = false;
+    private $pcntlPoll = false;
     private $signals;
 
     public function __construct()
     {
         $this->futureTickQueue = new FutureTickQueue();
         $this->timers = new Timers();
-        $this->pcntl = \extension_loaded('pcntl');
+        $this->pcntl = \function_exists('pcntl_signal') && \function_exists('pcntl_signal_dispatch');
+        $this->pcntlPoll = $this->pcntl && !\function_exists('pcntl_async_signals');
         $this->signals = new SignalsHandler();
+
+        // prefer async signals if available (PHP 7.1+) or fall back to dispatching on each tick
+        if ($this->pcntl && !$this->pcntlPoll) {
+            \pcntl_async_signals(true);
+        }
     }
 
     public function addReadStream($stream, $listener)
@@ -222,7 +229,7 @@ final class StreamSelectLoop implements LoopInterface
         $write = $this->writeStreams;
 
         $available = $this->streamSelect($read, $write, $timeout);
-        if ($this->pcntl) {
+        if ($this->pcntlPoll) {
             \pcntl_signal_dispatch();
         }
         if (false === $available) {
@@ -252,23 +259,49 @@ final class StreamSelectLoop implements LoopInterface
      * Emulate a stream_select() implementation that does not break when passed
      * empty stream arrays.
      *
-     * @param array        &$read   An array of read streams to select upon.
-     * @param array        &$write  An array of write streams to select upon.
-     * @param integer|null $timeout Activity timeout in microseconds, or null to wait forever.
+     * @param array    $read    An array of read streams to select upon.
+     * @param array    $write   An array of write streams to select upon.
+     * @param int|null $timeout Activity timeout in microseconds, or null to wait forever.
      *
-     * @return integer|false The total number of streams that are ready for read/write.
-     * Can return false if stream_select() is interrupted by a signal.
+     * @return int|false The total number of streams that are ready for read/write.
+     *     Can return false if stream_select() is interrupted by a signal.
      */
     private function streamSelect(array &$read, array &$write, $timeout)
     {
         if ($read || $write) {
+            // We do not usually use or expose the `exceptfds` parameter passed to the underlying `select`.
+            // However, Windows does not report failed connection attempts in `writefds` passed to `select` like most other platforms.
+            // Instead, it uses `writefds` only for successful connection attempts and `exceptfds` for failed connection attempts.
+            // We work around this by adding all sockets that look like a pending connection attempt to `exceptfds` automatically on Windows and merge it back later.
+            // This ensures the public API matches other loop implementations across all platforms (see also test suite or rather test matrix).
+            // Lacking better APIs, every write-only socket that has not yet read any data is assumed to be in a pending connection attempt state.
+            // @link https://docs.microsoft.com/de-de/windows/win32/api/winsock2/nf-winsock2-select
             $except = null;
+            if (\DIRECTORY_SEPARATOR === '\\') {
+                $except = array();
+                foreach ($write as $key => $socket) {
+                    if (!isset($read[$key]) && @\ftell($socket) === 0) {
+                        $except[$key] = $socket;
+                    }
+                }
+            }
 
             // suppress warnings that occur, when stream_select is interrupted by a signal
-            return @\stream_select($read, $write, $except, $timeout === null ? null : 0, $timeout);
+            $ret = @\stream_select($read, $write, $except, $timeout === null ? null : 0, $timeout);
+
+            if ($except) {
+                $write = \array_merge($write, $except);
+            }
+            return $ret;
         }
 
-        $timeout && \usleep($timeout);
+        if ($timeout > 0) {
+            \usleep($timeout);
+        } elseif ($timeout === null) {
+            // wait forever (we only reach this if we're only awaiting signals)
+            // this may be interrupted and return earlier when a signal is received
+            \sleep(PHP_INT_MAX);
+        }
 
         return 0;
     }

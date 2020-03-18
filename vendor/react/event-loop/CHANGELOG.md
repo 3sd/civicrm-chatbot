@@ -1,5 +1,43 @@
 # Changelog
 
+## 1.1.1 (2020-01-01)
+
+*   Fix: Fix reporting connection refused errors with `ExtUvLoop` on Linux and `StreamSelectLoop` on Windows.
+    (#207 and #208 by @clue)
+
+*   Fix: Fix unsupported EventConfig and `SEGFAULT` on shutdown with `ExtEventLoop` on Windows.
+    (#205 by @clue)
+
+*   Fix: Check PCNTL functions for signal support instead of PCNTL extension with `StreamSelectLoop`.
+    (#195 by @clue)
+
+*   Add `.gitattributes` to exclude dev files from exports.
+    (#201 by @reedy)
+
+*   Improve test suite to fix testing `ExtUvLoop` on Travis,
+    fix Travis CI builds, do not install `libuv` on legacy PHP setups,
+    fix failing test cases due to inaccurate timers,
+    run tests on Windows via Travis CI and
+    run tests on PHP 7.4 and simplify test matrix and test setup.
+    (#197 by @WyriHaximus and #202, #203, #204 and #209 by @clue)
+
+## 1.1.0 (2019-02-07)
+
+*   New UV based event loop (ext-uv).
+    (#112 by @WyriHaximus)
+
+*   Use high resolution timer on PHP 7.3+. 
+    (#182 by @clue)
+
+*   Improve PCNTL signals by using async signal dispatching if available. 
+    (#179 by @CharlotteDunois)
+
+*   Improve test suite and test suite set up.
+    (#174 by @WyriHaximus, #181 by @clue)
+
+*   Fix PCNTL signals edge case. 
+    (#183 by @clue)
+
 ## 1.0.0 (2018-07-11)
 
 *   First stable LTS release, now following [SemVer](https://semver.org/).
