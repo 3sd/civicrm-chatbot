@@ -7,7 +7,7 @@
   <h4>
     {$question.number}.
     {$question.text}
-    <a href="{crmURL p='civicrm/chat/question/edit' q="id=`$question.id`"}" title="edit action"><i class="crm-i fa-pencil"></i></a>
+    <a href="{crmURL p='civicrm/chat/question/edit' q="id=`$question.id`"}" title="edit action"><i class="crm-i fa-pencil" role="img" aria-hidden="true"></i></a>
   </h4>
 
   <ul>
@@ -28,11 +28,11 @@
       go to question {$questionMap[$action.action_data]}
     {/if}
 
-  <a href="{crmURL p='civicrm/chat/action/edit' q="id=`$action.id`"}" title="edit action"><i class="crm-i fa-pencil"></i></a>
+  <a href="{crmURL p='civicrm/chat/action/edit' q="id=`$action.id`"}" title="edit action"><i class="crm-i fa-pencil" role="img" aria-hidden="true"></i></a>
 
   </li>
   {/foreach}
-  <li><em>add action <a href="{crmURL p='civicrm/chat/action/add' q="questionId=`$question.id`"}" title="add action"><i class="crm-i fa-plus"></i></em></a></li>
+  <li><em>add action <a href="{crmURL p='civicrm/chat/action/add' q="questionId=`$question.id`"}" title="add action"><i class="crm-i fa-plus" role="img" aria-hidden="true"></i></em></a></li>
   </ul>
 
 {foreachelse}
@@ -51,7 +51,7 @@
     </ul>
   </div>
 {/if}
-<h4><em>{ts}Add question{/ts} <a href="{crmURL p='civicrm/chat/question/add' q="conversationTypeId=`$conversationType.id`"}" role="button"><i class="crm-i fa-plus"></i></a></em></h4>
+<h4><em>{ts}Add question{/ts} <a href="{crmURL p='civicrm/chat/question/add' q="conversationTypeId=`$conversationType.id`"}" role="button"><i class="crm-i fa-plus" role="img" aria-hidden="true"></i></a></em></h4>
 <p>{ts}Conversation timeout:{/ts} {$conversationType.timeout} {ts}minutes{/ts}</p>
 <br/><br/>
 <p>
