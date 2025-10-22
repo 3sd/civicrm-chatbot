@@ -13,7 +13,7 @@ function civicrm_api3_contact_start_conversation($params) {
   $missingFields = array_diff($required, array_keys($params));
 
   if(count($missingFields)){
-    throw new API_Exception('Mandatory key(s) missing from params array: ' . implode(', ', $missingFields));
+    throw new CRM_Core_Exception('Mandatory key(s) missing from params array: ' . implode(', ', $missingFields));
   }
 
   // Check user has account with service
@@ -23,7 +23,7 @@ function civicrm_api3_contact_start_conversation($params) {
       'contact_id' => $params['id']
     ]);
   } catch (\Exception $e) {
-    throw new API_Exception("Could not find {$params['service']} user for contact_id {$params['id']}");
+    throw new CRM_Core_Exception("Could not find {$params['service']} user for contact_id {$params['id']}");
   }
 
   $conversationType = CRM_Chat_BAO_ChatConversationType::findById($params['conversation_type_id']);

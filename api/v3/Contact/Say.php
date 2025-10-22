@@ -12,7 +12,7 @@ function civicrm_api3_contact_say($params) {
   $missingFields = array_diff($required, array_keys($params));
 
   if(count($missingFields)){
-    throw new API_Exception('Mandatory key(s) missing from params array: ' . implode(', ', $missingFields));
+    throw new CRM_Core_Exception('Mandatory key(s) missing from params array: ' . implode(', ', $missingFields));
   }
 
   try {
@@ -21,7 +21,7 @@ function civicrm_api3_contact_say($params) {
       'contact_id' => $params['id']
     ]);
   } catch (\Exception $e) {
-    throw new API_Exception("Could not find {$params['service']} user for contact_id {$params['id']}");
+    throw new CRM_Core_Exception("Could not find {$params['service']} user for contact_id {$params['id']}");
   }
 
   $botman = CRM_Chat_Botman::get($params['service']);
