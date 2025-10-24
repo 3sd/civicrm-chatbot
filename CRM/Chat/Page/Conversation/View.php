@@ -13,7 +13,7 @@ class CRM_Chat_Page_Conversation_View extends CRM_Core_Page {
       'activity_type_id' => ['IN' => ['Incoming chat', 'Outgoing chat']]
     ])['values'];
 
-    CRM_Utils_System::setTitle(E::ts('View conversation: ' . $conversation['subject']));
+    CRM_Utils_System::setTitle(E::ts('View conversation: %1', [1 => $conversation['subject']]));
 
     $activityTypes = array_column(civicrm_api3('OptionValue', 'get', [
       'option_group_id' => 'activity_type',
