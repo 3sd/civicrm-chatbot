@@ -98,7 +98,7 @@ class CRM_Chat_Driver_CiviSMSDriver extends HttpDriver {
       $contactId = $payload['contact_id'];
       $text = $payload['message']['text'];
 
-      $contactsResult = civicrm_api('Contact', 'get', array('version'=>3, 'id' => $contactId));
+      $contactsResult = civicrm_api('Contact', 'get', ['version'=>3, 'id' => $contactId]);
       $contactDetails = $contactsResult['values'];
 
       foreach($contactDetails as $contact){
@@ -106,7 +106,7 @@ class CRM_Chat_Driver_CiviSMSDriver extends HttpDriver {
       }
 
       // use the default SMS provider
-      $providers = CRM_SMS_BAO_Provider::getProviders(NULL, array('is_default' => 1));
+      $providers = CRM_SMS_BAO_Provider::getProviders(NULL, ['is_default' => 1]);
       $provider = current($providers);
       $provider['provider_id'] = $provider['id'];
 

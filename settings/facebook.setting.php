@@ -1,6 +1,6 @@
 <?php
-return array(
-  'chatbot_facebook_callback_url' => array(
+return [
+  'chatbot_facebook_callback_url' => [
     'group_name' => 'Chatbot',
     'group' => 'chatbot',
     'name' => 'chatbot_facebook_callback_url',
@@ -14,8 +14,8 @@ return array(
     'add' => '4.7',
     'is_domain' => 1,
     'is_contact' => 0,
-  ),
-  'chatbot_facebook_verify_token' => array(
+  ],
+  'chatbot_facebook_verify_token' => [
     'group_name' => 'Chatbot',
     'group' => 'chatbot',
     'name' => 'chatbot_facebook_verify_token',
@@ -29,8 +29,8 @@ return array(
     'add' => '4.7',
     'is_domain' => 1,
     'is_contact' => 0,
-  ),
-  'chatbot_facebook_page_access_token' => array(
+  ],
+  'chatbot_facebook_page_access_token' => [
     'group_name' => 'Chatbot',
     'group' => 'chatbot',
     'name' => 'chatbot_facebook_page_access_token',
@@ -44,8 +44,8 @@ return array(
     'add' => '4.7',
     'is_domain' => 1,
     'is_contact' => 0,
-  ),
-  'chatbot_facebook_app_secret' => array(
+  ],
+  'chatbot_facebook_app_secret' => [
     'group_name' => 'Chatbot',
     'group' => 'chatbot',
     'name' => 'chatbot_facebook_app_secret',
@@ -59,5 +59,5 @@ return array(
     'add' => '4.7',
     'is_domain' => 1,
     'is_contact' => 0,
-  ),
-);
+  ],
+];

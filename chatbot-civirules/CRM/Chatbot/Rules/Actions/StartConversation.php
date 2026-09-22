@@ -68,7 +68,7 @@ class CRM_Chatbot_Rules_Actions_StartConversation extends CRM_CivirulesActions_G
     $return = '';
     $params = $this->getActionParameters();
     $conversation = civicrm_api3('ChatConversationType', 'Getsingle', ['id' => $params['conversation_type_id']]);
-    $return .= ts("Conversation '%1' via '%2'", array(1 => $conversation['name'], 2 => $params['service']));
+    $return .= ts("Conversation '%1' via '%2'", [1 => $conversation['name'], 2 => $params['service']]);
 
     return $return;
   }

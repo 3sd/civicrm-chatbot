@@ -23,9 +23,9 @@ class CRM_Chatbot_Rules_Actions_Form_StartConversation extends CRM_CivirulesActi
       'select' => ['minimumInputLength' => 0]
     ], TRUE);
     $this->add( 'select', 'service', 'Chat service', CRM_Chat_Botman::getAllServices(), true, ['class' => 'form-control crm-form-select']);
-    $this->addButtons(array(
-      array('type' => 'next', 'name' => ts('Save'), 'isDefault' => TRUE,),
-      array('type' => 'cancel', 'name' => ts('Cancel'))));
+    $this->addButtons([
+      ['type' => 'next', 'name' => ts('Save'), 'isDefault' => TRUE,],
+      ['type' => 'cancel', 'name' => ts('Cancel')]]);
   }
 
   /**

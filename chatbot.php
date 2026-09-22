@@ -213,12 +213,12 @@ function chatbot_civicrm_searchTasks( $objectName, &$tasks ){
 }
 
 function chatbot_civicrm_tabs ( &$tabs, $contactId ) {
-  $tabs[] = array(
+  $tabs[] = [
     'title'  => 'Chat',
     'id'     => 'chat',
     'class' => 'livePage',
     'url'    => CRM_Utils_System::url('civicrm/contact/view/chat', "reset=1&cid={$contactId}"),
     'weight' => 50,
     'count'  => CRM_Chat_Utils::getChatCount($contactId)
-  );
+  ];
 }
