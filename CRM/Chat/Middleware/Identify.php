@@ -77,10 +77,10 @@ class CRM_Chat_Middleware_Identify implements Received, Sending {
       'last_name' => $user->getLastName()
     ]);
 
-    $result = civicrm_api3('EntityTag', 'create', array(
+    $result = civicrm_api3('EntityTag', 'create', [
       'contact_id' => $contact['id'],
       'tag_id' => "Chatbot"
-    ));
+    ]);
 
     $extraInfoClass = "addExtra{$service}Info";
     if(method_exists($this, $extraInfoClass)){

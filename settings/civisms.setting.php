@@ -1,6 +1,6 @@
 <?php
-return array(
-  'chatbot_civisms_authentication_token' => array(
+return [
+  'chatbot_civisms_authentication_token' => [
     'group_name' => 'Chatbot',
     'group' => 'chatbot',
     'name' => 'chatbot_civisms_authentication_token',
@@ -14,5 +14,5 @@ return array(
     'add' => '4.7',
     'is_domain' => 1,
     'is_contact' => 0,
-  )
-);
+  ]
+];

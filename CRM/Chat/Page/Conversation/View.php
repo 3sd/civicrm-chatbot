@@ -31,10 +31,10 @@ class CRM_Chat_Page_Conversation_View extends CRM_Core_Page {
       $chat['class'] = $activityTypeClasses[$activityTypes[$chat['activity_type_id']]];
     }
 
-    $sourceContact = civicrm_api3('Contact', 'getsingle', array(
-      'return' => array("display_name"),
+    $sourceContact = civicrm_api3('Contact', 'getsingle', [
+      'return' => ["display_name"],
       'id' => $conversation['source_contact_id'],
-    ));
+    ]);
     $url = CRM_Utils_System::url('civicrm/contact/view', 'reset=1&cid='.$conversation['source_contact_id']);
     $conversation['source_contact'] = "<a href='{$url}'>{$sourceContact['display_name']}</a>";
 

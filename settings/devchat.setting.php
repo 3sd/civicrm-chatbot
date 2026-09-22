@@ -1,6 +1,6 @@
 <?php
-return array(
-  'chatbot_devchat_endpoint' => array(
+return [
+  'chatbot_devchat_endpoint' => [
     'group_name' => 'Chatbot',
     'group' => 'chatbot',
     'name' => 'chatbot_devchat_endpoint',
@@ -14,5 +14,5 @@ return array(
     'add' => '4.7',
     'is_domain' => 1,
     'is_contact' => 0,
-  )
-);
+  ]
+];

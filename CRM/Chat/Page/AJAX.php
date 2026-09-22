@@ -4,13 +4,13 @@ class CRM_Chat_Page_AJAX {
 
   public static function getContactConversations() {
     $params = $_GET;
-    $requiredParams = array(
+    $requiredParams = [
       'cid' => 'Integer',
-    );
-    $optionalParams = array(
+    ];
+    $optionalParams = [
       'source_contact_id' => 'String',
       'status_id' => 'Integer',
-    );
+    ];
     $params = CRM_Core_Page_AJAX::defaultSortAndPagerParams();
     $params += CRM_Core_Page_AJAX::validateParams($requiredParams, $optionalParams);
 
@@ -37,10 +37,10 @@ class CRM_Chat_Page_AJAX {
 
     foreach ($conversations['values'] as $conversation) {
 
-      $sourceContact = civicrm_api3('Contact', 'getsingle', array(
-        'return' => array("display_name"),
+      $sourceContact = civicrm_api3('Contact', 'getsingle', [
+        'return' => ["display_name"],
         'id' => $conversation['source_contact_id'],
-      ));
+      ]);
       $url = CRM_Utils_System::url('civicrm/contact/view', 'reset=1&cid='.$conversation['source_contact_id']);
       $conversation['source_contact'] = "<a href='{$url}'>{$sourceContact['display_name']}</a>";
 
@@ -63,10 +63,10 @@ class CRM_Chat_Page_AJAX {
       // }
       $conversation['links'] = CRM_Core_Action::formLink($links,
         $mask,
-        array(
+        [
           'id' => $conversation['id'],
           'cid' => $params['cid'],
-        ),
+        ],
         ts('more')
       );
       $DT['data'][] = $conversation;
@@ -78,22 +78,22 @@ class CRM_Chat_Page_AJAX {
   }
 
   static function actionLinks() {
-    $links = array(
-      CRM_Core_Action::VIEW => array(
+    $links = [
+      CRM_Core_Action::VIEW => [
         'name' => ts('View'),
         'url' => 'civicrm/chat/conversation/view',
         'qs' => 'id=%%id%%',
         'title' => ts('View Conversation'),
         'class' => 'crm-popup',
-      ),
-      CRM_Core_Action::DELETE => array(
+      ],
+      CRM_Core_Action::DELETE => [
         'name' => ts('Delete'),
         'url' => 'civicrm/activity/add',
         'qs' => 'action=delete&id=%%id%%&cid=%%',
         'title' => ts('Delete Conversation'),
         'class' => 'crm-popup',
-      ),
-    );
+      ],
+    ];
     return $links;
   }
 }
