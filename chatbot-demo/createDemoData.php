@@ -3,7 +3,7 @@ $tableTranslation = [];
 function getTableName($entityName){
   global $tableTranslation;
   if(!isset($tableTranslation[$entityName])){
-    $tableTranslation[$entityName] = CRM_Core_DAO_AllCoreTables::getTableForClass(CRM_Core_DAO_AllCoreTables::getFullName($entityName));
+    $tableTranslation[$entityName] = CRM_Core_DAO_AllCoreTables::getTableForClass(CRM_Core_DAO_AllCoreTables::getDAONameForEntity($entityName));
   }
   return $tableTranslation[$entityName];
 }
