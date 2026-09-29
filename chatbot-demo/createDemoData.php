@@ -11,7 +11,7 @@ function getTableName($entityName){
 function getEntityName($tableName){
   global $tableTranslation;
   if(!array_search($tableName, $tableTranslation)){
-    $tableTranslation[CRM_Core_DAO_AllCoreTables::getBriefName(CRM_Core_DAO_AllCoreTables::getClassForTable($tableName))] = $tableName;
+    $tableTranslation[CRM_Core_DAO_AllCoreTables::getEntityNameForClass(CRM_Core_DAO_AllCoreTables::getClassForTable($tableName))] = $tableName;
   }
   return array_search($tableName, $tableTranslation);
 }
