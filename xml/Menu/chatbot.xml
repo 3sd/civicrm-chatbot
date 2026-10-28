@@ -121,6 +121,7 @@
     <path>civicrm/ajax/chat/list</path>
     <page_callback>CRM_Chat_Page_AJAX::getContactConversations</page_callback>
     <access_arguments>access CiviCRM</access_arguments>
+    <is_ajax>true</is_ajax>
   </item>
 
 </menu>
